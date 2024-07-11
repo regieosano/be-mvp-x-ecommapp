@@ -5,7 +5,6 @@ import dotenv from "dotenv";
 import { SERVER_RUNNING_MESSAGE } from "@src/messages/constants";
 import { sendMail } from "@src/services/email";
 import {
-  FROM_ADDRESS,
   SUBJECT_CONTENT,
   TEXT_CONTENT,
   HTML_CONTENT,
