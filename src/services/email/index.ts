@@ -1,15 +1,12 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+import { FROM_ADDRESS } from "@src/services/email/content";
+import { objectEmailAndPortType } from "@src/types";
 
 dotenv.config();
 
-type objectEmailPortType = {
-  emailPort: number;
-};
-
-function createTransporter(hostPort: objectEmailPortType) {
-  const emailHost = process.env.HOST_EMAIL;
-  const { emailPort } = hostPort;
+function createTransporter(emailHostPort: objectEmailAndPortType) {
+  const { emailHost, emailPort } = { ...emailHostPort };
 
   const transporter = nodemailer.createTransport({
     host: emailHost,
@@ -25,11 +22,14 @@ function createTransporter(hostPort: objectEmailPortType) {
 }
 
 export const sendMail = async function (emailToBeSent: string) {
-  const emailObject = { emailAddress: emailToBeSent, emailPort: 587 };
+  const emailObject = {
+    emailHost: process.env.HOST_EMAIL || "",
+    emailPort: Number(process.env.EMAIL_PORT),
+  };
   const emailTransporter = createTransporter(emailObject);
   const { transporter, emailHost } = emailTransporter();
   const result = await transporter.sendMail({
-    from: `"The X App 2025 👻" <${emailHost}>`,
+    from: `${FROM_ADDRESS} <${emailHost}>`,
     to: emailToBeSent,
     subject: "Email Test Send",
     text: "Hi there bozos!!!",

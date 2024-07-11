@@ -15,7 +15,7 @@ const StartServer = async () => {
 
   const server = http.createServer(app);
 
-	sendMail("osanoreginald@gmail.com")
+  // sendMail("regie30developer@gmail.com");
 
   server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
