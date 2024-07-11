@@ -31,3 +31,12 @@ runningServer
   .catch(err => {
     console.log(err);
   });
+
+process.on("uncaughtException", function (error) {
+  console.error(
+    new Date().toUTCString() + " uncaughtException:",
+    error.message,
+  );
+  console.error(error.stack);
+  process.exit(1);
+});
