@@ -2,6 +2,7 @@ import express from "express";
 import http from "http";
 import App from "@src/express/appService";
 import dotenv from "dotenv";
+import { sendMail } from "@src/services/email";
 
 dotenv.config();
 

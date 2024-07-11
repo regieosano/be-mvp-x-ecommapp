@@ -15,7 +15,6 @@ export default async (app: Application) => {
   app.use(bodyParser.json());
   app.use(cookieParser());
 
- 
   app.get("/", (req, res) => {
     res.status(200).send("BE APIs");
   });
@@ -27,7 +26,6 @@ export default async (app: Application) => {
   app.use((req, res) => {
     res.status(500).send("Something went wrong!");
   });
-
 
   // Routes Declaration
 

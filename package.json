@@ -3,15 +3,14 @@
   "version": "1.0.0",
   "description": "The backend repo of x app",
   "main": "server.ts",
-  
   "scripts": {
     "start": "npm run build && node build/server.js",
     "dev-start": "nodemon",
     "build": "rimraf ./build && tsc -p tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./build",
     "format:check": "prettier --check .",
     "fix": "prettier --write .",
-    "lint:check": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:check": "eslint src/*",
+    "lint:fix": "eslint src/* --fix"
   },
   "keywords": [
     "Node",
