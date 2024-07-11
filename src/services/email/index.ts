@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import { FROM_ADDRESS } from "@src/services/email/content";
-import { objectEmailAndPortType } from "@src/types";
+import { objectEmailAndPortType, objectEmailBody } from "@src/types";
 
 dotenv.config();
 
@@ -21,20 +21,27 @@ function createTransporter(emailHostPort: objectEmailAndPortType) {
   };
 }
 
-export const sendMail = async function (emailToBeSent: string) {
+export const sendMail = async function (body: objectEmailBody) {
   const emailObject = {
     emailHost: process.env.HOST_EMAIL || "",
     emailPort: Number(process.env.EMAIL_PORT),
   };
+  const { emailSentTo, emailSubject, emailText, emailHTML } = body;
   const emailTransporter = createTransporter(emailObject);
   const { transporter, emailHost } = emailTransporter();
-  const result = await transporter.sendMail({
-    from: `${FROM_ADDRESS} <${emailHost}>`,
-    to: emailToBeSent,
-    subject: "Email Test Send",
-    text: "Hi there bozos!!!",
-    html: "<b>Got it working bozos!!!</b>",
-  });
+  try {
+    const result = await transporter.sendMail({
+      from: `${FROM_ADDRESS} <${emailHost}>`,
+      to: emailSentTo,
+      subject: emailSubject,
+      text: emailText,
+      html: emailHTML,
+    });
 
-  console.log("Email sent: %s", result.messageId);
+    console.log("Email sent: %s", result.messageId);
+
+    return "Email Sent";
+  } catch (error) {
+    return new Error("There was an error!");
+  }
 };
