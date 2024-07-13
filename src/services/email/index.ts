@@ -6,7 +6,7 @@ import { ObjectEmailAndPortType, ObjectEmailBody } from "@src/types";
 
 dotenv.config();
 
-function createTransporter(emailHostPort: ObjectEmailAndPortType) {
+const createTransporter = function (emailHostPort: ObjectEmailAndPortType) {
   const { emailHost, emailPort } = { ...emailHostPort };
 
   const transporter = nodemailer.createTransport({
@@ -20,7 +20,7 @@ function createTransporter(emailHostPort: ObjectEmailAndPortType) {
   return function () {
     return { transporter, emailHost };
   };
-}
+};
 
 export const sendMail = async function (body: ObjectEmailBody) {
   const emailObject = {

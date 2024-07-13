@@ -8,8 +8,8 @@ import {
 import { userValidation } from "@src/validations/user_validations";
 import { checkJSONBodyData } from "@src/utilities";
 
-export function getUserRouters() {
-  const userRouters = composeRouter(express.Router())();
+export const getUserRouters = function (expressRouter: express.Router) {
+  const userRouters = composeRouter(expressRouter)();
   userRouters.get(
     "/users",
     async (req: express.Request, res: express.Response) => {
@@ -53,4 +53,4 @@ export function getUserRouters() {
   return function () {
     return userRouters;
   };
-}
+};

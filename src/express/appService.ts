@@ -1,4 +1,4 @@
-import { Application } from "express";
+import express, { Application } from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import compression from "compression";
@@ -7,6 +7,8 @@ import cors from "cors";
 import { getUserRouters } from "@src/routes/user";
 
 export default async (app: Application) => {
+  const expressRouter = express.Router();
+
   app.use(
     cors({
       credentials: true,
@@ -17,7 +19,7 @@ export default async (app: Application) => {
   app.use(bodyParser.json());
   app.use(cookieParser());
 
-  const userRoutes = getUserRouters();
+  const userRoutes = getUserRouters(expressRouter);
   const routers = userRoutes();
 
   app.use("/api", routers);
