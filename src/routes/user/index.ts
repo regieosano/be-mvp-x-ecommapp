@@ -4,8 +4,9 @@ import {
   OK,
   INTERNAL_SERVER_ERROR_CODE,
   INTERNAL_SERVER_MESSAGE,
-} from "@src/messages/constants";
+} from "@src/values/constants";
 import { userValidation } from "@src/validations/user_validations";
+import { checkJSONBodyData } from "@src/utilities";
 
 export function getUserRouters() {
   const userRouters = composeRouter(express.Router())();
@@ -28,9 +29,9 @@ export function getUserRouters() {
       try {
         let userInfoData;
         try {
-          userInfoData = { ...JSON.parse(JSON.stringify(req.body)) };
-        } catch (error: any) {
-          throw new Error(error);
+          userInfoData = { ...checkJSONBodyData(req.body) };
+        } catch (error: unknown) {
+          throw new Error(String(error));
         }
 
         const callUserValidate = userValidation(userInfoData);
