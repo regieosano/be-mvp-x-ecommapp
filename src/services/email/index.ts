@@ -1,11 +1,12 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import { FROM_ADDRESS } from "@src/services/email/content";
-import { objectEmailAndPortType, objectEmailBody } from "@src/types";
+import { transformToNumber } from "@src/utilities";
+import { ObjectEmailAndPortType, ObjectEmailBody } from "@src/types";
 
 dotenv.config();
 
-function createTransporter(emailHostPort: objectEmailAndPortType) {
+function createTransporter(emailHostPort: ObjectEmailAndPortType) {
   const { emailHost, emailPort } = { ...emailHostPort };
 
   const transporter = nodemailer.createTransport({
@@ -21,10 +22,10 @@ function createTransporter(emailHostPort: objectEmailAndPortType) {
   };
 }
 
-export const sendMail = async function (body: objectEmailBody) {
+export const sendMail = async function (body: ObjectEmailBody) {
   const emailObject = {
     emailHost: process.env.HOST_EMAIL || "",
-    emailPort: Number(process.env.EMAIL_PORT),
+    emailPort: transformToNumber(process.env.EMAIL_PORT),
   };
   const { emailSentTo, emailSubject, emailText, emailHTML } = body;
   const emailTransporter = createTransporter(emailObject);

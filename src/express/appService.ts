@@ -4,6 +4,8 @@ import cookieParser from "cookie-parser";
 import compression from "compression";
 import cors from "cors";
 
+import { getUserRouters } from "@src/routes/user";
+
 export default async (app: Application) => {
   app.use(
     cors({
@@ -14,6 +16,11 @@ export default async (app: Application) => {
   app.use(compression());
   app.use(bodyParser.json());
   app.use(cookieParser());
+
+  const userRoutes = getUserRouters();
+  const routers = userRoutes();
+
+  app.use("/api", routers);
 
   app.get("/", (req, res) => {
     res.status(200).send("BE APIs");
