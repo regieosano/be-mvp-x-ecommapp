@@ -25,9 +25,14 @@ export function getUserRouters() {
   userRouters.post(
     "/users",
     async (req: express.Request, res: express.Response) => {
-      const userInfoData = { ...req.body };
-
       try {
+        let userInfoData;
+        try {
+          userInfoData = { ...JSON.parse(JSON.stringify(req.body)) };
+        } catch (error: any) {
+          throw new Error(error);
+        }
+
         const callUserValidate = userValidation(userInfoData);
         const isResultError = await callUserValidate();
         if (isResultError) {
