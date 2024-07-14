@@ -1,5 +1,9 @@
 import bcrypt from "bcrypt";
-import { SALT_VALUE, PASSWORD_HASH_MESSAGE } from "@src/values/constants";
+import {
+  SALT_VALUE,
+  PASSWORD_HASH_MESSAGE,
+  DECRYPTION_HASH_MESSAGE,
+} from "@src/values/constants";
 
 export const encryptPassword = async (userPassword: string) => {
   let hashedPassword = "";
@@ -18,9 +22,12 @@ export const decryptPassword = async (
   storedPassword: string,
 ) => {
   try {
-    const result = await bcrypt.compare(userPassword, storedPassword);
-    return result;
+    const decryptedPassword = await bcrypt.compare(
+      userPassword,
+      storedPassword,
+    );
+    return decryptedPassword;
   } catch {
-    throw new Error("Comparing password error - Mismatched");
+    throw new Error(DECRYPTION_HASH_MESSAGE);
   }
 };

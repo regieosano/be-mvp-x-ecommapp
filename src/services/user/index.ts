@@ -1,8 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import {
-  INTERNAL_SERVER_MESSAGE,
-  EMAIL_MESSAGE_EXIST,
-} from "@src/values/constants";
+import { EMAIL_MESSAGE_EXIST } from "@src/values/constants";
 import { UserModel } from "@src/models/user";
 import { User } from "@src/types";
 import { encryptPassword } from "@src/utilities/password";
@@ -13,9 +10,9 @@ export const createUser = async (user: User) => {
   try {
     const candidateUser = Object.assign({}, user);
 
-    const userEmail = await UserModel.find({ email: user.email });
+    const userEmail = await UserModel.findOne({ email: user.email });
 
-    if (!userEmail) {
+    if (userEmail) {
       throw new Error(EMAIL_MESSAGE_EXIST);
     }
 

@@ -8,6 +8,7 @@ export const EMAIL_MESSAGE_EXIST = "Email already exist";
 
 // HTTP Error Codes
 export const OK = 200;
+export const CREATED = 201;
 export const INTERNAL_SERVER_ERROR_CODE = 500;
 
 // Boolean values
@@ -27,3 +28,7 @@ export const TIMER_VALUE = 30000;
 
 // Password Messages
 export const PASSWORD_HASH_MESSAGE = "Password entered empty or not valid";
+export const DECRYPTION_HASH_MESSAGE = "Error in decrypting hashed password";
+
+// Record Messages
+export const RECORD_CREATED_MESSAGE = "Created one (1) record";

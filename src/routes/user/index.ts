@@ -2,6 +2,8 @@ import express from "express";
 import composeRouter from "@src/routes/router_declaration";
 import {
   OK,
+  CREATED,
+  RECORD_CREATED_MESSAGE,
   INTERNAL_SERVER_ERROR_CODE,
   INTERNAL_SERVER_MESSAGE,
 } from "@src/values/constants";
@@ -45,7 +47,7 @@ export function getUserRouters(expressRouter: express.Router) {
         }
         try {
           await createUser(userInfoData);
-          res.status(201).send("Create one (1) record");
+          res.status(CREATED).send(RECORD_CREATED_MESSAGE);
         } catch (error: unknown) {
           throw `${error}`;
         }
