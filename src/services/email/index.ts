@@ -1,12 +1,12 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import { FROM_ADDRESS } from "@src/services/email/content";
-import { transformToNumber } from "@src/utilities";
+import { transformToNumber } from "@src/utilities/misc";
 import { ObjectEmailAndPortType, ObjectEmailBody } from "@src/types";
 
 dotenv.config();
 
-const createTransporter = function (emailHostPort: ObjectEmailAndPortType) {
+function createTransporter(emailHostPort: ObjectEmailAndPortType) {
   const { emailHost, emailPort } = { ...emailHostPort };
 
   const transporter = nodemailer.createTransport({
@@ -20,7 +20,7 @@ const createTransporter = function (emailHostPort: ObjectEmailAndPortType) {
   return function () {
     return { transporter, emailHost };
   };
-};
+}
 
 export const sendMail = async function (body: ObjectEmailBody) {
   const emailObject = {
@@ -42,7 +42,7 @@ export const sendMail = async function (body: ObjectEmailBody) {
     console.log("Email sent: %s", result.messageId);
 
     return "Email Sent";
-  } catch (error) {
+  } catch {
     return new Error("There was an error!");
   }
 };

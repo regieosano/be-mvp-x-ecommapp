@@ -6,9 +6,10 @@ import {
   INTERNAL_SERVER_MESSAGE,
 } from "@src/values/constants";
 import { userValidation } from "@src/validations/user_validations";
-import { checkJSONBodyData } from "@src/utilities";
+import { checkJSONBodyData } from "@src/utilities/misc";
+import { createUser } from "@src/services/user";
 
-export const getUserRouters = function (expressRouter: express.Router) {
+export function getUserRouters(expressRouter: express.Router) {
   const userRouters = composeRouter(expressRouter)();
   userRouters.get(
     "/users",
@@ -18,7 +19,7 @@ export const getUserRouters = function (expressRouter: express.Router) {
       } catch (error: unknown) {
         res
           .status(INTERNAL_SERVER_ERROR_CODE)
-          .send(INTERNAL_SERVER_MESSAGE + error);
+          .send(`${INTERNAL_SERVER_MESSAGE} ${error}`);
       }
     },
   );
@@ -31,7 +32,9 @@ export const getUserRouters = function (expressRouter: express.Router) {
         try {
           userInfoData = { ...checkJSONBodyData(req.body) };
         } catch (error: unknown) {
-          throw new Error(String(error));
+          res
+            .status(INTERNAL_SERVER_ERROR_CODE)
+            .send(`${INTERNAL_SERVER_MESSAGE} ${error}`);
         }
 
         const callUserValidate = userValidation(userInfoData);
@@ -40,12 +43,16 @@ export const getUserRouters = function (expressRouter: express.Router) {
           const message = isResultError.error;
           throw new Error(message);
         }
-
-        res.status(200).send("Ok");
+        try {
+          await createUser(userInfoData);
+          res.status(201).send("Create one (1) record");
+        } catch (error: unknown) {
+          throw `${error}`;
+        }
       } catch (error: unknown) {
         res
           .status(INTERNAL_SERVER_ERROR_CODE)
-          .send(INTERNAL_SERVER_MESSAGE + error);
+          .send(`${INTERNAL_SERVER_MESSAGE} ${error}`);
       }
     },
   );
@@ -53,4 +60,4 @@ export const getUserRouters = function (expressRouter: express.Router) {
   return function () {
     return userRouters;
   };
-};
+}
