@@ -2,7 +2,8 @@ import express from "express";
 import http from "http";
 import App from "@src/express/appService";
 import dotenv from "dotenv";
-import { SERVER_RUNNING_MESSAGE } from "@src/messages/constants";
+import { connectToDB } from "@src//db/connection";
+import { SERVER_RUNNING_MESSAGE, DB_IS_TOCONNECT } from "@src/values/constants";
 
 dotenv.config();
 
@@ -11,6 +12,12 @@ const StartServer = async (server_status_message: string) => {
   const app = express();
 
   const serverApp = await App(app);
+
+  try {
+    connectToDB(DB_IS_TOCONNECT);
+  } catch (error: any) {
+    throw new Error(error);
+  }
 
   const server = http.createServer(app);
 

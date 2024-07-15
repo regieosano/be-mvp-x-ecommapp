@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import { FROM_ADDRESS } from "@src/services/email/content";
-import { transformToNumber } from "@src/utilities";
+import { transformToNumber } from "@src/utilities/misc";
 import { ObjectEmailAndPortType, ObjectEmailBody } from "@src/types";
 
 dotenv.config();
@@ -42,7 +42,7 @@ export const sendMail = async function (body: ObjectEmailBody) {
     console.log("Email sent: %s", result.messageId);
 
     return "Email Sent";
-  } catch (error) {
-    return new Error("There was an error!");
+  } catch (error: unknown) {
+    throw `${error}`;
   }
 };

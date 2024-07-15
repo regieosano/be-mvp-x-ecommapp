@@ -1,23 +1,29 @@
 import express from "express";
-import composeRouter from "@src/routes/router_declaration";
+import composeRouter from "@src/routes/_router_declaration";
 import {
   OK,
+  CREATED,
+  RECORD_CREATED_MESSAGE,
   INTERNAL_SERVER_ERROR_CODE,
   INTERNAL_SERVER_MESSAGE,
-} from "@src/messages/constants";
+} from "@src/values/constants";
+import { User } from "@src/types";
 import { userValidation } from "@src/validations/user_validations";
+import { checkJSONBodyData } from "@src/utilities/misc";
+import { createUser, getUsers } from "@src/services/controllers/user";
 
-export function getUserRouters() {
-  const userRouters = composeRouter(express.Router())();
+export function getUserRouters(expressRouter: express.Router) {
+  const userRouters = composeRouter(expressRouter)();
   userRouters.get(
     "/users",
     async (req: express.Request, res: express.Response) => {
       try {
-        res.status(OK).send("Test");
+        const users = await getUsers(500);
+        res.status(OK).json(users);
       } catch (error: unknown) {
         res
           .status(INTERNAL_SERVER_ERROR_CODE)
-          .send(INTERNAL_SERVER_MESSAGE + error);
+          .send(`${INTERNAL_SERVER_MESSAGE} ${error}`);
       }
     },
   );
@@ -28,9 +34,9 @@ export function getUserRouters() {
       try {
         let userInfoData;
         try {
-          userInfoData = { ...JSON.parse(JSON.stringify(req.body)) };
-        } catch (error: any) {
-          throw new Error(error);
+          userInfoData = { ...checkJSONBodyData(req.body) };
+        } catch (error: unknown) {
+          throw `${error}`;
         }
 
         const callUserValidate = userValidation(userInfoData);
@@ -40,11 +46,19 @@ export function getUserRouters() {
           throw new Error(message);
         }
 
-        res.status(200).send("Ok");
+        try {
+          const newUser: User = await createUser(userInfoData);
+
+          res
+            .status(CREATED)
+            .json({ message: RECORD_CREATED_MESSAGE, user: newUser });
+        } catch (error: unknown) {
+          throw `${error}`;
+        }
       } catch (error: unknown) {
         res
           .status(INTERNAL_SERVER_ERROR_CODE)
-          .send(INTERNAL_SERVER_MESSAGE + error);
+          .send(`${INTERNAL_SERVER_MESSAGE} ${error}`);
       }
     },
   );

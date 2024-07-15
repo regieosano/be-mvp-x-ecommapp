@@ -1,12 +1,15 @@
-import { Application } from "express";
+import express, { Application } from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import compression from "compression";
 import cors from "cors";
 
 import { getUserRouters } from "@src/routes/user";
+import { getAuthenticationRouters } from "@src/routes/authentication";
 
 export default async (app: Application) => {
+  const expressRouter = express.Router();
+
   app.use(
     cors({
       credentials: true,
@@ -17,11 +20,17 @@ export default async (app: Application) => {
   app.use(bodyParser.json());
   app.use(cookieParser());
 
-  const userRoutes = getUserRouters();
-  const routers = userRoutes();
+  // Instantiate Routers
+  const userRoutes = getUserRouters(expressRouter);
+  const authenticationRoutes = getAuthenticationRouters(expressRouter);
+  // Initialized Routes
+  const routersUser = userRoutes();
+  const routersAuthentication = authenticationRoutes();
+  // Declare Routes
+  app.use("/api", routersUser);
+  app.use("/api", routersAuthentication);
 
-  app.use("/api", routers);
-
+  // Catch-All Routes
   app.get("/", (req, res) => {
     res.status(200).send("BE APIs");
   });
