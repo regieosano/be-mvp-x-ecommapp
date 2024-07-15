@@ -1,30 +1,26 @@
 import { User } from "@src/types";
 import { UserModel } from "@src/models/user";
-
-import {
-  YES,
-  OTP_VALID,
-  OTP_INVALID,
-  OTP_EXPIRED,
-  USER_IS_VERIFIED,
-} from "@src/values/constants";
+import { constantValuesForMessages } from "@src/values/constants";
 
 export const authenticateUser = async (
   userToBeAuthenticated: User,
   otpInputed: string,
 ) => {
+  const getConstantValuesMessages = constantValuesForMessages();
+  const m = getConstantValuesMessages();
+
   const { isVerified, id, otp, expiresAt } = userToBeAuthenticated;
 
   if (isVerified) {
-    throw USER_IS_VERIFIED;
+    throw m.user_is_verified;
   }
 
   if (Date.now() > expiresAt) {
-    throw OTP_EXPIRED;
+    throw m.otp_expired;
   }
 
   if (otp !== otpInputed) {
-    throw OTP_INVALID;
+    throw m.otp_invalid;
   }
 
   // Update user status to isVerified true
@@ -33,11 +29,11 @@ export const authenticateUser = async (
       { id },
       {
         $set: {
-          isVerified: YES,
+          isVerified: m.yes,
         },
       },
     );
-    return { message: OTP_VALID };
+    return { message: m.otp_valid };
   } catch (error: unknown) {
     throw `${error}`;
   }

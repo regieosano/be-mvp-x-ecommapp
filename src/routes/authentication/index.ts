@@ -1,17 +1,14 @@
 import express from "express";
 import composeRouter from "@src/routes/_router_declaration";
-import {
-  OK,
-  INTERNAL_SERVER_ERROR_CODE,
-  INTERNAL_SERVER_MESSAGE,
-  USER_DOES_NOT_EXIST,
-} from "@src/values/constants";
+import { constantValuesForMessages } from "@src/values/constants";
 import { findAUser } from "@src/utilities/user";
 import { authenticateUser } from "@src/services/controllers/authentication";
 import { otpDataValidation } from "@src/validations/otpdata_validations";
 import { checkJSONBodyData } from "@src/utilities/misc";
 
 export function getAuthenticationRouters(expressRouter: express.Router) {
+  const getConstantValuesMessages = constantValuesForMessages();
+  const m = getConstantValuesMessages();
   const authenticationRouters = composeRouter(expressRouter)();
 
   authenticationRouters.post(
@@ -39,19 +36,19 @@ export function getAuthenticationRouters(expressRouter: express.Router) {
           const userToBeVerified = await findAUser(id);
 
           if (!userToBeVerified) {
-            throw USER_DOES_NOT_EXIST;
+            throw m.user_does_not_exist;
           }
 
           const result = await authenticateUser(userToBeVerified, otp);
 
-          res.status(OK).send(result);
+          res.status(m.ok).send(result);
         } catch (error: unknown) {
           throw `${error}`;
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         res
-          .status(INTERNAL_SERVER_ERROR_CODE)
-          .send(`${INTERNAL_SERVER_MESSAGE} ${error}`);
+          .status(m.internal_server_error_code)
+          .send(`${m.internal_server_message} ${error}`);
       }
     },
   );

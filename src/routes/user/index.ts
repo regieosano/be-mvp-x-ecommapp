@@ -1,29 +1,26 @@
 import express from "express";
 import composeRouter from "@src/routes/_router_declaration";
-import {
-  OK,
-  CREATED,
-  RECORD_CREATED_MESSAGE,
-  INTERNAL_SERVER_ERROR_CODE,
-  INTERNAL_SERVER_MESSAGE,
-} from "@src/values/constants";
+import { constantValuesForMessages } from "@src/values/constants";
 import { User } from "@src/types";
 import { userValidation } from "@src/validations/user_validations";
 import { checkJSONBodyData } from "@src/utilities/misc";
 import { createUser, getUsers } from "@src/services/controllers/user";
 
 export function getUserRouters(expressRouter: express.Router) {
+  const getConstantValuesMessages = constantValuesForMessages();
+  const m = getConstantValuesMessages();
   const userRouters = composeRouter(expressRouter)();
+
   userRouters.get(
     "/users",
     async (req: express.Request, res: express.Response) => {
       try {
         const users = await getUsers(500);
-        res.status(OK).json(users);
+        res.status(m.ok).json(users);
       } catch (error: unknown) {
         res
-          .status(INTERNAL_SERVER_ERROR_CODE)
-          .send(`${INTERNAL_SERVER_MESSAGE} ${error}`);
+          .status(m.internal_server_error_code)
+          .send(`${m.internal_server_message} ${error}`);
       }
     },
   );
@@ -50,15 +47,15 @@ export function getUserRouters(expressRouter: express.Router) {
           const newUser: User = await createUser(userInfoData);
 
           res
-            .status(CREATED)
-            .json({ message: RECORD_CREATED_MESSAGE, user: newUser });
+            .status(m.created)
+            .json({ message: m.record_created_message, user: newUser });
         } catch (error: unknown) {
           throw `${error}`;
         }
       } catch (error: unknown) {
         res
-          .status(INTERNAL_SERVER_ERROR_CODE)
-          .send(`${INTERNAL_SERVER_MESSAGE} ${error}`);
+          .status(m.internal_server_error_code)
+          .send(`${m.internal_server_message} ${error}`);
       }
     },
   );

@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { YES, EMAIL_MESSAGE_EXIST } from "@src/values/constants";
+import { constantValuesForMessages } from "@src/values/constants";
 import {
   SUBJECT_CONTENT,
   TEXT_CONTENT,
@@ -14,10 +14,13 @@ import { generateOTPAndExpiry } from "@src/utilities/otp";
 export const getUsers: Function = async (
   noOfUsers: number,
 ): Promise<User[] | null> => {
+  const getConstantValuesMessages = constantValuesForMessages();
+  const m = getConstantValuesMessages();
+
   try {
     // Get all "verified" users
     const verifiedUsers = await UserModel.find({
-      isVerified: YES,
+      isVerified: m.yes,
     }).limit(noOfUsers);
     return verifiedUsers;
   } catch (error: unknown) {
@@ -26,6 +29,9 @@ export const getUsers: Function = async (
 };
 
 export const createUser: Function = async (user: User): Promise<User> => {
+  const getConstantValuesMessages = constantValuesForMessages();
+  const m = getConstantValuesMessages();
+
   try {
     const candidateUser = Object.assign({}, user);
 
@@ -35,7 +41,7 @@ export const createUser: Function = async (user: User): Promise<User> => {
     });
 
     if (userEmailCheck) {
-      throw new Error(EMAIL_MESSAGE_EXIST);
+      throw new Error(m.email_message_exist);
     }
 
     // OTP generation and creation of mail service
