@@ -7,8 +7,7 @@ import { otpDataValidation } from "@src/validations/otpdata_validations";
 import { checkJSONBodyData } from "@src/utilities/misc";
 
 export function getAuthenticationRouters(expressRouter: express.Router) {
-  const getConstantValuesMessages = constantValuesForMessages();
-  const m = getConstantValuesMessages();
+  const m = constantValuesForMessages()();
   const authenticationRouters = composeRouter(expressRouter)();
 
   authenticationRouters.post(

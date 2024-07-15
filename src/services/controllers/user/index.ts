@@ -14,8 +14,7 @@ import { generateOTPAndExpiry } from "@src/utilities/otp";
 export const getUsers: Function = async (
   noOfUsers: number,
 ): Promise<User[] | null> => {
-  const getConstantValuesMessages = constantValuesForMessages();
-  const m = getConstantValuesMessages();
+  const m = constantValuesForMessages()();
 
   try {
     // Get all "verified" users
@@ -29,8 +28,7 @@ export const getUsers: Function = async (
 };
 
 export const createUser: Function = async (user: User): Promise<User> => {
-  const getConstantValuesMessages = constantValuesForMessages();
-  const m = getConstantValuesMessages();
+  const m = constantValuesForMessages()();
 
   try {
     const candidateUser = Object.assign({}, user);

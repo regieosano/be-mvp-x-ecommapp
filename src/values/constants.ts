@@ -23,6 +23,9 @@ export function constantValuesForMessages() {
   const EXPIRY_SECONDS = 5 * 60 * 1000;
   const EXPIRY_SECONDS_FOR_RESEND_CODE = 35 * 1000;
 
+  // Get Record Messages
+  const USERS_TO_GET = 500;
+
   // Password Hash Value
   const SALT_VALUE = 10;
 
@@ -51,6 +54,7 @@ export function constantValuesForMessages() {
       internal_server_message: INTERNAL_SERVER_MESSAGE,
       something_went_wrong: SOMETHING_WENT_WRONG,
       email_message_exist: EMAIL_MESSAGE_EXIST,
+      users_to_get: USERS_TO_GET,
       ok: OK,
       created: CREATED,
       internal_server_error_code: INTERNAL_SERVER_ERROR_CODE,

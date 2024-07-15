@@ -7,15 +7,14 @@ import { checkJSONBodyData } from "@src/utilities/misc";
 import { createUser, getUsers } from "@src/services/controllers/user";
 
 export function getUserRouters(expressRouter: express.Router) {
-  const getConstantValuesMessages = constantValuesForMessages();
-  const m = getConstantValuesMessages();
+  const m = constantValuesForMessages()();
   const userRouters = composeRouter(expressRouter)();
 
   userRouters.get(
     "/users",
     async (req: express.Request, res: express.Response) => {
       try {
-        const users = await getUsers(500);
+        const users = await getUsers(m.users_to_get);
         res.status(m.ok).json(users);
       } catch (error: unknown) {
         res

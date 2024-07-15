@@ -2,8 +2,7 @@ import bcrypt from "bcrypt";
 import { constantValuesForMessages } from "@src/values/constants";
 
 export const encryptPassword = async (userPassword: string) => {
-  const getConstantValuesMessages = constantValuesForMessages();
-  const m = getConstantValuesMessages();
+  const m = constantValuesForMessages()();
   let hashedPassword = "";
 
   try {
@@ -19,8 +18,7 @@ export const decryptPassword = async (
   userPassword: string,
   storedPassword: string,
 ) => {
-  const getConstantValuesMessages = constantValuesForMessages();
-  const m = getConstantValuesMessages();
+  const m = constantValuesForMessages()();
   try {
     const decryptedPassword = await bcrypt.compare(
       userPassword,

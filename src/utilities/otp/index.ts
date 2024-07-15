@@ -1,8 +1,7 @@
 import { constantValuesForMessages } from "@src/values/constants";
 
 export const generateOTPAndExpiry = () => {
-  const getConstantValuesMessages = constantValuesForMessages();
-  const m = getConstantValuesMessages();
+  const m = constantValuesForMessages()();
   const expiry = new Date();
   const otp = Math.floor(m.tenvalues_otp + Math.random() * m.ninevalues_otp);
   expiry.setTime(new Date().getTime() + m.expiry_seconds);

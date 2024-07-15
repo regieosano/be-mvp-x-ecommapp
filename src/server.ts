@@ -8,8 +8,7 @@ import { constantValuesForMessages } from "@src/values/constants";
 dotenv.config();
 
 const StartServer = async (server_status_message: string) => {
-  const getConstantValuesMessages = constantValuesForMessages();
-  const m = getConstantValuesMessages();
+  const m = constantValuesForMessages()();
 
   const PORT = process.env.PORT || process.env.SERVER_PORT;
   const app = express();
@@ -32,8 +31,7 @@ const StartServer = async (server_status_message: string) => {
 };
 
 (function runServerRun() {
-  const getConstantValuesMessages = constantValuesForMessages();
-  const m = getConstantValuesMessages();
+  const m = constantValuesForMessages()();
   const runningServer = StartServer(m.server_running_message);
 
   runningServer

@@ -6,8 +6,7 @@ export const authenticateUser = async (
   userToBeAuthenticated: User,
   otpInputed: string,
 ) => {
-  const getConstantValuesMessages = constantValuesForMessages();
-  const m = getConstantValuesMessages();
+  const m = constantValuesForMessages()();
 
   const { isVerified, id, otp, expiresAt } = userToBeAuthenticated;
 
