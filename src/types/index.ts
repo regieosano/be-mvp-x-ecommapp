@@ -22,4 +22,12 @@ export interface User {
   gender: string;
   password: string;
   isVerified: boolean;
+  otp: string;
+  expiresAt: number;
+}
+
+export interface OTPData {
+  id: string;
+  otp: string;
+  expiresAt: number;
 }

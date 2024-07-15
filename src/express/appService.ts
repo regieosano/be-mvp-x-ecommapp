@@ -5,6 +5,7 @@ import compression from "compression";
 import cors from "cors";
 
 import { getUserRouters } from "@src/routes/user";
+import { getAuthenticationRouters } from "@src/routes/authentication";
 
 export default async (app: Application) => {
   const expressRouter = express.Router();
@@ -19,11 +20,17 @@ export default async (app: Application) => {
   app.use(bodyParser.json());
   app.use(cookieParser());
 
+  // Instantiate Routers
   const userRoutes = getUserRouters(expressRouter);
-  const routers = userRoutes();
+  const authenticationRoutes = getAuthenticationRouters(expressRouter);
+  // Initialized Routes
+  const routersUser = userRoutes();
+  const routersAuthentication = authenticationRoutes();
+  // Declare Routes
+  app.use("/api", routersUser);
+  app.use("/api", routersAuthentication);
 
-  app.use("/api", routers);
-
+  // Catch-All Routes
   app.get("/", (req, res) => {
     res.status(200).send("BE APIs");
   });

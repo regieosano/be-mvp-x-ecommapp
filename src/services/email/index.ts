@@ -42,7 +42,7 @@ export const sendMail = async function (body: ObjectEmailBody) {
     console.log("Email sent: %s", result.messageId);
 
     return "Email Sent";
-  } catch {
-    return new Error("There was an error!");
+  } catch (error: unknown) {
+    throw `${error}`;
   }
 };

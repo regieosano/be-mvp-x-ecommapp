@@ -40,6 +40,14 @@ const UserSchema = new Schema({
     required: false,
     default: false,
   },
+  otp: {
+    type: String,
+    required: false,
+  },
+  expiresAt: {
+    type: Number,
+    required: false,
+  },
 });
 
 export const UserModel = mongoose.model<User>("User", UserSchema);

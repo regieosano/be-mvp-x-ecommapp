@@ -1,5 +1,5 @@
 import express from "express";
-import composeRouter from "@src/routes/router_declaration";
+import composeRouter from "@src/routes/_router_declaration";
 import {
   OK,
   CREATED,
@@ -7,9 +7,10 @@ import {
   INTERNAL_SERVER_ERROR_CODE,
   INTERNAL_SERVER_MESSAGE,
 } from "@src/values/constants";
+import { User } from "@src/types";
 import { userValidation } from "@src/validations/user_validations";
 import { checkJSONBodyData } from "@src/utilities/misc";
-import { createUser } from "@src/services/user";
+import { createUser, getUsers } from "@src/services/controllers/user";
 
 export function getUserRouters(expressRouter: express.Router) {
   const userRouters = composeRouter(expressRouter)();
@@ -17,7 +18,8 @@ export function getUserRouters(expressRouter: express.Router) {
     "/users",
     async (req: express.Request, res: express.Response) => {
       try {
-        res.status(OK).send("Test");
+        const users = await getUsers(500);
+        res.status(OK).json(users);
       } catch (error: unknown) {
         res
           .status(INTERNAL_SERVER_ERROR_CODE)
@@ -34,9 +36,7 @@ export function getUserRouters(expressRouter: express.Router) {
         try {
           userInfoData = { ...checkJSONBodyData(req.body) };
         } catch (error: unknown) {
-          res
-            .status(INTERNAL_SERVER_ERROR_CODE)
-            .send(`${INTERNAL_SERVER_MESSAGE} ${error}`);
+          throw `${error}`;
         }
 
         const callUserValidate = userValidation(userInfoData);
@@ -45,9 +45,13 @@ export function getUserRouters(expressRouter: express.Router) {
           const message = isResultError.error;
           throw new Error(message);
         }
+
         try {
-          await createUser(userInfoData);
-          res.status(CREATED).send(RECORD_CREATED_MESSAGE);
+          const newUser: User = await createUser(userInfoData);
+
+          res
+            .status(CREATED)
+            .json({ message: RECORD_CREATED_MESSAGE, user: newUser });
         } catch (error: unknown) {
           throw `${error}`;
         }
