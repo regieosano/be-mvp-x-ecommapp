@@ -8,7 +8,7 @@ import { checkJSONBodyData } from "@src/utilities/misc";
 
 export function getAuthenticationRouters(expressRouter: express.Router) {
   const m = constantValuesForMessages();
-  const authenticationRouters = composeRouter(expressRouter)();
+  const authenticationRouters = composeRouter(expressRouter);
 
   authenticationRouters.post(
     "/users/otp-verify",

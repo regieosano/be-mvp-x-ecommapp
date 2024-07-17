@@ -5,6 +5,7 @@ import compression from "compression";
 import cors from "cors";
 
 import { getUserRouters } from "@src/routes/user";
+import { getResendOTPRouters } from "@src/routes/resend-otp";
 import { getAuthenticationRouters } from "@src/routes/authentication";
 
 export default async (app: Application) => {
@@ -23,12 +24,15 @@ export default async (app: Application) => {
   // Instantiate Routers
   const userRoutes = getUserRouters(expressRouter);
   const authenticationRoutes = getAuthenticationRouters(expressRouter);
+  const otpResendRoutes = getResendOTPRouters(expressRouter);
   // Initialized Routes
   const routersUser = userRoutes();
   const routersAuthentication = authenticationRoutes();
+  const routersOTPResend = otpResendRoutes();
   // Declare Routes
   app.use("/api", routersUser);
   app.use("/api", routersAuthentication);
+  app.use("/api", routersOTPResend);
 
   // Catch-All Routes
   app.get("/", (req, res) => {

@@ -38,12 +38,14 @@ export function constantValuesForMessages() {
 
   // Record Messages
   const RECORD_CREATED_MESSAGE = "Created one (1) record";
+  const USER_OTP_RESEND_DONE = "A new OTP was sent";
 
   //  OTP Messages
   const OTP_INVALID = "OTP is invalid";
   const OTP_EXPIRED = "OTP already expired";
   const OTP_VALID = "OTP is valid and User is verified";
   const USER_IS_VERIFIED = "This user has been verified already";
+  const USER_IS_NOT_FOR_OTP_RESEND = "This user is not yet for OTP Resend";
 
   // Find Record Messages
   const USER_DOES_NOT_EXIST = "User does not exist";
@@ -70,8 +72,10 @@ export function constantValuesForMessages() {
       password_hash_message: PASSWORD_HASH_MESSAGE,
       decryption_hash_message: DECRYPTION_HASH_MESSAGE,
       record_created_message: RECORD_CREATED_MESSAGE,
+      user_otp_resend_done: USER_OTP_RESEND_DONE,
       otp_invalid: OTP_INVALID,
       otp_expired: OTP_EXPIRED,
+      user_is_not_for_otp_resend: USER_IS_NOT_FOR_OTP_RESEND,
       otp_valid: OTP_VALID,
       user_is_verified: USER_IS_VERIFIED,
       user_does_not_exist: USER_DOES_NOT_EXIST,

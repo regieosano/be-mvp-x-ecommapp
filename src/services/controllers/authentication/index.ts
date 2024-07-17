@@ -1,6 +1,7 @@
 import { User } from "@src/types";
-import { UserModel } from "@src/models/user";
+import { findAUserAndUpdateFields } from "@src/utilities/user";
 import { constantValuesForMessages } from "@src/values/constants";
+import { setResendCodeToTrue } from "@src/services/controllers/resend-otp";
 
 export const authenticateUser = async (
   userToBeAuthenticated: User,
@@ -16,29 +17,24 @@ export const authenticateUser = async (
     throw m.user_is_verified;
   }
 
-  /* Check if otp already expired
-	 -> then return bec. it is expired */
-  if (Date.now() > expiresAt) {
-    throw m.otp_expired;
-  }
-
-  /* Check if incorrect otp was entered
+  /* Check if incorrect otp was entered  
 	 -> then return bec. invalid otp */
   if (otp !== otpInputed) {
     throw m.otp_invalid;
   }
 
+  /* Check if otp already expired
+	 -> then set resendCode to true and
+	    return bec. it is expired */
+  if (Date.now() > expiresAt) {
+    if (!setResendCodeToTrue(id)) throw m.something_went_wrong;
+    throw m.otp_expired;
+  }
+
   // Update user status to isVerified true
   try {
-    await UserModel.findOneAndUpdate(
-      { id },
-      {
-        $set: {
-          isVerified: m.yes,
-        },
-      },
-    );
-    return { message: m.otp_valid };
+    const result = await findAUserAndUpdateFields(id, { isVerified: m.yes });
+    return result;
   } catch (error: unknown) {
     throw `${error}`;
   }

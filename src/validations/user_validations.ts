@@ -15,21 +15,12 @@ export const userValidation = function (userBodyData: User) {
       cellNumber: Joi.string().min(0).max(25).optional(),
       gender: Joi.string().min(0).max(25).optional(),
       password: Joi.string().min(8).max(25).optional(),
-      isVerified: Joi.boolean().optional(),
     });
   }
 
   return async function () {
-    const {
-      name,
-      address,
-      dob,
-      email,
-      cellNumber,
-      gender,
-      password,
-      isVerified,
-    } = userBodyDataForChecking;
+    const { name, address, dob, email, cellNumber, gender, password } =
+      userBodyDataForChecking;
 
     try {
       await validateUserBodyData().validateAsync({
@@ -40,7 +31,6 @@ export const userValidation = function (userBodyData: User) {
         cellNumber,
         gender,
         password,
-        isVerified,
       });
     } catch (error: any) {
       const details = error["details"][0].message;

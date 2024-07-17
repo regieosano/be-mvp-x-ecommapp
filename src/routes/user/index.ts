@@ -8,7 +8,7 @@ import { createUser, getUsers } from "@src/services/controllers/user";
 
 export function getUserRouters(expressRouter: express.Router) {
   const m = constantValuesForMessages();
-  const userRouters = composeRouter(expressRouter)();
+  const userRouters = composeRouter(expressRouter);
 
   userRouters.get(
     "/users",

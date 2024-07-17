@@ -1,5 +1,4 @@
 import { UserModel } from "@src/models/user";
-
 import { User } from "@src/types";
 
 export const findAUser: Function = async (
@@ -15,6 +14,23 @@ export const findAUser: Function = async (
     } else {
       return null;
     }
+  } catch (error: unknown) {
+    throw `${error}`;
+  }
+};
+
+export const findAUserAndUpdateFields: Function = async (
+  id: string,
+  objectFieldToUpdate: {},
+): Promise<any> => {
+  try {
+    await UserModel.findOneAndUpdate(
+      { id },
+      {
+        $set: objectFieldToUpdate,
+      },
+    );
+    return { message: objectFieldToUpdate };
   } catch (error: unknown) {
     throw `${error}`;
   }
