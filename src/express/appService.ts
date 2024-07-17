@@ -47,7 +47,5 @@ export default async (app: Application) => {
     res.status(500).send("Something went wrong!");
   });
 
-  // Routes Declaration
-
   return app;
 };

@@ -1,9 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
 import { constantValuesForMessages } from "@src/values/constants";
-import { createInstanceEmailBody } from "@src/utilities/email";
+import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
 import { UserModel } from "@src/models/user";
 import { User } from "@src/types";
-import { sendMail } from "@src/services/email";
 import { encryptPassword } from "@src/utilities/password";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
 
@@ -35,7 +34,7 @@ export const createUser: Function = async (user: User): Promise<User> => {
     });
 
     if (userEmailCheck) {
-      throw new Error(m.email_message_exist);
+      throw m.email_message_exist;
     }
 
     // OTP Generation and Expiry
@@ -71,8 +70,7 @@ export const createUser: Function = async (user: User): Promise<User> => {
 
     // Send OTP Verification Email
     const { email } = qualifiedNewUser;
-    const emailToUser = createInstanceEmailBody(email, generatedOTP);
-    await sendMail(emailToUser);
+    await createInstanceEmailBodyAndSendMail(email, generatedOTP);
 
     // Return created new user
     return newUser;

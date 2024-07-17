@@ -26,7 +26,7 @@ export function getAuthenticationRouters(expressRouter: express.Router) {
 
         if (isResultError) {
           const message = isResultError.error;
-          throw new Error(message);
+          throw message;
         }
 
         try {

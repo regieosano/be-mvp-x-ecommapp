@@ -1,14 +1,22 @@
 import { constantValuesForEmail } from "@src/services/email/content";
+import { sendMail } from "@src/services/email";
 
-export function createInstanceEmailBody(userEmail: string, otp: string) {
-  const e = constantValuesForEmail();
+export async function createInstanceEmailBodyAndSendMail(
+  userEmail: string,
+  otp: string,
+) {
+  try {
+    const e = constantValuesForEmail();
 
-  const emailToUser = {
-    emailSentTo: userEmail,
-    emailSubject: e.subject_content,
-    emailText: e.text_content,
-    emailComposed: e.html_content + " " + otp,
-  };
+    const emailToUser = {
+      emailSentTo: userEmail,
+      emailSubject: e.subject_content,
+      emailText: e.text_content,
+      emailComposed: e.html_content + " " + otp,
+    };
 
-  return emailToUser;
+    await sendMail(emailToUser);
+  } catch (error: unknown) {
+    throw `${error}`;
+  }
 }
