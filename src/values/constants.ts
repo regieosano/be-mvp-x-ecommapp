@@ -48,7 +48,7 @@ export function constantValuesForMessages() {
   // Find Record Messages
   const USER_DOES_NOT_EXIST = "User does not exist";
 
-  return function () {
+  return (function () {
     return {
       server_running_message: SERVER_RUNNING_MESSAGE,
       internal_server_message: INTERNAL_SERVER_MESSAGE,
@@ -76,5 +76,5 @@ export function constantValuesForMessages() {
       user_is_verified: USER_IS_VERIFIED,
       user_does_not_exist: USER_DOES_NOT_EXIST,
     };
-  };
+  })();
 }

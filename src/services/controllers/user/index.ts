@@ -1,10 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { constantValuesForMessages } from "@src/values/constants";
-import {
-  SUBJECT_CONTENT,
-  TEXT_CONTENT,
-  HTML_CONTENT,
-} from "@src/services/email/content";
+import { createInstanceEmailBody } from "@src/utilities/email";
 import { UserModel } from "@src/models/user";
 import { User } from "@src/types";
 import { sendMail } from "@src/services/email";
@@ -14,7 +10,7 @@ import { generateOTPAndExpiry } from "@src/utilities/otp";
 export const getUsers: Function = async (
   noOfUsers: number,
 ): Promise<User[] | null> => {
-  const m = constantValuesForMessages()();
+  const m = constantValuesForMessages();
 
   try {
     // Get all "verified" users
@@ -28,7 +24,7 @@ export const getUsers: Function = async (
 };
 
 export const createUser: Function = async (user: User): Promise<User> => {
-  const m = constantValuesForMessages()();
+  const m = constantValuesForMessages();
 
   try {
     const candidateUser = Object.assign({}, user);
@@ -42,41 +38,43 @@ export const createUser: Function = async (user: User): Promise<User> => {
       throw new Error(m.email_message_exist);
     }
 
-    // OTP generation and creation of mail service
-    const { otp, expiry } = generateOTPAndExpiry();
-
-    const newEmailBody = {
-      emailSentTo: candidateUser.email,
-      emailSubject: SUBJECT_CONTENT,
-      emailText: TEXT_CONTENT,
-      emailHTML: HTML_CONTENT + " " + otp,
-    };
-
-    // Send OTP Verification
-    await sendMail(newEmailBody);
+    // OTP Generation and Expiry
+    const { generatedOTP, expiry } = generateOTPAndExpiry();
 
     // Create user id by means of uuid library
     const newUserId = uuidv4();
 
     // Store new values for new user
-    candidateUser.id = newUserId;
-    candidateUser.otp = String(otp);
-    candidateUser.expiresAt = Number(expiry);
+    const qualifiedNewUser = {
+      ...candidateUser,
+      id: newUserId,
+      otp: generatedOTP,
+      expiresAt: expiry,
+    };
 
     // Password encryption
     try {
-      candidateUser.password = await encryptPassword(candidateUser.password);
+      const { password } = qualifiedNewUser;
+      const encryptedPassword = await encryptPassword(password);
+      // Assign encrypted password to new user password property
+      qualifiedNewUser.password = encryptedPassword;
     } catch (error: unknown) {
       throw `${error}`;
     }
 
-    // New user is created and returned
-    let newUser: User = candidateUser;
+    // New user is created and stored
+    let newUser: User = qualifiedNewUser;
 
     await new UserModel(newUser)
       .save()
       .then(createdUser => (newUser = createdUser.toObject()));
 
+    // Send OTP Verification Email
+    const { email } = qualifiedNewUser;
+    const emailToUser = createInstanceEmailBody(email, generatedOTP);
+    await sendMail(emailToUser);
+
+    // Return created new user
     return newUser;
   } catch (error: unknown) {
     throw `${error}`;

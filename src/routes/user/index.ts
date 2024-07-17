@@ -1,5 +1,5 @@
 import express from "express";
-import composeRouter from "@src/routes/_router_declaration";
+import composeRouter from "@src/routes/_routerDeclaration";
 import { constantValuesForMessages } from "@src/values/constants";
 import { User } from "@src/types";
 import { userValidation } from "@src/validations/user_validations";
@@ -7,7 +7,7 @@ import { checkJSONBodyData } from "@src/utilities/misc";
 import { createUser, getUsers } from "@src/services/controllers/user";
 
 export function getUserRouters(expressRouter: express.Router) {
-  const m = constantValuesForMessages()();
+  const m = constantValuesForMessages();
   const userRouters = composeRouter(expressRouter)();
 
   userRouters.get(
@@ -39,7 +39,7 @@ export function getUserRouters(expressRouter: express.Router) {
         const isResultError = await callUserValidate();
         if (isResultError) {
           const message = isResultError.error;
-          throw new Error(message);
+          throw message;
         }
 
         try {

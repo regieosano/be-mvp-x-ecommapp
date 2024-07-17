@@ -1,5 +1,5 @@
 import express from "express";
-import composeRouter from "@src/routes/_router_declaration";
+import composeRouter from "@src/routes/_routerDeclaration";
 import { constantValuesForMessages } from "@src/values/constants";
 import { findAUser } from "@src/utilities/user";
 import { authenticateUser } from "@src/services/controllers/authentication";
@@ -7,7 +7,7 @@ import { otpDataValidation } from "@src/validations/otpdata_validations";
 import { checkJSONBodyData } from "@src/utilities/misc";
 
 export function getAuthenticationRouters(expressRouter: express.Router) {
-  const m = constantValuesForMessages()();
+  const m = constantValuesForMessages();
   const authenticationRouters = composeRouter(expressRouter)();
 
   authenticationRouters.post(

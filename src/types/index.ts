@@ -8,7 +8,7 @@ export interface ObjectEmailBody {
   emailSentTo: string;
   emailSubject: string;
   emailText: string;
-  emailHTML: string;
+  emailComposed: string;
 }
 
 // User model
