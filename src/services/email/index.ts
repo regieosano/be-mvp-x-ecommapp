@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-import { FROM_ADDRESS } from "@src/services/email/content";
+import { constantValuesForEmail } from "@src/services/email/content";
 import { transformToNumber } from "@src/utilities/misc";
 import { ObjectEmailAndPortType, ObjectEmailBody } from "@src/types";
 
@@ -22,24 +22,25 @@ function createTransporter(emailHostPort: ObjectEmailAndPortType) {
   };
 }
 
-export const sendMail = async function (body: ObjectEmailBody) {
+export const sendMail = async function (_body: ObjectEmailBody) {
+  const e = constantValuesForEmail();
   const emailObject = {
     emailHost: process.env.HOST_EMAIL || "",
     emailPort: transformToNumber(process.env.EMAIL_PORT),
   };
-  const { emailSentTo, emailSubject, emailText, emailHTML } = body;
+  const { emailSentTo, emailSubject, emailText, emailComposed } = _body;
   const emailTransporter = createTransporter(emailObject);
   const { transporter, emailHost } = emailTransporter();
   try {
     const result = await transporter.sendMail({
-      from: `${FROM_ADDRESS} <${emailHost}>`,
+      from: `${e.from_address} <${emailHost}>`,
       to: emailSentTo,
       subject: emailSubject,
       text: emailText,
-      html: emailHTML,
+      html: emailComposed,
     });
 
-    console.log("Email sent: %s", result.messageId);
+    console.log("Email sent: %s", result.response);
 
     return "Email Sent";
   } catch (error: unknown) {

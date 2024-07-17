@@ -1,16 +1,16 @@
-import {
-  TENVALUES_OTP,
-  NINEVALUES_OTP,
-  EXPIRY_SECONDS,
-  EXPIRY_SECONDS_FOR_RESEND_CODE,
-} from "@src/values/constants";
+import { constantValuesForMessages } from "@src/values/constants";
 
 export const generateOTPAndExpiry = () => {
-  const expiry = new Date();
-  const otp = Math.floor(TENVALUES_OTP + Math.random() * NINEVALUES_OTP);
-  expiry.setTime(new Date().getTime() + EXPIRY_SECONDS);
+  const m = constantValuesForMessages();
+  const dateExpiration = new Date();
+  const generatedOTP = String(
+    Math.floor(m.tenvalues_otp + Math.random() * m.ninevalues_otp),
+  );
+  const expiry = dateExpiration.setTime(
+    new Date().getTime() + m.expiry_seconds,
+  );
 
-  return { otp, expiry };
+  return { generatedOTP, expiry };
 };
 
 // export const timeExpirationForResendCodeChoice = () => {

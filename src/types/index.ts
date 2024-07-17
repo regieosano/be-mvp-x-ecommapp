@@ -8,7 +8,7 @@ export interface ObjectEmailBody {
   emailSentTo: string;
   emailSubject: string;
   emailText: string;
-  emailHTML: string;
+  emailComposed: string;
 }
 
 // User model
@@ -22,6 +22,7 @@ export interface User {
   gender: string;
   password: string;
   isVerified: boolean;
+  isResendCode: boolean;
   otp: string;
   expiresAt: number;
 }
