@@ -1,7 +1,7 @@
 import { User } from "@src/types";
 import { findAUserAndUpdateFields } from "@src/utilities/user";
 import { constantValuesForMessages } from "@src/values/constants";
-import { setResendCodeToTrue } from "@src/services/controllers/resend-otp";
+import not, { compare, otpIsStillValid } from "@src/utilities/misc";
 
 export const authenticateUser = async (
   userToBeAuthenticated: User,
@@ -19,16 +19,18 @@ export const authenticateUser = async (
 
   /* Check if incorrect otp was entered  
 	 -> then return bec. invalid otp */
-  if (otp !== otpInputed) {
+  if (not(compare(otp, [otpInputed]))) {
     throw m.otp_invalid;
   }
 
   /* Check if otp already expired
 	 -> then set resendCode to true and
 	    return bec. it is expired */
-  if (Date.now() > expiresAt) {
-    if (!setResendCodeToTrue(id)) throw m.something_went_wrong;
-    throw m.otp_expired;
+  if (otpIsStillValid(Date.now(), expiresAt)) {
+    // TODO: Impurity
+    // if (!setResendCodeToTrue(id)) throw m.something_went_wrong;
+    // throw m.otp_expired;
+    return { message: m.otp_expired };
   }
 
   // Update user status to isVerified true

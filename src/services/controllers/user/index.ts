@@ -69,6 +69,7 @@ export const createUser: Function = async (user: User): Promise<User> => {
       .then(createdUser => (newUser = createdUser.toObject()));
 
     // Send OTP Verification Email
+    // TODO: Impurity
     const { email } = qualifiedNewUser;
     await createInstanceEmailBodyAndSendMail(email, generatedOTP);
 

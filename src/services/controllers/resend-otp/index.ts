@@ -4,7 +4,7 @@ import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
 import { User } from "@src/types";
 
-export const setResendCodeToTrue = async (id: string) => {
+export const setResendCodeToTrue: Function = async (id: string) => {
   try {
     const m = constantValuesForMessages();
     return await findAUserAndUpdateFields(id, { isResendCode: m.yes });
@@ -13,7 +13,7 @@ export const setResendCodeToTrue = async (id: string) => {
   }
 };
 
-export const sendResetOTPEmail = async (user: User) => {
+export const sendResetOTPEmail: Function = async (user: User) => {
   try {
     const m = constantValuesForMessages();
     // OTP Generation Only
