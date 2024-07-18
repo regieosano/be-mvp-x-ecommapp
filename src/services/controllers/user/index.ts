@@ -2,7 +2,7 @@ import { constantValuesForMessages } from "@src/values/constants";
 import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
 import { UserModel } from "@src/models/user";
 import { User } from "@src/types";
-import { createNewUserObject } from "@src/utilities/user/object";
+import { createNewUserObject } from "@src/utilities/user/crud";
 
 export const getUsers: Function = async (
   noOfUsers: number,
