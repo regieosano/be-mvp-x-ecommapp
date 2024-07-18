@@ -10,13 +10,13 @@ export default function reverseBooleanValue(booleanValue: boolean) {
   return booleanValue ? false : true;
 }
 
-export const compare = (
+export const compareValues = (
   itemToBeCheck: string | number,
   itemCheckAgaints: Array<string | number>,
 ) => {
   return itemCheckAgaints.includes(itemToBeCheck);
 };
 
-export const otpIsStillValid = (valueOne: number, valueTwo: number) => {
-  return valueOne > valueTwo;
+export const otpIsStillValid = (dateValueOne: number, dateValueTwo: number) => {
+  return dateValueOne < dateValueTwo;
 };

@@ -1,10 +1,8 @@
-import { v4 as uuidv4 } from "uuid";
 import { constantValuesForMessages } from "@src/values/constants";
 import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
 import { UserModel } from "@src/models/user";
 import { User } from "@src/types";
-import { encryptPassword } from "@src/utilities/password";
-import { generateOTPAndExpiry } from "@src/utilities/otp";
+import { createNewUserObject } from "@src/utilities/user";
 
 export const getUsers: Function = async (
   noOfUsers: number,
@@ -37,32 +35,8 @@ export const createUser: Function = async (user: User): Promise<User> => {
       throw m.email_message_exist;
     }
 
-    // OTP Generation and Expiry
-    const { generatedOTP, expiry } = generateOTPAndExpiry();
-
-    // Create user id by means of uuid library
-    const newUserId = uuidv4();
-
-    // Store new values for new user
-    const qualifiedNewUser = {
-      ...candidateUser,
-      id: newUserId,
-      otp: generatedOTP,
-      expiresAt: expiry,
-    };
-
-    // Password encryption
-    try {
-      const { password } = qualifiedNewUser;
-      const encryptedPassword = await encryptPassword(password);
-      // Assign encrypted password to new user password property
-      qualifiedNewUser.password = encryptedPassword;
-    } catch (error: unknown) {
-      throw `${error}`;
-    }
-
     // New user is created and stored
-    let newUser: User = qualifiedNewUser;
+    let newUser: User = await createNewUserObject(candidateUser);
 
     await new UserModel(newUser)
       .save()
@@ -70,8 +44,8 @@ export const createUser: Function = async (user: User): Promise<User> => {
 
     // Send OTP Verification Email
     // TODO: Impurity
-    const { email } = qualifiedNewUser;
-    await createInstanceEmailBodyAndSendMail(email, generatedOTP);
+    const { email } = newUser;
+    await createInstanceEmailBodyAndSendMail(email, newUser["otp"]);
 
     // Return created new user
     return newUser;

@@ -6,7 +6,7 @@ import { findAUser } from "@src/utilities/user";
 import { authenticateUser } from "@src/services/controllers/authentication";
 import { otpDataValidation } from "@src/validations/otpdata_validations";
 import { checkJSONBodyData } from "@src/utilities/misc";
-import { compare } from "@src/utilities/misc";
+import { compareValues } from "@src/utilities/misc";
 
 export function getAuthenticationRouters(expressRouter: express.Router) {
   const m = constantValuesForMessages();
@@ -41,7 +41,7 @@ export function getAuthenticationRouters(expressRouter: express.Router) {
           }
 
           const { message } = await authenticateUser(userToBeVerified, otp);
-          if (compare(message, [m.otp_expired])) {
+          if (compareValues(message, [m.otp_expired])) {
             setResendCodeToTrue(id);
             return res.status(m.expired).send(m.otp_expired);
           }
