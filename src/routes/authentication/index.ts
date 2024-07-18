@@ -1,10 +1,12 @@
 import express from "express";
 import composeRouter from "@src/routes/_routerDeclaration";
 import { constantValuesForMessages } from "@src/values/constants";
+import { setResendCodeToTrue } from "@src/services/controllers/resend-otp";
 import { findAUser } from "@src/utilities/user";
 import { authenticateUser } from "@src/services/controllers/authentication";
 import { otpDataValidation } from "@src/validations/otpdata_validations";
 import { checkJSONBodyData } from "@src/utilities/misc";
+import { compareValues } from "@src/utilities/misc";
 
 export function getAuthenticationRouters(expressRouter: express.Router) {
   const m = constantValuesForMessages();
@@ -26,7 +28,7 @@ export function getAuthenticationRouters(expressRouter: express.Router) {
 
         if (isResultError) {
           const message = isResultError.error;
-          throw new Error(message);
+          throw message;
         }
 
         try {
@@ -38,9 +40,12 @@ export function getAuthenticationRouters(expressRouter: express.Router) {
             throw m.user_does_not_exist;
           }
 
-          const result = await authenticateUser(userToBeVerified, otp);
-
-          res.status(m.ok).send(result);
+          const { message } = await authenticateUser(userToBeVerified, otp);
+          if (compareValues(message, [m.otp_expired])) {
+            setResendCodeToTrue(id);
+            return res.status(m.expired).send(m.otp_expired);
+          }
+          res.status(m.ok).send(message);
         } catch (error: unknown) {
           throw `${error}`;
         }

@@ -7,8 +7,10 @@ import cors from "cors";
 import { getUserRouters } from "@src/routes/user";
 import { getResendOTPRouters } from "@src/routes/resend-otp";
 import { getAuthenticationRouters } from "@src/routes/authentication";
+import { constantValuesForMessages } from "@src/values/constants";
 
 export default async (app: Application) => {
+  const m = constantValuesForMessages();
   const expressRouter = express.Router();
 
   app.use(
@@ -36,18 +38,16 @@ export default async (app: Application) => {
 
   // Catch-All Routes
   app.get("/", (req, res) => {
-    res.status(200).send("BE APIs");
+    res.status(m.ok).send("BE APIs");
   });
 
   app.all("*", (req, res) => {
-    res.status(404).send("Endpoint does not EXIST!");
+    res.status(m.not_found).send("Endpoint does not EXIST!");
   });
 
   app.use((req, res) => {
-    res.status(500).send("Something went wrong!");
+    res.status(m.internal_server_error_code).send("Something went wrong!");
   });
-
-  // Routes Declaration
 
   return app;
 };

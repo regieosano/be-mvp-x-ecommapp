@@ -10,6 +10,8 @@ export function constantValuesForMessages() {
   // HTTP Error Codes
   const OK = 200;
   const CREATED = 201;
+  const EXPIRED = 419;
+  const NOT_FOUND = 404;
   const INTERNAL_SERVER_ERROR_CODE = 500;
 
   // Boolean Values
@@ -62,9 +64,11 @@ export function constantValuesForMessages() {
       internal_server_error_code: INTERNAL_SERVER_ERROR_CODE,
       yes: YES,
       no: NO,
+      not_found: NOT_FOUND,
       db_is_toconnect: DB_IS_TOCONNECT,
       tenvalues_otp: TENVALUES_OTP,
       ninevalues_otp: NINEVALUES_OTP,
+      expired: EXPIRED,
       expiry_seconds: EXPIRY_SECONDS,
       expiry_seconds_for_resend_code: EXPIRY_SECONDS_FOR_RESEND_CODE,
       salt_value: SALT_VALUE,

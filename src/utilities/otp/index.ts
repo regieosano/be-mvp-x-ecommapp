@@ -12,8 +12,3 @@ export const generateOTPAndExpiry = () => {
 
   return { generatedOTP, expiry };
 };
-
-// export const timeExpirationForResendCodeChoice = () => {
-//   const expiry = new Date();
-//   return expiry.setTime(new Date().getTime() + EXPIRY_SECONDS_FOR_RESEND_CODE);
-// };

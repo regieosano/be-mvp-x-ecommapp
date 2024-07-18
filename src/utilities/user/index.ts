@@ -21,16 +21,16 @@ export const findAUser: Function = async (
 
 export const findAUserAndUpdateFields: Function = async (
   id: string,
-  objectFieldToUpdate: {},
+  objectFieldsToUpdate: {},
 ): Promise<any> => {
   try {
     await UserModel.findOneAndUpdate(
       { id },
       {
-        $set: objectFieldToUpdate,
+        $set: objectFieldsToUpdate,
       },
     );
-    return { message: objectFieldToUpdate };
+    return { message: objectFieldsToUpdate };
   } catch (error: unknown) {
     throw `${error}`;
   }
