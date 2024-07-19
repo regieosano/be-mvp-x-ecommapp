@@ -2,9 +2,12 @@ import express from "express";
 import composeRouter from "@src/routes/_routerDeclaration";
 import { constantValuesForMessages } from "@src/values/constants";
 import { User } from "@src/types";
-import { userValidation } from "@src/validations/user_validations";
+import { newUserInputValidationData } from "@src/utilities/user";
 import { checkJSONBodyData } from "@src/utilities/misc";
-import { createUser, getUsers } from "@src/services/controllers/user";
+import {
+  getVerifiedUsers,
+  createUserAndSendEmailOTP,
+} from "@src/services/controllers/user";
 
 export function getUserRouters(expressRouter: express.Router) {
   const m = constantValuesForMessages();
@@ -14,7 +17,7 @@ export function getUserRouters(expressRouter: express.Router) {
     "/users",
     async (req: express.Request, res: express.Response) => {
       try {
-        const users = await getUsers(m.users_to_get);
+        const users = await getVerifiedUsers(m.users_to_get);
         res.status(m.ok).json(users);
       } catch (error: unknown) {
         res
@@ -28,22 +31,15 @@ export function getUserRouters(expressRouter: express.Router) {
     "/users",
     async (req: express.Request, res: express.Response) => {
       try {
-        let userInfoData;
         try {
-          userInfoData = { ...checkJSONBodyData(req.body) };
-        } catch (error: unknown) {
-          throw `${error}`;
-        }
+          const userInfoData = { ...checkJSONBodyData(req.body) };
 
-        const callUserValidate = userValidation(userInfoData);
-        const isResultError = await callUserValidate();
-        if (isResultError) {
-          const message = isResultError.error;
-          throw message;
-        }
+          const validatedUserInfoData =
+            await newUserInputValidationData(userInfoData);
 
-        try {
-          const newUser: User = await createUser(userInfoData);
+          const newUser: User = await createUserAndSendEmailOTP(
+            validatedUserInfoData,
+          );
 
           res
             .status(m.created)

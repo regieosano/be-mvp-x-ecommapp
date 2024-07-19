@@ -4,7 +4,7 @@ import { UserModel } from "@src/models/user";
 import { User } from "@src/types";
 import { createNewUserObject } from "@src/utilities/user/crud";
 
-export const getUsers: Function = async (
+export const getVerifiedUsers: Function = async (
   noOfUsers: number,
 ): Promise<User[] | null> => {
   const m = constantValuesForMessages();
@@ -20,7 +20,9 @@ export const getUsers: Function = async (
   }
 };
 
-export const createUser: Function = async (user: User): Promise<User> => {
+export const createUserAndSendEmailOTP: Function = async (
+  user: User,
+): Promise<User> => {
   const m = constantValuesForMessages();
 
   try {
@@ -36,14 +38,11 @@ export const createUser: Function = async (user: User): Promise<User> => {
     }
 
     // New user is created and stored
-    let newUser: User = await createNewUserObject(candidateUser);
+    const newUser: User = await createNewUserObject(candidateUser);
 
-    await new UserModel(newUser)
-      .save()
-      .then(createdUser => (newUser = createdUser.toObject()));
+    await new UserModel(newUser).save();
 
     // Send OTP Verification Email
-    // TODO: Impurity
     const { email } = newUser;
     await createInstanceEmailBodyAndSendMail(email, newUser["otp"]);
 

@@ -12,21 +12,21 @@ export const authenticateUser = async (
   const { isVerified, id, otp, expiresAt } = userToBeAuthenticated;
 
   /* Check if user was verified already
-	 -> then return bec. verified already */
+   */
   if (isVerified) {
     throw m.user_is_verified;
   }
 
-  /* Check if incorrect otp was entered  
-	 -> then return bec. otp is invalid */
+  /* Check if incorrect otp was entered
+   */
   if (not(compareValues(otp, [otpInputed]))) {
     throw m.otp_invalid;
   }
 
   /* Check if otp already expired
-	 -> then return with message bec. it is expired */
+   */
   if (not(otpIsStillValid(Date.now(), expiresAt))) {
-    return { message: m.otp_expired };
+    throw m.otp_expired;
   }
 
   // Update user status to isVerified true

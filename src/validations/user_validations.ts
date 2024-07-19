@@ -23,7 +23,7 @@ export const userValidation = function (userBodyData: User) {
       userBodyDataForChecking;
 
     try {
-      await validateUserBodyData().validateAsync({
+      const result = await validateUserBodyData().validateAsync({
         name,
         address,
         dob,
@@ -32,10 +32,10 @@ export const userValidation = function (userBodyData: User) {
         gender,
         password,
       });
-    } catch (error: any) {
-      const details = error["details"][0].message;
-      const errorObject = { error: details };
-      return errorObject;
+
+      return result;
+    } catch (error: unknown) {
+      throw `${error}`;
     }
   };
 };

@@ -7,6 +7,7 @@ import { authenticateUser } from "@src/services/controllers/authentication";
 import { otpDataValidation } from "@src/validations/otpdata_validations";
 import { checkJSONBodyData } from "@src/utilities/misc";
 import { compareValues } from "@src/utilities/misc";
+import { User } from "@src/types";
 
 export function getAuthenticationRouters(expressRouter: express.Router) {
   const m = constantValuesForMessages();
@@ -34,7 +35,7 @@ export function getAuthenticationRouters(expressRouter: express.Router) {
         try {
           const { id, otp } = userOTPData;
 
-          const userToBeVerified = await findAUser(id);
+          const userToBeVerified: User = await findAUser(id);
 
           if (!userToBeVerified) {
             throw m.user_does_not_exist;
