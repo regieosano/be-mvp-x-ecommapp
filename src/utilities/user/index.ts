@@ -1,21 +1,18 @@
 import { userValidation } from "@src/validations/user_validations";
 import { UserModel } from "@src/models/user";
+import { KeySearchObject } from "@src/types";
 import { User } from "@src/types";
 import not from "@src/utilities/misc";
 
-export const findAUser: Function = async (
-  userId: string,
+export const findAUserByIdOrEmail: Function = async (
+  fieldKeyObject: KeySearchObject,
 ): Promise<User | null> => {
   try {
-    const user = await UserModel.findOne({
-      id: userId,
-    });
+    const { id, email } = fieldKeyObject;
+    const searchObjectField = id ? { id } : { email };
+    const user = await UserModel.findOne(searchObjectField);
 
-    if (user) {
-      return user;
-    } else {
-      return null;
-    }
+    return user;
   } catch (error: unknown) {
     throw `${error}`;
   }

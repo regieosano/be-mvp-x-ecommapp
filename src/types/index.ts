@@ -32,3 +32,8 @@ export interface OTPData {
   otp: string;
   expiresAt: number;
 }
+
+export interface KeySearchObject {
+  id: string;
+  email: string;
+}

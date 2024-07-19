@@ -1,5 +1,6 @@
 import { constantValuesForMessages } from "@src/values/constants";
 import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
+import { findAUserByIdOrEmail } from "@src/utilities/user";
 import { UserModel } from "@src/models/user";
 import { User } from "@src/types";
 import { createNewUserObject } from "@src/utilities/user/crud";
@@ -28,8 +29,8 @@ export const createUserAndSendEmailOTP: Function = async (
   try {
     const candidateUser = Object.assign({}, user);
 
-    // Check if email sent already exist, if it is then return error message
-    const userEmailCheck = await UserModel.findOne({
+    // Check if email sent already exist
+    const userEmailCheck = await findAUserByIdOrEmail({
       email: candidateUser.email,
     });
 

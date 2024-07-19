@@ -12,7 +12,7 @@ export const userValidation = function (userBodyData: User) {
       email: Joi.string()
         .email({ tlds: { allow: false } })
         .required(),
-      cellNumber: Joi.string().min(0).max(25).optional(),
+      cellNumber: Joi.string().min(8).max(25).optional(),
       gender: Joi.string().min(0).max(25).optional(),
       password: Joi.string().min(8).max(25).optional(),
     });

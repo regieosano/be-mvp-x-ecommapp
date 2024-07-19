@@ -1,6 +1,6 @@
 import express from "express";
 import composeRouter from "@src/routes/_routerDeclaration";
-import { findAUser } from "@src/utilities/user";
+import { findAUserByIdOrEmail } from "@src/utilities/user";
 import { checkJSONBodyData } from "@src/utilities/misc";
 import { sendResetOTPEmail } from "@src/services/controllers/resend-otp";
 import { constantValuesForMessages } from "@src/values/constants";
@@ -18,24 +18,21 @@ export function getResendOTPRouters(expressRouter: express.Router) {
           userIdData = { ...checkJSONBodyData(req.body) };
 
           const { id } = userIdData;
-          const user = await findAUser(id);
+          const user = await findAUserByIdOrEmail({ id });
 
-          /* Check if user is existing
-           -> then return bec. it does not exist */
+          /* Check if user is existing */
           if (!user) {
             throw m.user_does_not_exist;
           }
 
           const { isVerified, isResendCode } = user;
 
-          /* Check if user was verified already
-           -> then return bec. verified already */
+          /* Check if user was verified already */
           if (isVerified) {
             throw m.user_is_verified;
           }
 
-          /* Check if user is for resend code
-           -> then return bec. it is NOT */
+          /* Check if user is for resend code */
           if (!isResendCode) {
             throw m.user_is_not_for_otp_resend;
           }
