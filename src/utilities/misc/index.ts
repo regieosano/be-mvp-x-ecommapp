@@ -6,7 +6,7 @@ export const checkJSONBodyData = (bodyData: object) => {
   return JSON.parse(JSON.stringify(bodyData));
 };
 
-export default function reverseBooleanValue(booleanValue: boolean) {
+export default function reverseBooleanValue(booleanValue: unknown) {
   return booleanValue ? false : true;
 }
 
@@ -19,4 +19,8 @@ export const compareValues = (
 
 export const otpIsStillValid = (dateValueOne: number, dateValueTwo: number) => {
   return dateValueOne < dateValueTwo;
+};
+
+export const returnCheckMessage = (message: string) => {
+  throw message;
 };

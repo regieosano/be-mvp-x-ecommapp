@@ -1,4 +1,4 @@
-import { constantValuesForMessages } from "@src/values/constants";
+import { m } from "@src/values/constants";
 import { findAUserAndUpdateFields } from "@src/utilities/user";
 import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
@@ -6,7 +6,6 @@ import { User } from "@src/types";
 
 export const setResendCodeToTrue: Function = async (id: string) => {
   try {
-    const m = constantValuesForMessages();
     return await findAUserAndUpdateFields(id, { isResendCode: m.yes });
   } catch (error: unknown) {
     throw `${error}`;
@@ -15,7 +14,6 @@ export const setResendCodeToTrue: Function = async (id: string) => {
 
 export const sendResetOTPEmail: Function = async (user: User) => {
   try {
-    const m = constantValuesForMessages();
     // OTP Generation Only
     const { generatedOTP, expiry } = generateOTPAndExpiry();
     // Store New OTP Code and Expiry for User

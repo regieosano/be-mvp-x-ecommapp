@@ -1,16 +1,13 @@
 import express from "express";
 import composeRouter from "@src/routes/_routerDeclaration";
-import { constantValuesForMessages } from "@src/values/constants";
+import { m } from "@src/values/constants";
 import { User } from "@src/types";
 import { newUserInputValidationData } from "@src/utilities/user";
 import { checkJSONBodyData } from "@src/utilities/misc";
-import {
-  getVerifiedUsers,
-  createUserAndSendEmailOTP,
-} from "@src/services/controllers/user";
+import { getVerifiedUsers, createUser } from "@src/services/controllers/user";
 
 export function getUserRouters(expressRouter: express.Router) {
-  const m = constantValuesForMessages();
+  // const m = constantValuesForMessages();
   const userRouters = composeRouter(expressRouter);
 
   userRouters.get(
@@ -37,9 +34,7 @@ export function getUserRouters(expressRouter: express.Router) {
           const validatedUserInfoData =
             await newUserInputValidationData(userInfoData);
 
-          const newUser: User = await createUserAndSendEmailOTP(
-            validatedUserInfoData,
-          );
+          const newUser: User = await createUser(validatedUserInfoData);
 
           res
             .status(m.created)

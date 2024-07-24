@@ -2,7 +2,8 @@ import { userValidation } from "@src/validations/user_validations";
 import { UserModel } from "@src/models/user";
 import { KeySearchObject } from "@src/types";
 import { User } from "@src/types";
-import not from "@src/utilities/misc";
+import not, { returnCheckMessage } from "@src/utilities/misc";
+import { m } from "@src/values/constants";
 
 export const findAUserByIdOrEmail: Function = async (
   fieldKeyObject: KeySearchObject,
@@ -21,7 +22,7 @@ export const findAUserByIdOrEmail: Function = async (
 export const findAUserAndUpdateFields: Function = async (
   id: string,
   objectFieldsToUpdate: {},
-): Promise<any> => {
+): Promise<{} | null> => {
   try {
     await UserModel.findOneAndUpdate(
       { id },
@@ -42,10 +43,11 @@ export const newUserInputValidationData: Function = async (
     const validateUserData = userValidation(userInfoData);
     const validatedUserDataObject = await validateUserData();
 
-    if (not(validatedUserDataObject)) {
-      const message = validatedUserDataObject;
-      throw message;
-    }
+    const validationErrorMessage = validatedUserDataObject;
+    not(validatedUserDataObject)
+      ? returnCheckMessage(validationErrorMessage)
+      : m.null;
+
     return validatedUserDataObject;
   } catch (error: unknown) {
     throw `${error}`;

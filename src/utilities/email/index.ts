@@ -15,7 +15,8 @@ export async function createInstanceEmailBodyAndSendMail(
       emailComposed: e.html_content + " " + otp,
     };
 
-    await sendMail(emailToUser);
+    const result = await sendMail(emailToUser);
+    return result;
   } catch (error: unknown) {
     throw `${error}`;
   }
