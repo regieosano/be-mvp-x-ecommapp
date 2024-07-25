@@ -1,6 +1,5 @@
 import _ from "lodash";
 import { Product } from "@src/types";
-import { m } from "@src/values/constants";
 import { ProductModel } from "@src/models/product";
 import { createNewProductObject } from "@src/utilities/product/crud";
 
