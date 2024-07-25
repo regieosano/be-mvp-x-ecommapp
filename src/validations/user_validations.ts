@@ -1,8 +1,9 @@
 import Joi from "joi";
+import _ from "lodash";
 import { User } from "@src/types";
 
 export const userValidation = function (userBodyData: User) {
-  const userBodyDataForChecking = { ...userBodyData };
+  const userBodyDataForChecking = _.assign({}, Object.freeze(userBodyData));
 
   function validateUserBodyData() {
     return Joi.object({

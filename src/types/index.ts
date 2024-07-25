@@ -27,6 +27,27 @@ export interface User {
   expiresAt: number;
 }
 
+export interface Category {
+  id: string;
+  name: string;
+  description: string;
+}
+
+export interface Product {
+  id: string;
+  category: string;
+  name: string;
+  description: string;
+  price: number;
+  qty: number;
+}
+
+export interface ShoppingCart {
+  id: string;
+  userId: string;
+  productId: [string];
+}
+
 export interface OTPData {
   id: string;
   otp: string;
