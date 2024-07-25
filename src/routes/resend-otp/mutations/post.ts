@@ -6,7 +6,7 @@ import { sendResetOTPEmail } from "@src/services/controllers/resend-otp";
 import { m } from "@src/values/constants";
 import not from "@src/utilities/misc";
 
-export const postResendOTP = function () {
+export const postResendOTP = (function () {
   const postResendAnOTP = composeRouter(express.Router());
 
   postResendAnOTP.post(
@@ -40,7 +40,7 @@ export const postResendOTP = function () {
     },
   );
 
-  return function () {
+  return (function () {
     return postResendAnOTP;
-  };
-};
+  })();
+})();

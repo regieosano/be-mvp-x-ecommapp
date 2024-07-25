@@ -5,9 +5,9 @@ import compression from "compression";
 import cors from "cors";
 import { getUsers, postUser } from "@src/routes/user";
 import { postAuthUser } from "@src/routes/authentication";
+import { postResendOTP } from "@src/routes/resend-otp";
 
 import { getProductRouters } from "@src/routes/ecommerce/product";
-import { getResendOTPRouters } from "@src/routes/resend-otp";
 
 import { getSendOTPEmailToUserRouters } from "@src/routes/sendemail";
 import { m } from "@src/values/constants";
@@ -29,24 +29,22 @@ export default async (app: Application) => {
 
   const productRoutes = getProductRouters(expressRouter);
 
-  const otpResendRoutes = getResendOTPRouters(expressRouter);
   const sendOTPEmailRoutes = getSendOTPEmailToUserRouters(expressRouter);
 
   // Initialized Routes
 
   const routersProduct = productRoutes();
 
-  const routersOTPResend = otpResendRoutes();
   const routersOTPEmailSend = sendOTPEmailRoutes();
 
   // Declare Routes
   app.use(m.main_prefix, getUsers);
   app.use(m.main_prefix, postUser);
   app.use(m.main_prefix, postAuthUser);
+  app.use(m.main_prefix, postResendOTP);
 
   app.use(m.main_prefix, routersProduct);
 
-  app.use(m.main_prefix, routersOTPResend);
   app.use(m.main_prefix, routersOTPEmailSend);
 
   // Catch-All Routes
