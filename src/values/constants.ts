@@ -61,8 +61,16 @@ export const m = (function () {
   // Find Record Messages
   const USER_DOES_NOT_EXIST = "User does not exist";
 
+  // API Test Value and Catch Wrong API Address
+  const API_ROOT_RESPONSE = "BE APIs";
+  const NON_EXIST_ENDPOINT = "Endpoint does not EXIST!";
+  const SWR = "Something went wrong!";
+
   return (function () {
     return {
+      api_root_response: API_ROOT_RESPONSE,
+      non_exist_endpoint: NON_EXIST_ENDPOINT,
+      swr: SWR,
       server_running_message: SERVER_RUNNING_MESSAGE,
       internal_server_message: INTERNAL_SERVER_MESSAGE,
       something_went_wrong: SOMETHING_WENT_WRONG,

@@ -1,5 +1,5 @@
 import { m } from "@src/values/constants";
-import { setResendCodeToTrue } from "@src/services/controllers/resend-otp";
+import { setResendCodeToTrue } from "@src/utilities/user/crud";
 import { returnCheckMessage } from "@src/utilities/misc";
 
 export const generateOTPAndExpiry = () => {

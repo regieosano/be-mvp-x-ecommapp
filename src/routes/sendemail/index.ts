@@ -6,10 +6,10 @@ import { findAUserByIdOrEmail } from "@src/utilities/user";
 import { m } from "@src/values/constants";
 import not from "@src/utilities/misc";
 
-export function getSendOTPEmailToUserRouters(expressRouter: express.Router) {
-  const sendOTPEmailRouters = composeRouter(expressRouter);
+export const postSendOTPEmail = (function () {
+  const sendAnOTPEmail = composeRouter(express.Router());
 
-  sendOTPEmailRouters.post(
+  sendAnOTPEmail.post(
     `${m.api_prefix}/send-otp-email`,
     async (req: express.Request, res: express.Response) => {
       try {
@@ -33,7 +33,7 @@ export function getSendOTPEmailToUserRouters(expressRouter: express.Router) {
     },
   );
 
-  return function () {
-    return sendOTPEmailRouters;
-  };
-}
+  return (function () {
+    return sendAnOTPEmail;
+  })();
+})();

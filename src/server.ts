@@ -28,17 +28,13 @@ const StartServer = async (server_status_message: string) => {
   return serverApp;
 };
 
-(function runServerRun() {
-  const runningServer = StartServer(m.server_running_message);
-
-  runningServer
-    .then(() => {
-      console.log("\n");
-      console.log("System status...");
-    })
-    .catch(err => {
-      console.log(err);
-    });
+(async function runServerRun() {
+  try {
+    await StartServer(m.server_running_message);
+    console.log("\n System status...");
+  } catch (error: unknown) {
+    throw error;
+  }
 
   process.on("uncaughtException", function (error) {
     console.error(

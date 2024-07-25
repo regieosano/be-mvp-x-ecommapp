@@ -1,7 +1,9 @@
 import { User } from "@src/types";
+import { v4 as uuidv4 } from "uuid";
+import { m } from "@src/values/constants";
 import { encryptPassword } from "@src/utilities/password";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
-import { v4 as uuidv4 } from "uuid";
+import { findAUserAndUpdateFields } from "@src/utilities/user";
 
 export const createNewUserObject: Function = async (
   candidateUser: User,
@@ -32,6 +34,14 @@ export const createNewUserObject: Function = async (
     };
 
     return await qualifiedNewUser;
+  } catch (error: unknown) {
+    throw `${error}`;
+  }
+};
+
+export const setResendCodeToTrue: Function = async (id: string) => {
+  try {
+    return await findAUserAndUpdateFields(id, { isResendCode: m.yes });
   } catch (error: unknown) {
     throw `${error}`;
   }
