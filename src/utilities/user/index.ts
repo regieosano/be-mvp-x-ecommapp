@@ -1,19 +1,16 @@
 import { UserModel } from "@src/models/user";
+import { KeySearchObject } from "@src/types";
 import { User } from "@src/types";
 
-export const findAUser: Function = async (
-  userId: string,
+export const findAUserByIdOrEmail: Function = async (
+  fieldKeyObject: KeySearchObject,
 ): Promise<User | null> => {
   try {
-    const user = await UserModel.findOne({
-      id: userId,
-    });
+    const { id, email } = fieldKeyObject;
+    const searchObjectField = id ? { id } : { email };
+    const user = await UserModel.findOne(searchObjectField);
 
-    if (user) {
-      return user;
-    } else {
-      return null;
-    }
+    return user;
   } catch (error: unknown) {
     throw `${error}`;
   }
@@ -22,7 +19,7 @@ export const findAUser: Function = async (
 export const findAUserAndUpdateFields: Function = async (
   id: string,
   objectFieldsToUpdate: {},
-): Promise<any> => {
+): Promise<{} | null> => {
   try {
     await UserModel.findOneAndUpdate(
       { id },

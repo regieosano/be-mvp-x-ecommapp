@@ -1,8 +1,9 @@
 import Joi from "joi";
+import _ from "lodash";
 import { User } from "@src/types";
 
 export const userValidation = function (userBodyData: User) {
-  const userBodyDataForChecking = { ...userBodyData };
+  const userBodyDataForChecking = _.assign({}, Object.freeze(userBodyData));
 
   function validateUserBodyData() {
     return Joi.object({
@@ -12,7 +13,7 @@ export const userValidation = function (userBodyData: User) {
       email: Joi.string()
         .email({ tlds: { allow: false } })
         .required(),
-      cellNumber: Joi.string().min(0).max(25).optional(),
+      cellNumber: Joi.string().min(8).max(25).optional(),
       gender: Joi.string().min(0).max(25).optional(),
       password: Joi.string().min(8).max(25).optional(),
     });
@@ -23,7 +24,7 @@ export const userValidation = function (userBodyData: User) {
       userBodyDataForChecking;
 
     try {
-      await validateUserBodyData().validateAsync({
+      const result = await validateUserBodyData().validateAsync({
         name,
         address,
         dob,
@@ -32,10 +33,10 @@ export const userValidation = function (userBodyData: User) {
         gender,
         password,
       });
-    } catch (error: any) {
-      const details = error["details"][0].message;
-      const errorObject = { error: details };
-      return errorObject;
+
+      return result;
+    } catch (error: unknown) {
+      throw `${error}`;
     }
   };
 };

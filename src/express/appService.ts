@@ -5,12 +5,13 @@ import compression from "compression";
 import cors from "cors";
 
 import { getUserRouters } from "@src/routes/user";
+import { getProductRouters } from "@src/routes/ecommerce/product";
 import { getResendOTPRouters } from "@src/routes/resend-otp";
 import { getAuthenticationRouters } from "@src/routes/authentication";
-import { constantValuesForMessages } from "@src/values/constants";
+import { getSendOTPEmailToUserRouters } from "@src/routes/sendemail";
+import { m } from "@src/values/constants";
 
 export default async (app: Application) => {
-  const m = constantValuesForMessages();
   const expressRouter = express.Router();
 
   app.use(
@@ -25,16 +26,24 @@ export default async (app: Application) => {
 
   // Instantiate Routers
   const userRoutes = getUserRouters(expressRouter);
+  const productRoutes = getProductRouters(expressRouter);
   const authenticationRoutes = getAuthenticationRouters(expressRouter);
   const otpResendRoutes = getResendOTPRouters(expressRouter);
+  const sendOTPEmailRoutes = getSendOTPEmailToUserRouters(expressRouter);
+
   // Initialized Routes
   const routersUser = userRoutes();
+  const routersProduct = productRoutes();
   const routersAuthentication = authenticationRoutes();
   const routersOTPResend = otpResendRoutes();
+  const routersOTPEmailSend = sendOTPEmailRoutes();
+
   // Declare Routes
-  app.use("/api", routersUser);
-  app.use("/api", routersAuthentication);
-  app.use("/api", routersOTPResend);
+  app.use(m.main_prefix, routersUser);
+  app.use(m.main_prefix, routersProduct);
+  app.use(m.main_prefix, routersAuthentication);
+  app.use(m.main_prefix, routersOTPResend);
+  app.use(m.main_prefix, routersOTPEmailSend);
 
   // Catch-All Routes
   app.get("/", (req, res) => {

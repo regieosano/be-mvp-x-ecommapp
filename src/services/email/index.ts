@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { constantValuesForEmail } from "@src/services/email/content";
 import { transformToNumber } from "@src/utilities/misc";
 import { ObjectEmailAndPortType, ObjectEmailBody } from "@src/types";
+import { m } from "@src/values/constants";
 
 dotenv.config();
 
@@ -23,9 +24,10 @@ function createTransporter(emailHostPort: ObjectEmailAndPortType) {
 }
 
 export const sendMail = async function (_body: ObjectEmailBody) {
+  // const m = constantValuesForMessages();
   const e = constantValuesForEmail();
   const emailObject = {
-    emailHost: process.env.HOST_EMAIL || "",
+    emailHost: process.env.HOST_EMAIL || m.empty_string,
     emailPort: transformToNumber(process.env.EMAIL_PORT),
   };
   const { emailSentTo, emailSubject, emailText, emailComposed } = _body;
@@ -42,7 +44,7 @@ export const sendMail = async function (_body: ObjectEmailBody) {
 
     console.log("Email sent: %s", result.response);
 
-    return "Email Sent";
+    return m.email_sent_message;
   } catch (error: unknown) {
     throw `${error}`;
   }

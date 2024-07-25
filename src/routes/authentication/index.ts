@@ -1,54 +1,35 @@
 import express from "express";
+import { User } from "@src/types";
 import composeRouter from "@src/routes/_routerDeclaration";
-import { constantValuesForMessages } from "@src/values/constants";
-import { setResendCodeToTrue } from "@src/services/controllers/resend-otp";
-import { findAUser } from "@src/utilities/user";
+import { m } from "@src/values/constants";
+import { findAUserByIdOrEmail } from "@src/utilities/user";
 import { authenticateUser } from "@src/services/controllers/authentication";
 import { otpDataValidation } from "@src/validations/otpdata_validations";
 import { checkJSONBodyData } from "@src/utilities/misc";
-import { compareValues } from "@src/utilities/misc";
+import not, { returnCheckMessage } from "@src/utilities/misc";
 
 export function getAuthenticationRouters(expressRouter: express.Router) {
-  const m = constantValuesForMessages();
   const authenticationRouters = composeRouter(expressRouter);
 
   authenticationRouters.post(
-    "/users/otp-verify",
+    `${m.api_prefix}/verify-otp`,
     async (req: express.Request, res: express.Response) => {
       try {
-        let userOTPData;
-        try {
-          userOTPData = { ...checkJSONBodyData(req.body) };
-        } catch (error: unknown) {
-          throw `${error}`;
-        }
+        const userOTPData = { ...checkJSONBodyData(req.body) };
 
-        const callOTPDataValidate = otpDataValidation(userOTPData);
-        const isResultError = await callOTPDataValidate();
+        await otpDataValidation(userOTPData);
 
-        if (isResultError) {
-          const message = isResultError.error;
-          throw message;
-        }
+        const { id, otp } = userOTPData;
 
-        try {
-          const { id, otp } = userOTPData;
+        const userToBeVerified: User = await findAUserByIdOrEmail({ id });
 
-          const userToBeVerified = await findAUser(id);
+        not(userToBeVerified)
+          ? returnCheckMessage(m.user_does_not_exist)
+          : m.null;
 
-          if (!userToBeVerified) {
-            throw m.user_does_not_exist;
-          }
+        const { message } = await authenticateUser(userToBeVerified, otp);
 
-          const { message } = await authenticateUser(userToBeVerified, otp);
-          if (compareValues(message, [m.otp_expired])) {
-            setResendCodeToTrue(id);
-            return res.status(m.expired).send(m.otp_expired);
-          }
-          res.status(m.ok).send(message);
-        } catch (error: unknown) {
-          throw `${error}`;
-        }
+        res.status(m.ok).send(message);
       } catch (error: unknown) {
         res
           .status(m.internal_server_error_code)

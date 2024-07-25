@@ -3,13 +3,11 @@ import http from "http";
 import App from "@src/express/appService";
 import dotenv from "dotenv";
 import { connectToDB } from "@src//db/connection";
-import { constantValuesForMessages } from "@src/values/constants";
+import { m } from "@src/values/constants";
 
 dotenv.config();
 
 const StartServer = async (server_status_message: string) => {
-  const m = constantValuesForMessages();
-
   const PORT = process.env.PORT || process.env.SERVER_PORT;
   const app = express();
 
@@ -31,7 +29,6 @@ const StartServer = async (server_status_message: string) => {
 };
 
 (function runServerRun() {
-  const m = constantValuesForMessages();
   const runningServer = StartServer(m.server_running_message);
 
   runningServer
