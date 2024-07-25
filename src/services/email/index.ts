@@ -24,7 +24,6 @@ function createTransporter(emailHostPort: ObjectEmailAndPortType) {
 }
 
 export const sendMail = async function (_body: ObjectEmailBody) {
-  // const m = constantValuesForMessages();
   const e = constantValuesForEmail();
   const emailObject = {
     emailHost: process.env.HOST_EMAIL || m.empty_string,
