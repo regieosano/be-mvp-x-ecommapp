@@ -1,6 +1,8 @@
 import express from "express";
 import { User } from "@src/types";
-import { m } from "@src/values/constants";
+import mS from "@src/messages/constants/server";
+import mU from "@src/messages/constants/user";
+import mH from "@src/messages/constants/http";
 import { checkJSONBodyData } from "@src/utilities/misc";
 import composeRouter from "@src/routes/_routerDeclaration";
 import { newInputValidationData } from "@src/utilities/misc";
@@ -24,12 +26,12 @@ export const postUser = (function () {
         const newUser: User = await createUser(validatedUserInfoData);
 
         res
-          .status(m.created)
-          .json({ message: m.record_created_message, user: newUser });
+          .status(mH.created)
+          .json({ message: mU.record_created_message, user: newUser });
       } catch (error: unknown) {
         res
-          .status(m.internal_server_error_code)
-          .send(`${m.internal_server_message} ${error}`);
+          .status(mH.internal_server_error_code)
+          .send(`${mS.internal_server_message} ${error}`);
       }
     },
   );

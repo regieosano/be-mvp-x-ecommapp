@@ -1,5 +1,6 @@
 import { User } from "@src/types";
-import { m } from "@src/values/constants";
+import mO from "@src/messages/constants/others";
+import mH from "@src/messages/constants/http";
 import { UserModel } from "@src/models/user";
 
 export const getVerifiedUsers: Function = async (
@@ -8,9 +9,9 @@ export const getVerifiedUsers: Function = async (
   try {
     // Get all "verified" users
     const verifiedUsers = await UserModel.find({
-      isVerified: m.yes,
+      isVerified: mO.yes,
     })
-      .select(m.user_properties)
+      .select(mH.user_properties)
       .limit(noOfUsers);
     return verifiedUsers;
   } catch (error: unknown) {
