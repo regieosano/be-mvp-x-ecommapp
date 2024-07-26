@@ -1,13 +1,13 @@
 import express from "express";
-import mS from "@src/messages/constants/server";
+import not from "@src/utilities/misc";
 import mU from "@src/messages/constants/user";
 import mH from "@src/messages/constants/http";
 import mO from "@src/messages/constants/others";
-import composeRouter from "@src/routes/_routerDeclaration";
-import { checkJSONBodyData, returnCheckMessage } from "@src/utilities/misc";
-import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
+import mS from "@src/messages/constants/server";
 import { findAUserByIdOrEmail } from "@src/utilities/user";
-import not from "@src/utilities/misc";
+import composeRouter from "@src/routes/_routerDeclaration";
+import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
+import { checkJSONBodyData, returnCheckMessage } from "@src/utilities/misc";
 
 export const postSendOTPEmail = (function () {
   const sendAnOTPEmail = composeRouter(express.Router());

@@ -3,8 +3,8 @@ import { User } from "@src/types";
 import { UserModel } from "@src/models/user";
 import mU from "@src/messages/constants/user";
 import mO from "@src/messages/constants/others";
-import { findAUserByIdOrEmail } from "@src/utilities/user";
 import { returnCheckMessage } from "@src/utilities/misc";
+import { findAUserByIdOrEmail } from "@src/utilities/user";
 import { createNewUserObject } from "@src/utilities/user/crud";
 
 export const createUser: Function = async (user: User): Promise<User> => {

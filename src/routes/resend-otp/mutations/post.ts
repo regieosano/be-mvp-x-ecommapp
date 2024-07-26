@@ -1,13 +1,13 @@
 import express from "express";
-import composeRouter from "@src/routes/_routerDeclaration";
-import { findAUserByIdOrEmail } from "@src/utilities/user";
-import { checkJSONBodyData, returnCheckMessage } from "@src/utilities/misc";
-import { sendResetOTPEmail } from "@src/services/controllers/resend-otp";
-import mS from "@src/messages/constants/server";
+import not from "@src/utilities/misc";
 import mU from "@src/messages/constants/user";
 import mH from "@src/messages/constants/http";
 import mO from "@src/messages/constants/others";
-import not from "@src/utilities/misc";
+import mS from "@src/messages/constants/server";
+import composeRouter from "@src/routes/_routerDeclaration";
+import { findAUserByIdOrEmail } from "@src/utilities/user";
+import { sendResetOTPEmail } from "@src/services/controllers/resend-otp";
+import { checkJSONBodyData, returnCheckMessage } from "@src/utilities/misc";
 
 export const postResendOTP = (function () {
   const postResendAnOTP = composeRouter(express.Router());
