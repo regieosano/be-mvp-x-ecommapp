@@ -3,7 +3,7 @@ import { User } from "@src/types";
 import mS from "@src/messages/constants/server";
 import mU from "@src/messages/constants/user";
 import mH from "@src/messages/constants/http";
-import { checkJSONBodyData } from "@src/utilities/misc";
+import { checkJSONBody } from "@src/utilities/misc";
 import composeRouter from "@src/routes/_routerDeclaration";
 import { newInputValidationData } from "@src/utilities/misc";
 import { createUser } from "@src/services/controllers/user";
@@ -13,10 +13,10 @@ export const postUser = (function () {
   const postAUser = composeRouter(express.Router());
 
   postAUser.post(
-    "/users",
+    mU.api_url,
     async (req: express.Request, res: express.Response) => {
       try {
-        const userInfoData = { ...checkJSONBodyData(req.body) };
+        const userInfoData = { ...checkJSONBody(req.body) };
 
         const validatedUserInfoData = await newInputValidationData(
           userInfoData,

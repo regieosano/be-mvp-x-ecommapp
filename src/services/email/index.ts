@@ -1,10 +1,10 @@
-import nodemailer from "nodemailer";
+import _ from "lodash";
 import dotenv from "dotenv";
-import { constantValuesForEmail } from "@src/services/email/content";
-import { transformToNumber } from "@src/utilities/misc";
-import { ObjectEmailAndPortType, ObjectEmailBody } from "@src/types";
-import mO from "@src/messages/constants/others";
+import nodemailer from "nodemailer";
 import mE from "@src/messages/constants/email";
+import mO from "@src/messages/constants/others";
+import { constantValuesForEmail } from "@src/services/email/content";
+import { ObjectEmailAndPortType, ObjectEmailBody } from "@src/types";
 
 dotenv.config();
 
@@ -28,7 +28,7 @@ export const sendMail = async function (_body: ObjectEmailBody) {
   const e = constantValuesForEmail();
   const emailObject = {
     emailHost: process.env.HOST_EMAIL || mO.empty_string,
-    emailPort: transformToNumber(process.env.EMAIL_PORT),
+    emailPort: _.toNumber(process.env.EMAIL_PORT),
   };
   const { emailSentTo, emailSubject, emailText, emailComposed } = _body;
   const emailTransporter = createTransporter(emailObject);
@@ -43,7 +43,6 @@ export const sendMail = async function (_body: ObjectEmailBody) {
     });
 
     console.log("Email sent: %s", result.response);
-
     return mE.email_sent_message;
   } catch (error: unknown) {
     throw `${error}`;

@@ -1,7 +1,7 @@
 import express from "express";
-import mS from "@src/messages/constants/server";
 import mU from "@src/messages/constants/user";
 import mH from "@src/messages/constants/http";
+import mS from "@src/messages/constants/server";
 import composeRouter from "@src/routes/_routerDeclaration";
 import { getVerifiedUsers } from "@src/services/controllers/user";
 
@@ -9,7 +9,7 @@ export const getUsers = (function () {
   const getAllUsers = composeRouter(express.Router());
 
   getAllUsers.get(
-    "/users",
+    mU.api_url,
     async (req: express.Request, res: express.Response) => {
       try {
         const users = await getVerifiedUsers(mU.users_to_get);

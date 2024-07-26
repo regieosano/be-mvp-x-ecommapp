@@ -1,8 +1,8 @@
+import { User } from "@src/types";
 import mO from "src/messages/constants/others";
+import { generateOTPAndExpiry } from "@src/utilities/otp";
 import { findAUserAndUpdateFields } from "@src/utilities/user";
 import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
-import { generateOTPAndExpiry } from "@src/utilities/otp";
-import { User } from "@src/types";
 
 export const sendResetOTPEmail: Function = async (user: User) => {
   try {

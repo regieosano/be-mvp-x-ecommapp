@@ -1,12 +1,12 @@
-import { Application } from "express";
-import bodyParser from "body-parser";
-import cookieParser from "cookie-parser";
-import compression from "compression";
-import { routesArray } from "@src/routes/_routerArrays";
 import cors from "cors";
-import mO from "@src/messages/constants/others";
+import bodyParser from "body-parser";
+import { Application } from "express";
+import compression from "compression";
+import cookieParser from "cookie-parser";
 import mH from "@src/messages/constants/http";
+import mO from "@src/messages/constants/others";
 import mS from "@src/messages/constants/server";
+import { routesArray } from "@src/routes/_routerArrays";
 
 export default async (app: Application) => {
   app.use(

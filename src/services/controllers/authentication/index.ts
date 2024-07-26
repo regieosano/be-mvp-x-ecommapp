@@ -1,14 +1,11 @@
+import _ from "lodash";
 import { User } from "@src/types";
+import mC from "@src/messages/constants/otp";
+import mU from "@src/messages/constants/user";
+import mO from "@src/messages/constants/others";
+import { returnCheckMessage } from "@src/utilities/misc";
 import { findAUserAndUpdateFields } from "@src/utilities/user";
 import { implementSetResendCodeValueToTrue } from "@src/utilities/otp";
-import mO from "@src/messages/constants/others";
-import mU from "@src/messages/constants/user";
-import mC from "@src/messages/constants/otp";
-import not, {
-  compareValues,
-  otpIsStillValid,
-  returnCheckMessage,
-} from "@src/utilities/misc";
 
 export const authenticateUser = async (
   userToBeAuthenticated: User,
@@ -20,12 +17,10 @@ export const authenticateUser = async (
   isVerified ? returnCheckMessage(mU.user_is_verified) : mO.null;
 
   // Check if incorrect otp was entered
-  not(compareValues(otp, [otpInputed]))
-    ? returnCheckMessage(mC.otp_invalid)
-    : mO.null;
+  _.includes([otpInputed], otp) ? mO.null : returnCheckMessage(mC.otp_invalid);
 
   // Check if otp already expired
-  not(otpIsStillValid(Date.now(), expiresAt))
+  _.negate(() => Date.now() < expiresAt)
     ? implementSetResendCodeValueToTrue(id)
     : mO.null;
 

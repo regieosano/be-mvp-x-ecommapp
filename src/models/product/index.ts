@@ -26,6 +26,7 @@ const ProductSchema = new Schema({
   qty: {
     type: Number,
     required: true,
+    default: 0,
   },
 });
 

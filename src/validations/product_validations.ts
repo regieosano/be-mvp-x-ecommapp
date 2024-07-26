@@ -14,7 +14,7 @@ export const productValidation = function (productBodyData: Product) {
       name: Joi.string().min(2).max(255).required(),
       description: Joi.string().min(2).max(255).required(),
       price: Joi.number().min(1).max(1000000).required(),
-      qty: Joi.number().min(0).max(500000).required(),
+      qty: Joi.number().max(500000).required(),
     });
   }
 
@@ -30,7 +30,7 @@ export const productValidation = function (productBodyData: Product) {
         price,
         qty,
       });
-
+      console.log(result);
       return result;
     } catch (error: unknown) {
       throw `${error}`;

@@ -1,5 +1,5 @@
+import _ from "lodash";
 import express from "express";
-import not from "@src/utilities/misc";
 import mU from "@src/messages/constants/user";
 import mH from "@src/messages/constants/http";
 import mO from "@src/messages/constants/others";
@@ -7,7 +7,7 @@ import mS from "@src/messages/constants/server";
 import composeRouter from "@src/routes/_routerDeclaration";
 import { findAUserByIdOrEmail } from "@src/utilities/user";
 import { sendResetOTPEmail } from "@src/services/controllers/resend-otp";
-import { checkJSONBodyData, returnCheckMessage } from "@src/utilities/misc";
+import { checkJSONBody, returnCheckMessage } from "@src/utilities/misc";
 
 export const postResendOTP = (function () {
   const postResendAnOTP = composeRouter(express.Router());
@@ -16,20 +16,22 @@ export const postResendOTP = (function () {
     `${mO.api_prefix}/resend-otp`,
     async (req: express.Request, res: express.Response) => {
       try {
-        const userId = { ...checkJSONBodyData(req.body) };
+        const userId = { ...checkJSONBody(req.body) };
 
         const { id } = userId;
         const user = await findAUserByIdOrEmail({ id });
 
         // User exist?
-        not(user) ? returnCheckMessage(mU.user_does_not_exist) : mO.null;
+        _.negate(() => _.isObject(user))
+          ? returnCheckMessage(mU.user_does_not_exist)
+          : mO.null;
 
         const { isVerified, isResendCode } = user;
 
         // User otp resend?
         isVerified
           ? returnCheckMessage(mU.user_is_verified)
-          : not(isResendCode)
+          : _.negate(() => isResendCode)
             ? returnCheckMessage(mU.user_is_not_for_otp_resend)
             : mO.null;
 

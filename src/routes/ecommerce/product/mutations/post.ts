@@ -3,7 +3,7 @@ import { Product } from "@src/types";
 import mU from "@src/messages/constants/user";
 import mH from "@src/messages/constants/http";
 import mS from "@src/messages/constants/server";
-import { checkJSONBodyData } from "@src/utilities/misc";
+import { checkJSONBody } from "@src/utilities/misc";
 import composeRouter from "@src/routes/_routerDeclaration";
 import { newInputValidationData } from "@src/utilities/misc";
 import { createProduct } from "@src/services/controllers/ecommerce/product";
@@ -16,7 +16,7 @@ export const postProduct = (function () {
     "/products",
     async (req: express.Request, res: express.Response) => {
       try {
-        const productInfoData = { ...checkJSONBodyData(req.body) };
+        const productInfoData = { ...checkJSONBody(req.body) };
 
         const validatedProductInfoData = await newInputValidationData(
           productInfoData,

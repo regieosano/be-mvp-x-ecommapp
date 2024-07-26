@@ -1,10 +1,10 @@
-import express from "express";
 import http from "http";
-import App from "@src/express/appService";
 import dotenv from "dotenv";
+import express from "express";
+import App from "@src/express/appService";
+import mS from "@src/messages/constants/server";
 import { connectToDB } from "@src//db/connection";
 import mD from "@src/messages/constants/database";
-import mS from "@src/messages/constants/server";
 
 dotenv.config();
 

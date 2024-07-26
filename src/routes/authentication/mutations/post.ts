@@ -1,15 +1,16 @@
+import _ from "lodash";
 import express from "express";
 import { User } from "@src/types";
 import mU from "@src/messages/constants/user";
 import mH from "@src/messages/constants/http";
 import mO from "@src/messages/constants/others";
 import mS from "@src/messages/constants/server";
-import { checkJSONBodyData } from "@src/utilities/misc";
-import { findAUserByIdOrEmail } from "@src/utilities/user";
+import { checkJSONBody } from "@src/utilities/misc";
+import { returnCheckMessage } from "@src/utilities/misc";
 import composeRouter from "@src/routes/_routerDeclaration";
-import not, { returnCheckMessage } from "@src/utilities/misc";
-import { authenticateUser } from "@src/services/controllers/authentication";
+import { findAUserByIdOrEmail } from "@src/utilities/user";
 import { otpDataValidation } from "@src/validations/otpdata_validations";
+import { authenticateUser } from "@src/services/controllers/authentication";
 
 export const postAuthUser = (function () {
   const postAnAuthUser = composeRouter(express.Router());
@@ -18,7 +19,7 @@ export const postAuthUser = (function () {
     `${mO.api_prefix}/verify-otp`,
     async (req: express.Request, res: express.Response) => {
       try {
-        const userOTPData = { ...checkJSONBodyData(req.body) };
+        const userOTPData = { ...checkJSONBody(req.body) };
 
         await otpDataValidation(userOTPData);
 
@@ -26,9 +27,9 @@ export const postAuthUser = (function () {
 
         const userToBeVerified: User = await findAUserByIdOrEmail({ id });
 
-        not(userToBeVerified)
-          ? returnCheckMessage(mU.user_does_not_exist)
-          : mO.null;
+        userToBeVerified
+          ? _.identity(userToBeVerified)
+          : returnCheckMessage(mU.user_does_not_exist);
 
         const { message } = await authenticateUser(userToBeVerified, otp);
 
