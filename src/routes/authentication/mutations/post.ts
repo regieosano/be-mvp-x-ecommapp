@@ -1,7 +1,10 @@
 import express from "express";
 import { User } from "@src/types";
 import composeRouter from "@src/routes/_routerDeclaration";
-import { m } from "@src/values/constants";
+import mS from "@src/messages/constants/server";
+import mU from "@src/messages/constants/user";
+import mH from "@src/messages/constants/http";
+import mO from "@src/messages/constants/others";
 import { findAUserByIdOrEmail } from "@src/utilities/user";
 import { authenticateUser } from "@src/services/controllers/authentication";
 import { otpDataValidation } from "@src/validations/otpdata_validations";
@@ -12,7 +15,7 @@ export const postAuthUser = (function () {
   const postAnAuthUser = composeRouter(express.Router());
 
   postAnAuthUser.post(
-    `${m.api_prefix}/verify-otp`,
+    `${mO.api_prefix}/verify-otp`,
     async (req: express.Request, res: express.Response) => {
       try {
         const userOTPData = { ...checkJSONBodyData(req.body) };
@@ -24,16 +27,16 @@ export const postAuthUser = (function () {
         const userToBeVerified: User = await findAUserByIdOrEmail({ id });
 
         not(userToBeVerified)
-          ? returnCheckMessage(m.user_does_not_exist)
-          : m.null;
+          ? returnCheckMessage(mU.user_does_not_exist)
+          : mO.null;
 
         const { message } = await authenticateUser(userToBeVerified, otp);
 
-        res.status(m.ok).send(message);
+        res.status(mH.ok).send(message);
       } catch (error: unknown) {
         res
-          .status(m.internal_server_error_code)
-          .send(`${m.internal_server_message} ${error}`);
+          .status(mH.internal_server_error_code)
+          .send(`${mS.internal_server_message} ${error}`);
       }
     },
   );

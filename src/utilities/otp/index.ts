@@ -1,14 +1,14 @@
-import { m } from "@src/values/constants";
+import mC from "@src/messages/constants/otp";
 import { setResendCodeToTrue } from "@src/utilities/user/crud";
 import { returnCheckMessage } from "@src/utilities/misc";
 
 export const generateOTPAndExpiry = () => {
   const dateExpiration = new Date();
   const generatedOTP = String(
-    Math.floor(m.tenvalues_otp + Math.random() * m.ninevalues_otp),
+    Math.floor(mC.tenvalues_otp + Math.random() * mC.ninevalues_otp),
   );
   const expiry = dateExpiration.setTime(
-    new Date().getTime() + m.expiry_seconds,
+    new Date().getTime() + mC.expiry_seconds,
   );
 
   return { generatedOTP, expiry };
@@ -16,5 +16,5 @@ export const generateOTPAndExpiry = () => {
 
 export const implementSetResendCodeValueToTrue = (id: string) => {
   setResendCodeToTrue(id);
-  returnCheckMessage(m.otp_expired);
+  returnCheckMessage(mC.otp_expired);
 };

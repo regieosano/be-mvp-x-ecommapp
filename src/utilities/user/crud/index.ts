@@ -1,6 +1,6 @@
 import { User } from "@src/types";
 import { v4 as uuidv4 } from "uuid";
-import { m } from "@src/values/constants";
+import mO from "@src/messages/constants/others";
 import { encryptPassword } from "@src/utilities/password";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
 import { findAUserAndUpdateFields } from "@src/utilities/user";
@@ -41,7 +41,7 @@ export const createNewUserObject: Function = async (
 
 export const setResendCodeToTrue: Function = async (id: string) => {
   try {
-    return await findAUserAndUpdateFields(id, { isResendCode: m.yes });
+    return await findAUserAndUpdateFields(id, { isResendCode: mO.yes });
   } catch (error: unknown) {
     throw `${error}`;
   }

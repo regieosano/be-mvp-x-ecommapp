@@ -1,16 +1,15 @@
 import bcrypt from "bcrypt";
-import { m } from "@src/values/constants";
+import mP from "src/messages/constants/password";
 
 export const encryptPassword = async (userPassword: string) => {
-  // const m = constantValuesForMessages();
   let hashedPassword = "";
 
   try {
-    hashedPassword = await bcrypt.hash(userPassword, m.salt_value);
+    hashedPassword = await bcrypt.hash(userPassword, mP.salt_value);
 
     return hashedPassword;
   } catch {
-    throw new Error(`${m.password_hash_message}`);
+    throw new Error(`${mP.password_hash_message}`);
   }
 };
 
@@ -18,7 +17,6 @@ export const decryptPassword = async (
   userPassword: string,
   storedPassword: string,
 ) => {
-  // const m = constantValuesForMessages();
   try {
     const decryptedPassword = await bcrypt.compare(
       userPassword,
@@ -26,6 +24,6 @@ export const decryptPassword = async (
     );
     return decryptedPassword;
   } catch {
-    throw new Error(m.decryption_hash_message);
+    throw new Error(mP.decryption_hash_message);
   }
 };

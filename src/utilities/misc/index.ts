@@ -1,4 +1,4 @@
-import { m } from "@src/values/constants";
+import mO from "@src/messages/constants/others";
 import { User, Product } from "@src/types";
 
 export const transformToNumber = (value?: string) => {
@@ -39,7 +39,7 @@ export const newInputValidationData: Function = async (
     const validationErrorMessage = validatedDataObject;
     reverseBooleanValue(validatedDataObject)
       ? returnCheckMessage(validationErrorMessage)
-      : m.null;
+      : mO.null;
 
     return validatedDataObject;
   } catch (error: unknown) {
