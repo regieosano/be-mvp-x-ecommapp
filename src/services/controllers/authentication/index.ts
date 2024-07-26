@@ -2,8 +2,6 @@ import { User } from "@src/types";
 import { findAUserAndUpdateFields } from "@src/utilities/user";
 import { implementSetResendCodeValueToTrue } from "@src/utilities/otp";
 import mO from "@src/messages/constants/others";
-import mH from "@src/messages/constants/http";
-import mS from "@src/messages/constants/server";
 import mU from "@src/messages/constants/user";
 import mC from "@src/messages/constants/otp";
 import not, {

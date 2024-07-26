@@ -1,7 +1,7 @@
 import { User } from "@src/types";
-import mO from "@src/messages/constants/others";
-import mH from "@src/messages/constants/http";
 import { UserModel } from "@src/models/user";
+import mH from "@src/messages/constants/http";
+import mO from "@src/messages/constants/others";
 
 export const getVerifiedUsers: Function = async (
   noOfUsers: number,
