@@ -16,7 +16,6 @@ export const newInputValidationData: Function = async (
     const validateData = joiValidationFn(infoData);
     return await validateData();
   } catch (error: unknown) {
-    console.log(error);
     throw `${error}`;
   }
 };

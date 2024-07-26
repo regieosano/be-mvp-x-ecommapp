@@ -28,6 +28,11 @@ const ProductSchema = new Schema({
     required: true,
     default: 0,
   },
+  isApproved: {
+    type: Boolean,
+    required: false,
+    default: true,
+  },
 });
 
 export const ProductModel = mongoose.model<Product>("Product", ProductSchema);

@@ -13,18 +13,18 @@ export const authenticateUser = async (
 ) => {
   const { isVerified, id, otp, expiresAt } = userToBeAuthenticated;
 
-  // Check if user was verified already
+  // verified already?
   isVerified ? returnCheckMessage(mU.user_is_verified) : mO.null;
 
-  // Check if incorrect otp was entered
+  // correct otp?
   _.includes([otpInputed], otp) ? mO.null : returnCheckMessage(mC.otp_invalid);
 
-  // Check if otp already expired
+  // otp expired?
   _.negate(() => Date.now() < expiresAt)
     ? implementSetResendCodeValueToTrue(id)
     : mO.null;
 
-  // Update user status to isVerified true
+  // user to isVerified true
   try {
     return await findAUserAndUpdateFields(id, { isVerified: mO.yes });
   } catch (error: unknown) {

@@ -19,10 +19,10 @@ export default async (app: Application) => {
   app.use(bodyParser.json());
   app.use(cookieParser());
 
-  // Declare Routes
+  // declare routes
   app.use(mO.main_prefix, routesArray);
 
-  // Catch-All Routes
+  // catch-all routes
   app.get("/", (req, res) => {
     res.status(mH.ok).send(mS.api_root_response);
   });

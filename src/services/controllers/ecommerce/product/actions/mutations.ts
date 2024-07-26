@@ -13,7 +13,7 @@ export const createProduct: Function = async (
 
     await new ProductModel(newProduct).save();
 
-    // Return created new product
+    // created new product
     return newProduct;
   } catch (error: unknown) {
     throw `${error}`;

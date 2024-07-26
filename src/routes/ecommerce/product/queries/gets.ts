@@ -2,8 +2,8 @@ import express from "express";
 import mH from "@src/messages/constants/http";
 import mS from "@src/messages/constants/server";
 import mP from "@src/messages/constants/product";
-import { getApprovedProducts } from "@src/services/controllers/ecommerce/product/actions/queries";
 import composeRouter from "@src/routes/_routerDeclaration";
+import { getApprovedProducts } from "@src/services/controllers/ecommerce/product/actions/queries";
 
 export const getProducts = (function () {
   const getAllProducts = composeRouter(express.Router());
