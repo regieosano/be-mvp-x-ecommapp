@@ -1,12 +1,11 @@
 import _ from "lodash";
 import express from "express";
-import mU from "@src/messages/constants/user";
 import mH from "@src/messages/constants/http";
 import mS from "@src/messages/constants/server";
 import { checkJSONBody } from "@src/utilities/misc";
 import httpVerb from "@src/routes/_routerDeclaration";
-import { newInputValidationData } from "@src/utilities/misc";
 import { validationsObjectArray } from "@src/validations";
+import { newInputValidationData } from "@src/utilities/misc";
 
 export const postRouteFactory = function (
   routeString: string,
@@ -30,7 +29,8 @@ export const postRouteFactory = function (
           );
 
           const result = await routeFunc(objectEntity);
-          res.json(result);
+          const { message, data, http } = result;
+          res.status(http).json({ message, data });
         } catch (error: unknown) {
           res
             .status(mH.internal_server_error_code)

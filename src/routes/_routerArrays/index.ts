@@ -1,13 +1,8 @@
-import {
-  postUser,
-  postProduct,
-  postAuthUser,
-  postSendOTPEmail,
-  getUsers,
-  getProducts,
-} from "@src/routes";
-
-// import { postResendOTP } from "@src/routes/resend-otp";
+import { getUsers, postUser } from "@src/routes/user";
+import { getProducts, postProduct } from "@src/routes/ecommerce/product";
+import { postAuthUser } from "@src/routes/authentication";
+import { postResendOTP } from "@src/routes/resend-otp";
+import { postSendOTPEmail } from "@src/routes/sendemail";
 
 export const routesArray = [
   getUsers,
@@ -15,5 +10,6 @@ export const routesArray = [
   postUser,
   postProduct,
   postAuthUser,
+  postResendOTP,
   postSendOTPEmail,
 ];

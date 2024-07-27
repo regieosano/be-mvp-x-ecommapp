@@ -1,11 +1,13 @@
 import _ from "lodash";
-import { Product } from "@src/types";
+import mH from "@src/messages/constants/http";
+import mP from "@src/messages/constants/product";
+import { Product, PostObject } from "@src/types";
 import { ProductModel } from "@src/models/product";
 import { createNewProductObject } from "@src/utilities/product/crud";
 
 export const createProduct: Function = async (
   product: Product,
-): Promise<Product> => {
+): Promise<PostObject> => {
   try {
     const productAsNew = _.assign({}, Object.freeze(product));
 
@@ -13,8 +15,13 @@ export const createProduct: Function = async (
 
     await new ProductModel(newProduct).save();
 
-    // created new product
-    return newProduct;
+    const result = {
+      message: mP.new_product_created,
+      data: newProduct,
+      http: mH.created,
+    };
+
+    return result;
   } catch (error: unknown) {
     throw `${error}`;
   }

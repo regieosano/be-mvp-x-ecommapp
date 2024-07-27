@@ -63,3 +63,13 @@ export interface EmailOTP {
   email: string;
   otp: string;
 }
+
+export interface ResendOTP {
+  id: string;
+}
+
+export interface PostObject {
+  message: string;
+  data: object;
+  http: number;
+}

@@ -4,7 +4,7 @@ const m = (function () {
   const USERS_PROPERTIES =
     "-_id -__v -password -isVerified -isResendCode -otp -expiresAt";
   const USER_DOES_NOT_EXIST = "User does not exist";
-  const RECORD_CREATED_MESSAGE = "Created one (1) record";
+  const RECORD_CREATED_MESSAGE = "A new user was created";
   const USER_OTP_RESEND_DONE = "A new OTP was sent";
   const USER_IS_VERIFIED = "This user has been verified already";
   const USER_MESSAGE_EXIST_ON_EMAIL = "Email already exist";

@@ -19,7 +19,7 @@ export const sendOTPEmail = async function (userData: {
 
     //  Send OTP Verification Email
     const result = await createInstanceEmailBodyAndSendMail(email, otp);
-    console.log(result);
+
     return { message: result };
   } catch (error: unknown) {
     throw `${error}`;
