@@ -14,34 +14,36 @@ export const sendResetOTPEmail: Function = async (userObject: {
     const { id } = userObject;
     const user = await findAUserByIdOrEmail({ id });
 
-    // User exist?
+    // user exist?
     _.negate(() => _.isObject(user))()
       ? returnCheckMessage(mU.user_does_not_exist)
       : mO.null;
 
     const { isVerified, isResendCode } = user;
 
-    // User otp resend?
+    // user otp resend?
     isVerified
       ? returnCheckMessage(mU.user_is_verified)
       : _.negate(() => isResendCode)()
         ? returnCheckMessage(mU.user_is_not_for_otp_resend)
         : mO.null;
 
-    // OTP Generation Only
+    // otp generation only
     const { generatedOTP, expiry } = generateOTPAndExpiry();
-    // Store New OTP Code and Expiry for User
+
+    // store new otp code and expiry
     await findAUserAndUpdateFields(user.id, {
       otp: generatedOTP,
       expiresAt: expiry,
     });
-    // Send OTP Verification Email
+
+    // send otp verification email
     const { email } = user;
-    await createInstanceEmailBodyAndSendMail(email, generatedOTP);
-    // Set ResendCode to False
+
+    // set resendCode to False
     await findAUserAndUpdateFields(user.id, { isResendCode: mO.no });
 
-    return { message: "", data: email, http: 200 };
+    return await createInstanceEmailBodyAndSendMail(email, generatedOTP);
   } catch (error: unknown) {
     throw `${error}`;
   }

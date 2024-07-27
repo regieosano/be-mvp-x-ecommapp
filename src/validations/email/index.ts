@@ -1,5 +1,6 @@
 import Joi from "joi";
 import { EmailOTP } from "@src/types";
+import mV from "@src/messages/constants/validation";
 
 export const emailOtpDataValidation = function (emailOtpBodyData: EmailOTP) {
   const emailOtpBodyDataForChecking = { ...emailOtpBodyData };
@@ -9,7 +10,7 @@ export const emailOtpDataValidation = function (emailOtpBodyData: EmailOTP) {
       email: Joi.string()
         .email({ tlds: { allow: false } })
         .required(),
-      otp: Joi.string().min(6).max(6).required(),
+      otp: Joi.string().min(mV.min_otp).max(mV.max_otp).required(),
     });
   }
 

@@ -17,10 +17,10 @@ export const sendOTPEmail = async function (userData: {
 
     user ? _.identity(user) : returnCheckMessage(mU.user_does_not_exist);
 
-    //  Send OTP Verification Email
+    // send otp verification email
     const result = await createInstanceEmailBodyAndSendMail(email, otp);
 
-    return { message: result };
+    return result;
   } catch (error: unknown) {
     throw `${error}`;
   }

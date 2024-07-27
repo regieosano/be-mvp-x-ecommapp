@@ -1,4 +1,4 @@
-import mU from "@src/messages/constants/user";
+import mV from "@src/messages/constants/validation";
 import { userValidation } from "@src/validations/user";
 import { productValidation } from "src/validations/product";
 import { otpDataValidation } from "@src/validations/otp";
@@ -6,9 +6,9 @@ import { emailOtpDataValidation } from "@src/validations/email";
 import { resendOtpDataValidation } from "@src/validations/resend-otp";
 
 export const validationsObjectArray = [
-  { entity: mU.user, validation: userValidation },
-  { entity: "product", validation: productValidation },
-  { entity: "otp", validation: otpDataValidation },
-  { entity: "email", validation: emailOtpDataValidation },
-  { entity: "resend-otp", validation: resendOtpDataValidation },
+  { entity: mV.user, validation: userValidation },
+  { entity: mV.product, validation: productValidation },
+  { entity: mV.otp, validation: otpDataValidation },
+  { entity: mV.email, validation: emailOtpDataValidation },
+  { entity: mV.resend_otp, validation: resendOtpDataValidation },
 ];

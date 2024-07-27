@@ -1,21 +1,29 @@
 import Joi from "joi";
 import _ from "lodash";
 import { User } from "@src/types";
+import mV from "@src/messages/constants/validation";
+import mO from "@src/messages/constants/others";
 
 export const userValidation = function (userBodyData: User) {
   const userBodyDataForChecking = _.assign({}, Object.freeze(userBodyData));
 
   function validateUserBodyData() {
     return Joi.object({
-      name: Joi.string().min(2).max(255).required(),
-      address: Joi.string().min(2).max(255).optional(),
+      name: Joi.string().min(mV.min_string).max(mV.max_string).required(),
+      address: Joi.string().min(mV.min_string).max(mV.max_string).optional(),
       dob: Joi.date().optional(),
       email: Joi.string()
-        .email({ tlds: { allow: false } })
+        .email({ tlds: { allow: mO.no } })
         .required(),
-      cellNumber: Joi.string().min(8).max(25).optional(),
-      gender: Joi.string().min(0).max(25).optional(),
-      password: Joi.string().min(8).max(25).optional(),
+      cellNumber: Joi.string()
+        .min(mV.min_cell_num)
+        .max(mV.max_cell_num)
+        .optional(),
+      gender: Joi.string().min(mV.min_gender).max(mV.max_gender).optional(),
+      password: Joi.string()
+        .min(mV.min_password)
+        .max(mV.max_password)
+        .optional(),
     });
   }
 

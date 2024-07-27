@@ -5,13 +5,13 @@ import { createProduct } from "@src/services/controllers/ecommerce/product";
 import { getApprovedProducts } from "@src/services/controllers/ecommerce/product/actions/queries";
 
 export const getProducts = getRouteFactory(
-  "/products",
+  mP.product_url,
   mP.products_to_get,
   getApprovedProducts,
 );
 
 export const postProduct = postRouteFactory(
   mP.product,
-  mP.api_url,
+  mP.product_url,
   createProduct,
 );

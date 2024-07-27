@@ -1,7 +1,6 @@
 import _ from "lodash";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
-import mE from "@src/messages/constants/email";
 import mO from "@src/messages/constants/others";
 import { constantValuesForEmail } from "@src/services/email/content";
 import { ObjectEmailAndPortType, ObjectEmailBody } from "@src/types";
@@ -42,8 +41,7 @@ export const sendMail = async function (_body: ObjectEmailBody) {
       html: emailComposed,
     });
 
-    console.log("Email sent: %s", result.response);
-    return mE.email_sent_message;
+    return result.response;
   } catch (error: unknown) {
     throw `${error}`;
   }

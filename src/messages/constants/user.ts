@@ -10,13 +10,13 @@ const m = (function () {
   const USER_MESSAGE_EXIST_ON_EMAIL = "Email already exist";
   const USER_IS_NOT_FOR_OTP_RESEND = "This user is not yet for OTP Resend";
   const USER = "user";
-  const API_URL = "/users";
+  const USERS_URL = "/users";
 
   return (function () {
     return {
       users_to_get: USERS_TO_GET,
       user: USER,
-      api_url: API_URL,
+      users_url: USERS_URL,
       users_properties: USERS_PROPERTIES,
       user_does_not_exist: USER_DOES_NOT_EXIST,
       record_created_message: RECORD_CREATED_MESSAGE,

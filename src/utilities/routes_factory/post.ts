@@ -30,6 +30,7 @@ export const postRouteFactory = function (
 
           const result = await routeFunc(objectEntity);
           const { message, data, http } = result;
+
           res.status(http).json({ message, data });
         } catch (error: unknown) {
           res
