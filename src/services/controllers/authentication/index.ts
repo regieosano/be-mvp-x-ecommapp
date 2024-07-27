@@ -4,20 +4,31 @@ import mC from "@src/messages/constants/otp";
 import mU from "@src/messages/constants/user";
 import mO from "@src/messages/constants/others";
 import { returnCheckMessage } from "@src/utilities/misc";
+import { findAUserByIdOrEmail } from "@src/utilities/user";
 import { findAUserAndUpdateFields } from "@src/utilities/user";
 import { implementSetResendCodeValueToTrue } from "@src/utilities/otp";
 
-export const authenticateUser = async (
-  userToBeAuthenticated: User,
-  otpInputed: string,
-) => {
-  const { isVerified, id, otp, expiresAt } = userToBeAuthenticated;
+export const authenticateUser = async (objectData: {
+  id: string;
+  otpInput: string;
+}) => {
+  const { id, otpInput } = Object.assign({}, Object.freeze(objectData));
+
+  const userToBeAuthenticated: User = await findAUserByIdOrEmail({
+    id,
+  });
+
+  userToBeAuthenticated
+    ? _.identity(userToBeAuthenticated)
+    : returnCheckMessage(mU.user_does_not_exist);
+
+  const { isVerified, otp, expiresAt } = userToBeAuthenticated;
 
   // verified already?
   isVerified ? returnCheckMessage(mU.user_is_verified) : mO.null;
 
   // correct otp?
-  _.includes([otpInputed], otp) ? mO.null : returnCheckMessage(mC.otp_invalid);
+  _.includes([otpInput], otp) ? mO.null : returnCheckMessage(mC.otp_invalid);
 
   // otp expired?
   _.negate(() => Date.now() < expiresAt)

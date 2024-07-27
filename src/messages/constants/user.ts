@@ -9,11 +9,13 @@ const m = (function () {
   const USER_IS_VERIFIED = "This user has been verified already";
   const USER_MESSAGE_EXIST_ON_EMAIL = "Email already exist";
   const USER_IS_NOT_FOR_OTP_RESEND = "This user is not yet for OTP Resend";
+  const USER = "user";
   const API_URL = "/users";
 
   return (function () {
     return {
       users_to_get: USERS_TO_GET,
+      user: USER,
       api_url: API_URL,
       users_properties: USERS_PROPERTIES,
       user_does_not_exist: USER_DOES_NOT_EXIST,

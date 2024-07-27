@@ -50,11 +50,16 @@ export interface ShoppingCart {
 
 export interface OTPData {
   id: string;
-  otp: string;
+  otpInput: string;
   expiresAt: number;
 }
 
 export interface KeySearchObject {
   id: string;
   email: string;
+}
+
+export interface EmailOTP {
+  email: string;
+  otp: string;
 }
