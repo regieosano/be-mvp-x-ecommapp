@@ -1,9 +1,8 @@
 import _ from "lodash";
+import { UserModel } from "@src/models/user";
 import mU from "@src/messages/constants/user";
-import { findAUserByIdOrEmail } from "@src/utilities/user";
-
+import { findEntity } from "@src/utilities/misc";
 import { returnCheckMessage } from "@src/utilities/misc";
-
 import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
 
 export const sendOTPEmail = async function (userData: {
@@ -13,7 +12,7 @@ export const sendOTPEmail = async function (userData: {
   try {
     const { email, otp } = userData;
 
-    const user = await findAUserByIdOrEmail({ email });
+    const user = await findEntity(UserModel, { email });
 
     user ? _.identity(user) : returnCheckMessage(mU.user_does_not_exist);
 

@@ -6,7 +6,7 @@ import { getApprovedProducts } from "@src/services/controllers/ecommerce/product
 
 export const getProducts = getRouteFactory(
   mP.product_url,
-  mP.products_to_get,
+  mP.no_products,
   getApprovedProducts,
 );
 

@@ -1,22 +1,21 @@
 import _ from "lodash";
 import { User, PostObject } from "@src/types";
 import { UserModel } from "@src/models/user";
+import mH from "@src/messages/constants/http";
 import mU from "@src/messages/constants/user";
 import mO from "@src/messages/constants/others";
-import mH from "@src/messages/constants/http";
 import { returnCheckMessage } from "@src/utilities/misc";
-import { findAUserByIdOrEmail } from "@src/utilities/user";
+import { findEntity } from "@src/utilities/misc";
 import { createNewUserObject } from "@src/utilities/user/crud";
 
-export const createUser: Function = async (user: User): Promise<PostObject> => {
+export const createUser: Function = async (user: User): Promise<Object> => {
   try {
     const userAsNew = _.assign({}, Object.freeze(user));
     const { email } = userAsNew;
 
-    // Is email already existing?
-    const _user = await findAUserByIdOrEmail({
-      email,
-    });
+    // email existing?
+    const _user: User = await findEntity(UserModel, { email });
+
     _user ? returnCheckMessage(mU.user_message_exist_on_email) : mO.null;
 
     // New user created and persisted

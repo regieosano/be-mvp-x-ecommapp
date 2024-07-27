@@ -1,10 +1,11 @@
 import _ from "lodash";
-import mO from "src/messages/constants/others";
+import { UserModel } from "@src/models/user";
 import mU from "@src/messages/constants/user";
+import mO from "src/messages/constants/others";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
 import { findAUserAndUpdateFields } from "@src/utilities/user";
 import { returnCheckMessage } from "@src/utilities/misc";
-import { findAUserByIdOrEmail } from "@src/utilities/user";
+import { findEntity } from "@src/utilities/misc";
 import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
 
 export const sendResetOTPEmail: Function = async (userObject: {
@@ -12,7 +13,7 @@ export const sendResetOTPEmail: Function = async (userObject: {
 }) => {
   try {
     const { id } = userObject;
-    const user = await findAUserByIdOrEmail({ id });
+    const user = await findEntity(UserModel, { id });
 
     // user exist?
     _.negate(() => _.isObject(user))()

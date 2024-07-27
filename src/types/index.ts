@@ -56,7 +56,7 @@ export interface OTPData {
 
 export interface KeySearchObject {
   id: string;
-  email: string;
+  otherField: string;
 }
 
 export interface EmailOTP {
