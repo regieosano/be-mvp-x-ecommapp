@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { not, is } from "ramda";
 import { UserModel } from "@src/models/user";
 import mU from "@src/messages/constants/user";
 import mO from "src/messages/constants/others";
@@ -16,7 +16,7 @@ export const sendResetOTPEmail: Function = async (userObject: {
     const user = await findEntity(UserModel, { id });
 
     // user exist?
-    _.negate(() => _.isObject(user))()
+    not(is(Object, user))
       ? returnCheckMessage(mU.user_does_not_exist)
       : mO.null;
 
@@ -25,7 +25,7 @@ export const sendResetOTPEmail: Function = async (userObject: {
     // user otp resend?
     isVerified
       ? returnCheckMessage(mU.user_is_verified)
-      : _.negate(() => isResendCode)()
+      : not(isResendCode)
         ? returnCheckMessage(mU.user_is_not_for_otp_resend)
         : mO.null;
 

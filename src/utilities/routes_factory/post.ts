@@ -1,7 +1,7 @@
-import _ from "lodash";
 import express from "express";
 import mH from "@src/messages/constants/http";
 import mS from "@src/messages/constants/server";
+import mO from "@src/messages/constants/others";
 import { checkJSONBody } from "@src/utilities/misc";
 import httpVerb from "@src/routes/_routerDeclaration";
 import { validationsObjectArray } from "@src/validations";
@@ -17,15 +17,15 @@ export const postRouteFactory = function (
       urlString,
       async (req: express.Request, res: express.Response) => {
         try {
-          const entity = _.first(
-            _.filter(validationsObjectArray, e => e.entity === routeString),
+          const entity = validationsObjectArray.filter(
+            e => e.entity === routeString,
           );
 
           const bodyData = { ...checkJSONBody(req.body) };
 
           const objectEntity = await newInputValidationData(
             bodyData,
-            entity?.validation,
+            entity[mO.first]["validation"],
           );
 
           const result = await routeFunc(objectEntity);
