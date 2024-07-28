@@ -1,7 +1,7 @@
 import Joi from "joi";
 import { User } from "@src/types";
-import mV from "@src/messages/constants/validation";
 import mO from "@src/messages/constants/others";
+import mV from "@src/messages/constants/validation";
 
 export const userValidation = function (userBodyData: User) {
   const userBodyDataForChecking = Object.assign(
