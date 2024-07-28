@@ -1,4 +1,5 @@
 import express from "express";
+import { equals } from "ramda";
 import mH from "@src/messages/constants/http";
 import mS from "@src/messages/constants/server";
 import mO from "@src/messages/constants/others";
@@ -17,8 +18,8 @@ export const postRouteFactory = function (
       urlString,
       async (req: express.Request, res: express.Response) => {
         try {
-          const entity = validationsObjectArray.filter(
-            e => e.entity === routeString,
+          const entity = validationsObjectArray.filter(e =>
+            equals(e.entity, routeString),
           );
 
           const bodyData = { ...checkJSONBody(req.body) };

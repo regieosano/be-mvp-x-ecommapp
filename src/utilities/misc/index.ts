@@ -28,6 +28,7 @@ export const newInputValidationData: Function = async (
 ): Promise<User | Error> => {
   try {
     const validateData = joiValidationFn(infoData);
+
     return await validateData();
   } catch (error: unknown) {
     throw `${error}`;
