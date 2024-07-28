@@ -9,7 +9,7 @@ export const encryptPassword = async (userPassword: string) => {
 
     return hashedPassword;
   } catch {
-    throw new Error(`${mP.password_hash_message}`);
+    throw `${mP.password_hash_message}`;
   }
 };
 
@@ -24,6 +24,6 @@ export const decryptPassword = async (
     );
     return decryptedPassword;
   } catch {
-    throw new Error(mP.decryption_hash_message);
+    throw mP.decryption_hash_message;
   }
 };

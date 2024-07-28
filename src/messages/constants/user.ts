@@ -4,15 +4,19 @@ const m = (function () {
   const USERS_PROPERTIES =
     "-_id -__v -password -isVerified -isResendCode -otp -expiresAt";
   const USER_DOES_NOT_EXIST = "User does not exist";
-  const RECORD_CREATED_MESSAGE = "Created one (1) record";
+  const RECORD_CREATED_MESSAGE = "A new user was created";
   const USER_OTP_RESEND_DONE = "A new OTP was sent";
   const USER_IS_VERIFIED = "This user has been verified already";
   const USER_MESSAGE_EXIST_ON_EMAIL = "Email already exist";
   const USER_IS_NOT_FOR_OTP_RESEND = "This user is not yet for OTP Resend";
+  const USER = "user";
+  const USERS_URL = "/users";
 
   return (function () {
     return {
       users_to_get: USERS_TO_GET,
+      user: USER,
+      users_url: USERS_URL,
       users_properties: USERS_PROPERTIES,
       user_does_not_exist: USER_DOES_NOT_EXIST,
       record_created_message: RECORD_CREATED_MESSAGE,

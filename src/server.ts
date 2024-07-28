@@ -1,10 +1,10 @@
-import express from "express";
 import http from "http";
-import App from "@src/express/appService";
 import dotenv from "dotenv";
+import express from "express";
+import App from "@src/express/appService";
+import mS from "@src/messages/constants/server";
 import { connectToDB } from "@src//db/connection";
 import mD from "@src/messages/constants/database";
-import mS from "@src/messages/constants/server";
 
 dotenv.config();
 
@@ -23,7 +23,7 @@ const StartServer = async (server_status_message: string) => {
   const server = http.createServer(app);
 
   server.listen(PORT, () => {
-    console.log(`${server_status_message} ${PORT}`);
+    console.log("\x1b[36m%s\x1b[0m", `${server_status_message} ${PORT}`);
   });
 
   return serverApp;
@@ -32,7 +32,9 @@ const StartServer = async (server_status_message: string) => {
 (async function runServerRun() {
   try {
     await StartServer(mS.server_running_message);
-    console.log("\n System status...");
+    console.log();
+    console.log("System status...");
+    console.log();
   } catch (error: unknown) {
     throw error;
   }

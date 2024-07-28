@@ -5,10 +5,10 @@ export const createNewProductObject: Function = async (
   candidateProduct: Product,
 ): Promise<Product> => {
   try {
-    // Create user id by means of uuid library
+    // create product id
     const newProductId = uuidv4();
 
-    // Store the new product
+    // object new product
     const qualifiedNewProduct = {
       ...candidateProduct,
       id: newProductId,

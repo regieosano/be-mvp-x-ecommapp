@@ -1,35 +1,42 @@
+import _ from "lodash";
 import { User } from "@src/types";
+import { UserModel } from "@src/models/user";
+import mC from "@src/messages/constants/otp";
+import mU from "@src/messages/constants/user";
+import mO from "@src/messages/constants/others";
+import { returnCheckMessage } from "@src/utilities/misc";
+import { findEntity } from "@src/utilities/misc";
 import { findAUserAndUpdateFields } from "@src/utilities/user";
 import { implementSetResendCodeValueToTrue } from "@src/utilities/otp";
-import mO from "@src/messages/constants/others";
-import mU from "@src/messages/constants/user";
-import mC from "@src/messages/constants/otp";
-import not, {
-  compareValues,
-  otpIsStillValid,
-  returnCheckMessage,
-} from "@src/utilities/misc";
 
-export const authenticateUser = async (
-  userToBeAuthenticated: User,
-  otpInputed: string,
-) => {
-  const { isVerified, id, otp, expiresAt } = userToBeAuthenticated;
+export const authenticateUser = async (objectData: {
+  id: string;
+  otpInput: string;
+}) => {
+  const { id, otpInput } = _.assign({}, Object.freeze(objectData));
 
-  // Check if user was verified already
+  const userToBeAuthenticated: User = await findEntity(UserModel, {
+    id,
+  });
+
+  userToBeAuthenticated
+    ? _.identity(userToBeAuthenticated)
+    : returnCheckMessage(mU.user_does_not_exist);
+
+  const { isVerified, otp, expiresAt } = userToBeAuthenticated;
+
+  // verified already?
   isVerified ? returnCheckMessage(mU.user_is_verified) : mO.null;
 
-  // Check if incorrect otp was entered
-  not(compareValues(otp, [otpInputed]))
-    ? returnCheckMessage(mC.otp_invalid)
-    : mO.null;
+  // correct otp?
+  _.includes([otpInput], otp) ? mO.null : returnCheckMessage(mC.otp_invalid);
 
-  // Check if otp already expired
-  not(otpIsStillValid(Date.now(), expiresAt))
+  // otp expired?
+  _.negate(() => Date.now() < expiresAt)
     ? implementSetResendCodeValueToTrue(id)
     : mO.null;
 
-  // Update user status to isVerified true
+  // user to isVerified true
   try {
     return await findAUserAndUpdateFields(id, { isVerified: mO.yes });
   } catch (error: unknown) {

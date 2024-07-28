@@ -1,2 +1,12 @@
-export { getUsers } from "@src/routes/user/queries/gets";
-export { postUser } from "@src/routes/user/mutations/post";
+import mU from "@src/messages/constants/user";
+import { createUser } from "@src/services/controllers/user";
+import { getVerifiedUsers } from "@src/services/controllers/user";
+import { getRouteFactory } from "@src/utilities/routes_factory/get";
+import { postRouteFactory } from "@src/utilities/routes_factory/post";
+
+export const postUser = postRouteFactory(mU.user, mU.users_url, createUser);
+export const getUsers = getRouteFactory(
+  mU.users_url,
+  mU.users_to_get,
+  getVerifiedUsers,
+);
