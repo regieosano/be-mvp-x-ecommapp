@@ -1,1 +1,1 @@
-export { createProduct } from "@src/services/controllers/ecommerce/product/actions/mutations";
+export { createProduct } from "@src/services/controllers/ecommerce/product/actions/create";

@@ -45,7 +45,7 @@ export interface Product {
 export interface ShoppingCart {
   id: string;
   userId: string;
-  productId: [string];
+  products: [string];
 }
 
 export interface OTPData {

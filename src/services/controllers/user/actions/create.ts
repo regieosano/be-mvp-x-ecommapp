@@ -5,7 +5,7 @@ import mU from "@src/messages/constants/user";
 import mO from "@src/messages/constants/others";
 import { returnCheckMessage } from "@src/utilities/misc";
 import { findEntity } from "@src/utilities/misc";
-import { createNewUserObject } from "@src/utilities/user/crud";
+import { createNewUserObject } from "@src/utilities/user/crud/create";
 
 export const createUser: Function = async (user: User): Promise<Object> => {
   try {

@@ -5,7 +5,7 @@ import { Product } from "@src/types";
 import { findEntity } from "@src/utilities/misc";
 import { ProductModel } from "@src/models/product";
 import { returnCheckMessage } from "@src/utilities/misc";
-import { createNewProductObject } from "@src/utilities/product/crud";
+import { createNewProductObject } from "@src/utilities/product/crud/create";
 
 export const createProduct: Function = async (
   product: Product,
