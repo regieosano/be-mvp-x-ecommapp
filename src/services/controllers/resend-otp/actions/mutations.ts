@@ -1,11 +1,11 @@
-import _ from "lodash";
+import { not, is } from "ramda";
 import { UserModel } from "@src/models/user";
 import mU from "@src/messages/constants/user";
 import mO from "src/messages/constants/others";
+import { findEntity } from "@src/utilities/misc";
+import { returnCheckMessage } from "@src/utilities/misc";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
 import { findAUserAndUpdateFields } from "@src/utilities/user";
-import { returnCheckMessage } from "@src/utilities/misc";
-import { findEntity } from "@src/utilities/misc";
 import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
 
 export const sendResetOTPEmail: Function = async (userObject: {
@@ -16,16 +16,16 @@ export const sendResetOTPEmail: Function = async (userObject: {
     const user = await findEntity(UserModel, { id });
 
     // user exist?
-    _.negate(() => _.isObject(user))()
+    not(is(Object, user))
       ? returnCheckMessage(mU.user_does_not_exist)
       : mO.null;
 
-    const { isVerified, isResendCode } = user;
+    const { email, isVerified, isResendCode } = user;
 
     // user otp resend?
     isVerified
       ? returnCheckMessage(mU.user_is_verified)
-      : _.negate(() => isResendCode)()
+      : not(isResendCode)
         ? returnCheckMessage(mU.user_is_not_for_otp_resend)
         : mO.null;
 
@@ -38,11 +38,8 @@ export const sendResetOTPEmail: Function = async (userObject: {
       expiresAt: expiry,
     });
 
-    // send otp verification email
-    const { email } = user;
-
-    // set resendCode to False
-    await findAUserAndUpdateFields(user.id, { isResendCode: mO.no });
+    // set resendCode to false
+    await findAUserAndUpdateFields(id, { isResendCode: mO.no });
 
     return await createInstanceEmailBodyAndSendMail(email, generatedOTP);
   } catch (error: unknown) {

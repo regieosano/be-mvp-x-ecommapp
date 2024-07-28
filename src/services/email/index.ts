@@ -1,4 +1,3 @@
-import _ from "lodash";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 import mO from "@src/messages/constants/others";
@@ -27,7 +26,7 @@ export const sendMail = async function (_body: ObjectEmailBody) {
   const e = constantValuesForEmail();
   const emailObject = {
     emailHost: process.env.HOST_EMAIL || mO.empty_string,
-    emailPort: _.toNumber(process.env.EMAIL_PORT),
+    emailPort: Number(process.env.EMAIL_PORT),
   };
   const { emailSentTo, emailSubject, emailText, emailComposed } = _body;
   const emailTransporter = createTransporter(emailObject);

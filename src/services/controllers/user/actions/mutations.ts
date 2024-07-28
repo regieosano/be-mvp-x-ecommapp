@@ -1,5 +1,4 @@
-import _ from "lodash";
-import { User, PostObject } from "@src/types";
+import { User } from "@src/types";
 import { UserModel } from "@src/models/user";
 import mH from "@src/messages/constants/http";
 import mU from "@src/messages/constants/user";
@@ -10,7 +9,7 @@ import { createNewUserObject } from "@src/utilities/user/crud";
 
 export const createUser: Function = async (user: User): Promise<Object> => {
   try {
-    const userAsNew = _.assign({}, Object.freeze(user));
+    const userAsNew = Object.assign({}, Object.freeze(user));
     const { email } = userAsNew;
 
     // email existing?

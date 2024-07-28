@@ -1,8 +1,7 @@
-import _ from "lodash";
 import mH from "@src/messages/constants/http";
 import mO from "@src/messages/constants/others";
 import mP from "@src/messages/constants/product";
-import { Product, PostObject } from "@src/types";
+import { Product } from "@src/types";
 import { findEntity } from "@src/utilities/misc";
 import { ProductModel } from "@src/models/product";
 import { returnCheckMessage } from "@src/utilities/misc";
@@ -10,9 +9,9 @@ import { createNewProductObject } from "@src/utilities/product/crud";
 
 export const createProduct: Function = async (
   product: Product,
-): Promise<PostObject> => {
+): Promise<Object> => {
   try {
-    const productAsNew = _.assign({}, Object.freeze(product));
+    const productAsNew = Object.assign({}, Object.freeze(product));
     const { name } = productAsNew;
 
     // product existing?

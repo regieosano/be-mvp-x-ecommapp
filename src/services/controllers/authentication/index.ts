@@ -1,11 +1,11 @@
-import _ from "lodash";
 import { User } from "@src/types";
 import { UserModel } from "@src/models/user";
 import mC from "@src/messages/constants/otp";
 import mU from "@src/messages/constants/user";
 import mO from "@src/messages/constants/others";
-import { returnCheckMessage } from "@src/utilities/misc";
+import { not, includes, identity } from "ramda";
 import { findEntity } from "@src/utilities/misc";
+import { returnCheckMessage } from "@src/utilities/misc";
 import { findAUserAndUpdateFields } from "@src/utilities/user";
 import { implementSetResendCodeValueToTrue } from "@src/utilities/otp";
 
@@ -13,14 +13,14 @@ export const authenticateUser = async (objectData: {
   id: string;
   otpInput: string;
 }) => {
-  const { id, otpInput } = _.assign({}, Object.freeze(objectData));
+  const { id, otpInput } = Object.assign({}, Object.freeze(objectData));
 
   const userToBeAuthenticated: User = await findEntity(UserModel, {
     id,
   });
 
   userToBeAuthenticated
-    ? _.identity(userToBeAuthenticated)
+    ? identity(userToBeAuthenticated)
     : returnCheckMessage(mU.user_does_not_exist);
 
   const { isVerified, otp, expiresAt } = userToBeAuthenticated;
@@ -29,12 +29,10 @@ export const authenticateUser = async (objectData: {
   isVerified ? returnCheckMessage(mU.user_is_verified) : mO.null;
 
   // correct otp?
-  _.includes([otpInput], otp) ? mO.null : returnCheckMessage(mC.otp_invalid);
+  includes(otp, [otpInput]) ? mO.null : returnCheckMessage(mC.otp_invalid);
 
   // otp expired?
-  _.negate(() => Date.now() < expiresAt)
-    ? implementSetResendCodeValueToTrue(id)
-    : mO.null;
+  not(Date.now() < expiresAt) ? implementSetResendCodeValueToTrue(id) : mO.null;
 
   // user to isVerified true
   try {

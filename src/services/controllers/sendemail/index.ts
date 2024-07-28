@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { identity } from "ramda";
 import { UserModel } from "@src/models/user";
 import mU from "@src/messages/constants/user";
 import { findEntity } from "@src/utilities/misc";
@@ -14,7 +14,7 @@ export const sendOTPEmail = async function (userData: {
 
     const user = await findEntity(UserModel, { email });
 
-    user ? _.identity(user) : returnCheckMessage(mU.user_does_not_exist);
+    user ? identity(user) : returnCheckMessage(mU.user_does_not_exist);
 
     // send otp verification email
     const result = await createInstanceEmailBodyAndSendMail(email, otp);

@@ -23,11 +23,11 @@ export default async (app: Application) => {
   app.use(mO.main_prefix, routesArray);
 
   // catch-all routes
-  app.get("/", (req, res) => {
+  app.get(mS.api_main_slash, (req, res) => {
     res.status(mH.ok).send(mS.api_root_response);
   });
 
-  app.all("*", (req, res) => {
+  app.all(mS.api_all, (req, res) => {
     res.status(mH.not_found).send(mS.non_existing_endpoint);
   });
 

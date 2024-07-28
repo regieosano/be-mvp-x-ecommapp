@@ -1,10 +1,9 @@
 import Joi from "joi";
-import _ from "lodash";
 import { Product } from "@src/types";
 import mV from "@src/messages/constants/validation";
 
 export const productValidation = function (productBody: Product) {
-  const productBodyForChecking = _.assign({}, Object.freeze(productBody));
+  const productBodyForChecking = Object.assign({}, Object.freeze(productBody));
 
   function validateProductBody() {
     return Joi.object({
