@@ -1,4 +1,13 @@
 import { UserModel } from "@src/models/user";
+import mO from "@src/messages/constants/others";
+
+export const setResendCodeToTrue: Function = async (_id: string) => {
+  try {
+    return await findAUserAndUpdateFields(_id, { isResendCode: mO.yes });
+  } catch (error: unknown) {
+    throw `${error}`;
+  }
+};
 
 export const findAUserAndUpdateFields: Function = async (
   id: string,

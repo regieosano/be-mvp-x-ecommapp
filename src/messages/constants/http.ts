@@ -14,8 +14,8 @@ const m = (function () {
       created: CREATED,
       expired: EXPIRED,
       not_found: NOT_FOUND,
-      internal_server_error_code: INTERNAL_SERVER_ERROR_CODE,
       user_properties: USERS_PROPERTIES,
+      internal_server_error_code: INTERNAL_SERVER_ERROR_CODE,
     };
   })();
 })();

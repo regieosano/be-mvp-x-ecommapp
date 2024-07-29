@@ -1,16 +1,8 @@
 import { User } from "@src/types";
-import mO from "@src/messages/constants/others";
+
 import { encryptPassword } from "@src/utilities/password";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
 import { findAUserAndUpdateFields } from "@src/utilities/user";
-
-export const setResendCodeToTrue: Function = async (_id: string) => {
-  try {
-    return await findAUserAndUpdateFields(_id, { isResendCode: mO.yes });
-  } catch (error: unknown) {
-    throw `${error}`;
-  }
-};
 
 export const createNewUserObject: Function = async (
   candidateUser: User,
