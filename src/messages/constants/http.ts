@@ -6,7 +6,7 @@ const m = (function () {
   const NOT_FOUND = 404;
   const INTERNAL_SERVER_ERROR_CODE = 500;
   const USERS_PROPERTIES =
-    "-_id -__v -password -isVerified -isResendCode -otp -expiresAt";
+    "-__v -password -isVerified -isResendCode -otp -expiresAt";
 
   return (function () {
     return {

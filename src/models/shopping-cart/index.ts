@@ -2,19 +2,13 @@ import mongoose, { Schema } from "mongoose";
 import { ShoppingCart } from "@src/types";
 
 const ShoppingCartSchema = new Schema({
-  id: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  userId: {
-    type: String,
-    unique: true,
-    required: true,
+  shopper: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
   },
   products: [
     {
-      type: String,
+      type: Schema.Types.ObjectId,
       ref: "Product",
     },
   ],

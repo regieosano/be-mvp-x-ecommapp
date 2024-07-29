@@ -7,17 +7,17 @@ export const otpDataValidation = function (otpBodyData: OTPData) {
 
   function validateOTPBodyData() {
     return Joi.object({
-      id: Joi.string().min(5).max(mV.max_string).required(),
+      _id: Joi.string().min(5).max(mV.max_string).required(),
       otpInput: Joi.string().min(mV.min_otp).max(mV.max_otp).required(),
     });
   }
 
   return async function () {
-    const { id, otpInput } = otpBodyDataForChecking;
+    const { _id, otpInput } = otpBodyDataForChecking;
 
     try {
       const result = await validateOTPBodyData().validateAsync({
-        id,
+        _id,
         otpInput,
       });
 

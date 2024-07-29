@@ -2,11 +2,6 @@ import mongoose, { Schema } from "mongoose";
 import { Product } from "@src/types";
 
 const ProductSchema = new Schema({
-  id: {
-    type: String,
-    unique: true,
-    required: true,
-  },
   category: {
     type: String,
     ref: "Category",
