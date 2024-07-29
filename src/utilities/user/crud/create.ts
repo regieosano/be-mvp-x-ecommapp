@@ -1,8 +1,6 @@
 import { User } from "@src/types";
-
 import { encryptPassword } from "@src/utilities/password";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
-import { findAUserAndUpdateFields } from "@src/utilities/user";
 
 export const createNewUserObject: Function = async (
   candidateUser: User,

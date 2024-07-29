@@ -11,6 +11,7 @@ const m = (function () {
   const OTP_EXPIRED = "OTP already expired";
   const EXPIRY_SECONDS_FOR_RESEND_CODE = 35 * 1000;
   const OTP_VALID = "OTP is valid and User is verified";
+  const OTP_SUCCESSFULLY_VERIFIED = "OTP successfully verified";
 
   return (function () {
     return {
@@ -24,6 +25,7 @@ const m = (function () {
       expiry_seconds: EXPIRY_SECONDS,
       resend_otp_url: RESEND_OTP_URL,
       verify_otp_url: VERIFY_OTP_URL,
+      otp_successfully_verified: OTP_SUCCESSFULLY_VERIFIED,
       expiry_seconds_for_resend_code: EXPIRY_SECONDS_FOR_RESEND_CODE,
     };
   })();

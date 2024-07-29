@@ -6,7 +6,7 @@ const m = (function () {
   const FROM_ADDRESS = "The X App Team 2025 😊";
   const SUBJECT_CONTENT = "Email OTP Verification";
   const EMAIL_SENT_MESSAGE = "Email successfully sent";
-  const HTML_CONTENT = `<strong>${returnHTMLContent}</strong>`;
+  const HTML_CONTENT = `<strong>${returnHTMLContent()}</strong>`;
   function returnHTMLContent() {
     return `Your email is being validated. This is your OTP -`;
   }

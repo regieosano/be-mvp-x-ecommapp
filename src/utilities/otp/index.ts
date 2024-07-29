@@ -17,7 +17,7 @@ export const generateOTPAndExpiry = () => {
   return { generatedOTP, expiry };
 };
 
-export const implementSetResendCodeValueToTrue = (id: string) => {
-  setResendCodeToTrue(id);
+export const implementSetResendCodeValueToTrue = (_id: string) => {
+  setResendCodeToTrue(_id);
   returnCheckMessage(mC.otp_expired);
 };

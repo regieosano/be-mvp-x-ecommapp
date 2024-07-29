@@ -10,16 +10,17 @@ export const setResendCodeToTrue: Function = async (_id: string) => {
 };
 
 export const findAUserAndUpdateFields: Function = async (
-  id: string,
+  _id: string,
   objectFieldsToUpdate: {},
 ): Promise<{} | null> => {
   try {
     await UserModel.findOneAndUpdate(
-      { id },
+      { _id },
       {
         $set: objectFieldsToUpdate,
       },
     );
+
     return { message: objectFieldsToUpdate };
   } catch (error: unknown) {
     throw `${error}`;

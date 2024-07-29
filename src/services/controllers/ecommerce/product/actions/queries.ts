@@ -1,6 +1,6 @@
 import { Product } from "@src/types";
-import { ProductModel } from "@src/models/product";
 import mO from "@src/messages/constants/others";
+import { ProductModel } from "@src/models/product";
 
 export const getApprovedProducts: Function = async (
   noOfProducts: number,
