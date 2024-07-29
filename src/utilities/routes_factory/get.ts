@@ -13,7 +13,8 @@ export const getRouteFactory = function (
       urlString,
       async (req: express.Request, res: express.Response) => {
         try {
-          const records = await routeFunc(noOfRecords);
+          const { _id } = req.body;
+          const records = await routeFunc(noOfRecords, _id);
           res.status(mH.ok).json(records);
         } catch (error: unknown) {
           res

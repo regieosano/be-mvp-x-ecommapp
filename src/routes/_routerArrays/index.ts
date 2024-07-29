@@ -3,6 +3,7 @@ import { postResendOTP } from "@src/routes/resend-otp";
 import { postSendOTPEmail } from "@src/routes/sendemail";
 import { postAuthUser } from "@src/routes/authentication";
 import {
+  getAShoppingCart,
   getAllShoppingCarts,
   postShoppingCart,
 } from "@src/routes/ecommerce/shopping-cart";
@@ -12,6 +13,8 @@ export const routesArray = [
   getUsers,
   getProducts,
   getAllShoppingCarts,
+  getAShoppingCart,
+
   postUser,
   postProduct,
   postAuthUser,

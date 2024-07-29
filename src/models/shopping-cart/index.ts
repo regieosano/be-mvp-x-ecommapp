@@ -12,6 +12,11 @@ const ShoppingCartSchema = new Schema({
       ref: "Product",
     },
   ],
+  shoppingDate: {
+    type: Date,
+    require: true,
+    default: Date.now(),
+  },
 });
 
 export const ShoppingCartModel = mongoose.model<ShoppingCart>(
