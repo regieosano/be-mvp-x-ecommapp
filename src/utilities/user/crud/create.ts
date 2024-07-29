@@ -4,6 +4,14 @@ import { encryptPassword } from "@src/utilities/password";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
 import { findAUserAndUpdateFields } from "@src/utilities/user";
 
+export const setResendCodeToTrue: Function = async (_id: string) => {
+  try {
+    return await findAUserAndUpdateFields(_id, { isResendCode: mO.yes });
+  } catch (error: unknown) {
+    throw `${error}`;
+  }
+};
+
 export const createNewUserObject: Function = async (
   candidateUser: User,
 ): Promise<User> => {
@@ -29,14 +37,6 @@ export const createNewUserObject: Function = async (
     };
 
     return await qualifiedNewUser;
-  } catch (error: unknown) {
-    throw `${error}`;
-  }
-};
-
-export const setResendCodeToTrue: Function = async (_id: string) => {
-  try {
-    return await findAUserAndUpdateFields(_id, { isResendCode: mO.yes });
   } catch (error: unknown) {
     throw `${error}`;
   }
