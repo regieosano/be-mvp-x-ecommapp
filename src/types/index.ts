@@ -13,7 +13,7 @@ export interface ObjectEmailBody {
 
 // User model
 export interface User {
-  id: string;
+  _id: string;
   name: string;
   address: string;
   dob: Date;
@@ -28,13 +28,13 @@ export interface User {
 }
 
 export interface Category {
-  id: string;
+  _id: string;
   name: string;
   description: string;
 }
 
 export interface Product {
-  id: string;
+  _id: string;
   category: string;
   name: string;
   description: string;
@@ -43,19 +43,19 @@ export interface Product {
 }
 
 export interface ShoppingCart {
-  id: string;
-  userId: string;
+  _id: string;
+  shopper: string;
   products: [string];
 }
 
 export interface OTPData {
-  id: string;
+  _id: string;
   otpInput: string;
   expiresAt: number;
 }
 
 export interface KeySearchObject {
-  id: string;
+  _id: string;
   otherField: string;
 }
 
@@ -65,5 +65,5 @@ export interface EmailOTP {
 }
 
 export interface ResendOTP {
-  id: string;
+  _id: string;
 }

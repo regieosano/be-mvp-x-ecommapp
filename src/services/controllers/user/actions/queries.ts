@@ -7,9 +7,9 @@ export const getVerifiedUsers: Function = async (
   noOfUsers: number,
 ): Promise<User[] | null> => {
   try {
-    // Get all "verified" users
+    // get all "verified" users
     const verifiedUsers = await UserModel.find({
-      isVerified: mO.yes,
+      isVerified: mO.no,
     })
       .select(mH.user_properties)
       .limit(noOfUsers);

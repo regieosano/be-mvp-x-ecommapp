@@ -1,6 +1,7 @@
 import Joi from "joi";
 import { ShoppingCart } from "@src/types";
 import mV from "@src/messages/constants/validation";
+import mP from "@src/messages/constants/product";
 
 export const shoppingCartValidation = function (
   shoppingCartBody: ShoppingCart,
@@ -12,17 +13,24 @@ export const shoppingCartValidation = function (
 
   function validateShoppingCartBody() {
     return Joi.object({
-      userId: Joi.string().min(mV.min_string).max(mV.max_string).required(),
-      products: Joi.array().items(Joi.string()).required(),
+      shopper: Joi.string().min(mV.min_string).max(mV.max_string).required(),
+      products: Joi.array()
+        .items(
+          Joi.string()
+            .min(mP.min_product_id_length)
+            .max(mV.max_string)
+            .required(),
+        )
+        .required(),
     });
   }
 
   return async function () {
-    const { userId, products } = shoppingCartBodyForChecking;
+    const { shopper, products } = shoppingCartBodyForChecking;
 
     try {
       const result = await validateShoppingCartBody().validateAsync({
-        userId,
+        shopper,
         products,
       });
 

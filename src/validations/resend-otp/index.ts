@@ -7,16 +7,16 @@ export const resendOtpDataValidation = function (resendOtpBodyData: ResendOTP) {
 
   function validateResendOtpBodyData() {
     return Joi.object({
-      id: Joi.string().min(36).max(mV.max_string).required(),
+      _id: Joi.string().min(36).max(mV.max_string).required(),
     });
   }
 
   return async function () {
-    const { id } = resendOtpBodyDataForChecking;
+    const { _id } = resendOtpBodyDataForChecking;
 
     try {
       const result = await validateResendOtpBodyData().validateAsync({
-        id,
+        _id,
       });
 
       return result;

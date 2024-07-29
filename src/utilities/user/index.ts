@@ -1,6 +1,4 @@
 import { UserModel } from "@src/models/user";
-import { KeySearchObject } from "@src/types";
-import { User } from "@src/types";
 
 export const findAUserAndUpdateFields: Function = async (
   id: string,

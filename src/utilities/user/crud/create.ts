@@ -1,5 +1,4 @@
 import { User } from "@src/types";
-import { v4 as uuidv4 } from "uuid";
 import mO from "@src/messages/constants/others";
 import { encryptPassword } from "@src/utilities/password";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
@@ -11,9 +10,6 @@ export const createNewUserObject: Function = async (
   try {
     // OTP Generation and Expiry
     const { generatedOTP, expiry } = generateOTPAndExpiry();
-
-    // Create user id by means of uuid library
-    const newUserId = uuidv4();
 
     // Password encryption
     let encryptedPassword;
@@ -27,7 +23,6 @@ export const createNewUserObject: Function = async (
     // Store new values for new user
     const qualifiedNewUser = {
       ...candidateUser,
-      id: newUserId,
       password: encryptedPassword,
       otp: generatedOTP,
       expiresAt: expiry,
@@ -39,9 +34,9 @@ export const createNewUserObject: Function = async (
   }
 };
 
-export const setResendCodeToTrue: Function = async (id: string) => {
+export const setResendCodeToTrue: Function = async (_id: string) => {
   try {
-    return await findAUserAndUpdateFields(id, { isResendCode: mO.yes });
+    return await findAUserAndUpdateFields(_id, { isResendCode: mO.yes });
   } catch (error: unknown) {
     throw `${error}`;
   }

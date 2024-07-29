@@ -9,11 +9,11 @@ import { findAUserAndUpdateFields } from "@src/utilities/user";
 import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
 
 export const sendResetOTPEmail: Function = async (userObject: {
-  id: string;
+  _id: string;
 }) => {
   try {
-    const { id } = userObject;
-    const user = await findEntity(UserModel, { id });
+    const { _id } = userObject;
+    const user = await findEntity(UserModel, { _id });
 
     // user exist?
     not(is(Object, user))
@@ -39,7 +39,7 @@ export const sendResetOTPEmail: Function = async (userObject: {
     });
 
     // set resendCode to false
-    await findAUserAndUpdateFields(id, { isResendCode: mO.no });
+    await findAUserAndUpdateFields(_id, { isResendCode: mO.no });
 
     return await createInstanceEmailBodyAndSendMail(email, generatedOTP);
   } catch (error: unknown) {

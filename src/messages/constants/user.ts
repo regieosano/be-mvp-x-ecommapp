@@ -2,7 +2,7 @@ const m = (function () {
   // User Messages
   const USERS_TO_GET = 500;
   const USERS_PROPERTIES =
-    "-_id -__v -password -isVerified -isResendCode -otp -expiresAt";
+    "-__v -password -isVerified -isResendCode -otp -expiresAt";
   const USER_DOES_NOT_EXIST = "User does not exist";
   const RECORD_CREATED_MESSAGE = "A new user was created";
   const USER_OTP_RESEND_DONE = "A new OTP was sent";
@@ -17,7 +17,7 @@ const m = (function () {
       users_to_get: USERS_TO_GET,
       user: USER,
       users_url: USERS_URL,
-      users_properties: USERS_PROPERTIES,
+      // users_properties: USERS_PROPERTIES,
       user_does_not_exist: USER_DOES_NOT_EXIST,
       record_created_message: RECORD_CREATED_MESSAGE,
       user_otp_resend_done: USER_OTP_RESEND_DONE,

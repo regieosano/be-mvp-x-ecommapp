@@ -10,13 +10,13 @@ import { findAUserAndUpdateFields } from "@src/utilities/user";
 import { implementSetResendCodeValueToTrue } from "@src/utilities/otp";
 
 export const authenticateUser = async (objectData: {
-  id: string;
+  _id: string;
   otpInput: string;
 }) => {
-  const { id, otpInput } = Object.assign({}, Object.freeze(objectData));
+  const { _id, otpInput } = Object.assign({}, Object.freeze(objectData));
 
   const userToBeAuthenticated: User = await findEntity(UserModel, {
-    id,
+    _id,
   });
 
   userToBeAuthenticated
@@ -32,11 +32,13 @@ export const authenticateUser = async (objectData: {
   includes(otp, [otpInput]) ? mO.null : returnCheckMessage(mC.otp_invalid);
 
   // otp expired?
-  not(Date.now() < expiresAt) ? implementSetResendCodeValueToTrue(id) : mO.null;
+  not(Date.now() < expiresAt)
+    ? implementSetResendCodeValueToTrue(_id)
+    : mO.null;
 
   // user to isVerified true
   try {
-    return await findAUserAndUpdateFields(id, { isVerified: mO.yes });
+    return await findAUserAndUpdateFields(_id, { isVerified: mO.yes });
   } catch (error: unknown) {
     throw `${error}`;
   }

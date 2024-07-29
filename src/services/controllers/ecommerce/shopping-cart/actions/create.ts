@@ -13,12 +13,12 @@ export const createShoppingCart: Function = async (
 ): Promise<Object> => {
   try {
     const shoppingCartAsNew = Object.assign({}, Object.freeze(shoppingCart));
-    const { userId } = shoppingCartAsNew;
-    const id = userId;
+    const { shopper } = shoppingCartAsNew;
+    const _id = shopper;
 
     // user id not existing?
     const _user: User = await findEntity(UserModel, {
-      id,
+      _id,
     });
 
     _user
