@@ -1,5 +1,5 @@
 export { User, UserList } from "@src/types/user";
-export { Response } from "@src/types/misc";
+export { ModelObject, ObjectList, Response } from "@src/types/misc";
 export {
   EmailOTP,
   ObjectEmailAndPortType,

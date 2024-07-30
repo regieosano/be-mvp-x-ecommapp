@@ -5,21 +5,34 @@ import mU from "@src/messages/constants/user";
 import mO from "@src/messages/constants/others";
 import { findEntity } from "@src/utilities/misc";
 import { returnCheckMessage } from "@src/utilities/misc";
-import { createNewUserObject } from "@src/utilities/user/crud/create";
+import { encryptPassword } from "@src/utilities/password";
+import { generateOTPAndExpiry } from "@src/utilities/otp";
+import { createObject } from "@src/utilities/crudFactory/create";
 
-export const createUser: Function = async (user: User): Promise<Object> => {
+export const createUser: Function = async (user: User): Promise<Response> => {
   try {
     const userAsNew = Object.assign({}, Object.freeze(user));
     const { email } = userAsNew;
 
-    // email existing?
     const _user: User = await findEntity(UserModel, { email });
 
     _user ? returnCheckMessage(mU.user_message_exist_on_email) : mO.null;
 
-    // new user persisted
-    const newUser: User = await createNewUserObject(userAsNew);
-    await new UserModel(newUser).save();
+    const { generatedOTP, expiry } = generateOTPAndExpiry();
+
+    let encryptedPassword;
+
+    const { password } = userAsNew;
+    encryptedPassword = await encryptPassword(password);
+
+    const qualifiedNewUser: User = {
+      ...userAsNew,
+      password: encryptedPassword,
+      otp: generatedOTP,
+      expiresAt: expiry,
+    };
+
+    const newUser: User = await createObject(UserModel, qualifiedNewUser);
 
     const result: Response = {
       message: mU.record_created_message,
