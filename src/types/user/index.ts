@@ -12,3 +12,5 @@ export type User = {
   otp: string;
   expiresAt: number;
 };
+
+export type UserList = User[] | null;

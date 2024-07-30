@@ -18,3 +18,6 @@ export type ShoppingCart = {
   shopper: string;
   products: [string];
 };
+
+export type ProductList = Product[] | null;
+export type ShoppingCartList = ShoppingCart[] | null;
