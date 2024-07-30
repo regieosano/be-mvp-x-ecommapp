@@ -1,7 +1,7 @@
 import mH from "@src/messages/constants/http";
 import mE from "@src/messages/constants/email";
-import { sendMail } from "@src/services/email";
-import { constantValuesForEmail } from "@src/services/email/content";
+import { sendMail } from "@src/utilities/email/sendemail";
+import { constantValuesForEmail } from "@src/utilities/email/sendemail/content";
 
 export async function createInstanceEmailBodyAndSendMail(
   userEmail: string,
