@@ -1,14 +1,14 @@
-import { User } from "@src/types";
+import { UserList } from "@src/types";
 import { UserModel } from "@src/models/user";
 import mH from "@src/messages/constants/http";
 import mO from "@src/messages/constants/others";
 
 export const getVerifiedUsers: Function = async (
   noOfUsers: number,
-): Promise<User[] | null> => {
+): Promise<UserList> => {
   try {
     // get all "verified" users
-    const verifiedUsers: User[] = await UserModel.find({
+    const verifiedUsers: UserList = await UserModel.find({
       isVerified: mO.yes,
     })
       .select(mH.user_properties)

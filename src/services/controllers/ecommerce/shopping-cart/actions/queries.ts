@@ -1,4 +1,4 @@
-import { ShoppingCart } from "@src/types";
+import { ShoppingCart, ShoppingCartList } from "@src/types";
 import mS from "@src/messages/constants/shopping-cart";
 import { ShoppingCartModel } from "@src/models/shopping-cart";
 
@@ -18,9 +18,9 @@ const populateProductDeclarations = () => {
 
 export const getShoppingCarts: Function = async (
   noOfShoppingCarts: number,
-): Promise<ShoppingCart[] | null> => {
+): Promise<ShoppingCartList> => {
   try {
-    const shoppingCarts = await ShoppingCartModel.find()
+    const shoppingCarts: ShoppingCartList = await ShoppingCartModel.find()
       .populate(populateShopperDeclarations())
       .populate(populateProductDeclarations())
       .limit(noOfShoppingCarts);
