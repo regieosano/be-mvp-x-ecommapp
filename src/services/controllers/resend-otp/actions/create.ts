@@ -27,10 +27,8 @@ export const sendResetOTPEmail: Function = async (userObject: {
         ? returnCheckMessage(mU.user_is_not_for_otp_resend)
         : mO.null;
 
-    // otp generation
     const { generatedOTP, expiry } = generateOTPAndExpiry();
 
-    // store new otp code
     await findAUserAndUpdateFields(user.id, {
       otp: generatedOTP,
       expiresAt: expiry,
