@@ -2,6 +2,7 @@ import { User } from "@src/types";
 import { UserModel } from "@src/models/user";
 import mC from "@src/messages/constants/otp";
 import mU from "@src/messages/constants/user";
+import mH from "@src/messages/constants/http";
 import mO from "@src/messages/constants/others";
 import { not, includes, identity } from "ramda";
 import { findEntity } from "@src/utilities/misc";
@@ -25,20 +26,24 @@ export const authenticateUser = async (objectData: {
 
   const { isVerified, otp, expiresAt } = userToBeAuthenticated;
 
-  // verified already?
   isVerified ? returnCheckMessage(mU.user_is_verified) : mO.null;
 
-  // correct otp?
   includes(otp, [otpInput]) ? mO.null : returnCheckMessage(mC.otp_invalid);
 
-  // otp expired?
   not(Date.now() < expiresAt)
     ? implementSetResendCodeValueToTrue(_id)
     : mO.null;
 
-  // user to isVerified true
   try {
-    return await findAUserAndUpdateFields(_id, { isVerified: mO.yes });
+    const { message } = await findAUserAndUpdateFields(_id, {
+      isVerified: mO.yes,
+    });
+
+    return {
+      message: mC.otp_successfully_verified,
+      data: { user: message },
+      http: mH.ok,
+    };
   } catch (error: unknown) {
     throw `${error}`;
   }

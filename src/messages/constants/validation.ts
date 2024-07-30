@@ -1,25 +1,25 @@
 const m = (function () {
   // Validation Messages and Values
-  const MIN_STRING = 2;
-  const MAX_STRING = 255;
-  const MIN_CELL_NUM = 8;
-  const MAX_CELL_NUM = 25;
-  const MIN_PASSWORD = 8;
-  const MAX_PASSWORD = 25;
-  const MAX_GENDER = 20;
-  const MIN_GENDER = 1;
   const MIN_QTY = 0;
   const MIN_OTP = 6;
   const MAX_OTP = 6;
-  const MAX_PRICE = 1000000;
-  const MIN_PRICE = 1;
-  const MAX_QTY = 500000;
-  const V_USER = "user";
-  const V_PRODUCT = "product";
-  const V_SHOPPING_CART = "shopping-cart";
   const V_OTP = "otp";
+  const MIN_PRICE = 1;
+  const V_USER = "user";
+  const MIN_GENDER = 1;
+  const MIN_STRING = 20;
+  const MAX_GENDER = 20;
+  const MAX_STRING = 255;
   const V_EMAIL = "email";
+  const MAX_QTY = 500000;
+  const MIN_PASSWORD = 8;
+  const MIN_CELL_NUM = 8;
+  const MAX_CELL_NUM = 25;
+  const MAX_PASSWORD = 25;
+  const MAX_PRICE = 1000000;
+  const V_PRODUCT = "product";
   const V_RESEND_OTP = "resend-otp";
+  const V_SHOPPING_CART = "shopping-cart";
 
   return (function () {
     return {
