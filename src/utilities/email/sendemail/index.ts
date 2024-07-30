@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
+import { ObjectEmailBody } from "@src/types";
 import mO from "@src/messages/constants/others";
 import { constantValuesForEmail } from "@src/utilities/email/sendemail/content";
 import { createTransporter } from "@src/utilities/email/sendemail/mailtransporter";
-import { ObjectEmailBody } from "@src/types";
 
 dotenv.config();
 
