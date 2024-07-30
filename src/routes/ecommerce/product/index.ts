@@ -1,6 +1,6 @@
 import mP from "@src/messages/constants/product";
-import { postRouteFactory } from "@src/utilities/routes_factory/post";
-import { getRouteFactory } from "@src/utilities/routes_factory/get";
+import { getRouteFactory } from "@src/routes/_routesFactory/get";
+import { postRouteFactory } from "@src/routes/_routesFactory/post";
 import { createProduct } from "@src/services/controllers/ecommerce/product";
 import { getApprovedProducts } from "@src/services/controllers/ecommerce/product/actions/queries";
 

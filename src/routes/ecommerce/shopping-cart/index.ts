@@ -1,6 +1,6 @@
 import mS from "@src/messages/constants/shopping-cart";
-import { getRouteFactory } from "@src/utilities/routes_factory/get";
-import { postRouteFactory } from "@src/utilities/routes_factory/post";
+import { getRouteFactory } from "@src/routes/_routesFactory/get";
+import { postRouteFactory } from "@src/routes/_routesFactory/post";
 import { createShoppingCart } from "@src/services/controllers/ecommerce/shopping-cart";
 import {
   getShoppingCarts,
