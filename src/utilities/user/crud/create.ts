@@ -9,12 +9,9 @@ export const createNewUserObject: Function = async (
     const { generatedOTP, expiry } = generateOTPAndExpiry();
 
     let encryptedPassword;
-    try {
-      const { password } = candidateUser;
-      encryptedPassword = await encryptPassword(password);
-    } catch (error: unknown) {
-      throw `${error}`;
-    }
+
+    const { password } = candidateUser;
+    encryptedPassword = await encryptPassword(password);
 
     // store new values
     const qualifiedNewUser: User = {
