@@ -1,4 +1,4 @@
-export interface User {
+export type User = {
   _id: string;
   name: string;
   address: string;
@@ -11,4 +11,4 @@ export interface User {
   isResendCode: boolean;
   otp: string;
   expiresAt: number;
-}
+};
