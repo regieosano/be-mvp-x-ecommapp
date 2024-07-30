@@ -1,7 +1,7 @@
 import mC from "@src/messages/constants/otp";
 import mU from "@src/messages/constants/user";
 import { sendResetOTPEmail } from "@src/services/controllers/resend-otp";
-import { postRouteFactory } from "@src/utilities/routes_factory/post";
+import { postRouteFactory } from "@src/routes/_routesFactory/post";
 
 export const postResendOTP = postRouteFactory(
   mC.resend_otp,
