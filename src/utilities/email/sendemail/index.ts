@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 import mO from "@src/messages/constants/others";
-import { constantValuesForEmail } from "@src/services/email/content";
+import { constantValuesForEmail } from "@src/utilities/email/sendemail/content";
 import { ObjectEmailAndPortType, ObjectEmailBody } from "@src/types";
 
 dotenv.config();
