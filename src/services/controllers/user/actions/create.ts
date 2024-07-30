@@ -1,10 +1,10 @@
-import { User } from "@src/types";
+import { User, Response } from "@src/types";
 import { UserModel } from "@src/models/user";
 import mH from "@src/messages/constants/http";
 import mU from "@src/messages/constants/user";
 import mO from "@src/messages/constants/others";
-import { returnCheckMessage } from "@src/utilities/misc";
 import { findEntity } from "@src/utilities/misc";
+import { returnCheckMessage } from "@src/utilities/misc";
 import { createNewUserObject } from "@src/utilities/user/crud/create";
 
 export const createUser: Function = async (user: User): Promise<Object> => {
@@ -17,11 +17,11 @@ export const createUser: Function = async (user: User): Promise<Object> => {
 
     _user ? returnCheckMessage(mU.user_message_exist_on_email) : mO.null;
 
-    // New user created and persisted
+    // new user persisted
     const newUser: User = await createNewUserObject(userAsNew);
     await new UserModel(newUser).save();
 
-    const result = {
+    const result: Response = {
       message: mU.record_created_message,
       data: newUser,
       http: mH.created,

@@ -15,7 +15,6 @@ export const sendResetOTPEmail: Function = async (userObject: {
     const { _id } = userObject;
     const user = await findEntity(UserModel, { _id });
 
-    // user exist?
     not(is(Object, user))
       ? returnCheckMessage(mU.user_does_not_exist)
       : mO.null;

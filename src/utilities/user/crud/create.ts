@@ -6,10 +6,8 @@ export const createNewUserObject: Function = async (
   candidateUser: User,
 ): Promise<User> => {
   try {
-    // OTP Generation and Expiry
     const { generatedOTP, expiry } = generateOTPAndExpiry();
 
-    // Password encryption
     let encryptedPassword;
     try {
       const { password } = candidateUser;
@@ -18,8 +16,8 @@ export const createNewUserObject: Function = async (
       throw `${error}`;
     }
 
-    // Store new values for new user
-    const qualifiedNewUser = {
+    // store new values
+    const qualifiedNewUser: User = {
       ...candidateUser,
       password: encryptedPassword,
       otp: generatedOTP,

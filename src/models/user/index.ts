@@ -43,10 +43,12 @@ const UserSchema = new Schema({
   otp: {
     type: String,
     required: false,
+    default: "",
   },
   expiresAt: {
     type: Number,
     required: false,
+    default: 0,
   },
 });
 

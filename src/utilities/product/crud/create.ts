@@ -5,7 +5,7 @@ export const createNewProductObject: Function = async (
 ): Promise<Product> => {
   try {
     // object new product
-    const qualifiedNewProduct = {
+    const qualifiedNewProduct: Product = {
       ...candidateProduct,
     };
 
