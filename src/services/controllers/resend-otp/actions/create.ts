@@ -2,10 +2,10 @@ import { not, is } from "ramda";
 import { UserModel } from "@src/models/user";
 import mU from "@src/messages/constants/user";
 import mO from "src/messages/constants/others";
-import { findEntity } from "@src/utilities/misc";
-import { returnCheckMessage } from "@src/utilities/misc";
+import { findEntity } from "@src/utilities/misc/find";
+import { returnCheckMessage } from "@src/utilities/misc/check";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
-import { findEntityAndUpdateFields } from "@src/utilities/misc";
+import { findEntityAndUpdateFields } from "@src/utilities/misc/find";
 import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
 
 export const sendResetOTPEmail: Function = async (userObject: {

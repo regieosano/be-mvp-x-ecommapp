@@ -1,5 +1,5 @@
 import { UserModel } from "@src/models/user";
-import { findEntityAndUpdateFields } from "@src/utilities/misc";
+import { findEntityAndUpdateFields } from "@src/utilities/misc/find";
 import mO from "@src/messages/constants/others";
 
 export const setUserResendCodeToTrue: Function = async (_id: string) => {

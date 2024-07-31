@@ -1,8 +1,8 @@
 import { identity } from "ramda";
 import { UserModel } from "@src/models/user";
 import mU from "@src/messages/constants/user";
-import { findEntity } from "@src/utilities/misc";
-import { returnCheckMessage } from "@src/utilities/misc";
+import { findEntity } from "@src/utilities/misc/find";
+import { returnCheckMessage } from "@src/utilities/misc/check";
 import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
 
 export const sendOTPEmail = async function (userData: {

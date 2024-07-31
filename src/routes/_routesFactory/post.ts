@@ -3,10 +3,10 @@ import { equals } from "ramda";
 import mH from "@src/messages/constants/http";
 import mS from "@src/messages/constants/server";
 import mO from "@src/messages/constants/others";
-import { checkJSONBody } from "@src/utilities/misc";
+import { checkJSONBody } from "@src/utilities/misc/check";
 import httpVerb from "@src/routes/_routerDeclaration";
 import { validationsObjectArray } from "@src/validations";
-import { newInputValidationData } from "@src/utilities/misc";
+import { newInputValidationData } from "@src/validations/helper";
 
 export const postRouteFactory = function (
   routeString: string,
