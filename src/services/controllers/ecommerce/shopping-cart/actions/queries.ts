@@ -23,12 +23,14 @@ export const getShoppingCartsByShopper: Function = async (
   _id: string,
 ): Promise<ShoppingEntity> => {
   try {
-    const shoppingCart = await shoppingFindCartsDeclaration(
+    const shoppingCartArray = await shoppingFindCartsDeclaration(
       noOfShoppingCarts,
       _id,
     );
 
-    return head(shoppingCart);
+    const shopperCart = head(shoppingCartArray);
+
+    return shopperCart;
   } catch (error: unknown) {
     throw `${error}`;
   }
