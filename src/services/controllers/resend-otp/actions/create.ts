@@ -5,7 +5,7 @@ import mO from "src/messages/constants/others";
 import { findEntity } from "@src/utilities/misc";
 import { returnCheckMessage } from "@src/utilities/misc";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
-import { findAUserAndUpdateFields } from "@src/utilities/user";
+import { findEntityAndUpdateFields } from "@src/utilities/misc";
 import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
 
 export const sendResetOTPEmail: Function = async (userObject: {
@@ -29,13 +29,17 @@ export const sendResetOTPEmail: Function = async (userObject: {
 
     const { generatedOTP, expiry } = generateOTPAndExpiry();
 
-    await findAUserAndUpdateFields(user.id, {
-      otp: generatedOTP,
-      expiresAt: expiry,
-    });
+    await findEntityAndUpdateFields(
+      user.id,
+      {
+        otp: generatedOTP,
+        expiresAt: expiry,
+      },
+      UserModel,
+    );
 
     // set resendCode to false
-    await findAUserAndUpdateFields(_id, { isResendCode: mO.no });
+    await findEntityAndUpdateFields(_id, { isResendCode: mO.no }, UserModel);
 
     return await createInstanceEmailBodyAndSendMail(email, generatedOTP);
   } catch (error: unknown) {

@@ -7,7 +7,7 @@ import mO from "@src/messages/constants/others";
 import { not, includes, identity } from "ramda";
 import { findEntity } from "@src/utilities/misc";
 import { returnCheckMessage } from "@src/utilities/misc";
-import { findAUserAndUpdateFields } from "@src/utilities/user";
+import { findEntityAndUpdateFields } from "@src/utilities/misc";
 import { implementSetResendCodeValueToTrue } from "@src/utilities/otp";
 
 export const authenticateUser = async (objectData: {
@@ -35,9 +35,13 @@ export const authenticateUser = async (objectData: {
     : mO.null;
 
   try {
-    const { message } = await findAUserAndUpdateFields(_id, {
-      isVerified: mO.yes,
-    });
+    const { message } = await findEntityAndUpdateFields(
+      _id,
+      {
+        isVerified: mO.yes,
+      },
+      UserModel,
+    );
 
     return {
       message: mC.otp_successfully_verified,

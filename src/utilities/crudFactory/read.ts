@@ -1,11 +1,10 @@
-import { ModelObject, ObjectList } from "@src/types";
+import { ObjectList } from "@src/types";
 
 export const readAllObjects: Function = async (
-  noOfRecords: number,
-  modelObject: ModelObject,
+  findFunc: Function,
 ): Promise<ObjectList> => {
   try {
-    const records: ObjectList = await modelObject.find().limit(noOfRecords);
+    const records: ObjectList = await findFunc();
 
     return records;
   } catch (error: unknown) {
