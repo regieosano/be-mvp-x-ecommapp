@@ -8,7 +8,9 @@ export {
 export {
   Category,
   Product,
+  ShopperId,
   ProductList,
+  ShoppingEntity,
   ShoppingCart,
   ShoppingCartList,
 } from "@src/types/ecommerce";

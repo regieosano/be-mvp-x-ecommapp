@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { User, Product } from "@src/types";
+import { ModelObject, User, Product } from "@src/types";
 
 export const checkJSONBody = (bodyData: object) => {
   return JSON.parse(JSON.stringify(bodyData));
@@ -17,6 +17,25 @@ export const findEntity: Function = async (
     const entity = await objectModel.findOne(fieldKeyObject);
 
     return entity;
+  } catch (error: unknown) {
+    throw `${error}`;
+  }
+};
+
+export const findEntityAndUpdateFields: Function = async (
+  _id: string,
+  modelObjectEntity: ModelObject,
+  objectFieldsToUpdate: {},
+): Promise<{} | null> => {
+  try {
+    await modelObjectEntity.findOneAndUpdate(
+      { _id },
+      {
+        $set: objectFieldsToUpdate,
+      },
+    );
+
+    return { message: objectFieldsToUpdate };
   } catch (error: unknown) {
     throw `${error}`;
   }

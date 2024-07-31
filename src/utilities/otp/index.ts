@@ -1,6 +1,6 @@
 import { multiply, sum } from "ramda";
 import mC from "@src/messages/constants/otp";
-import { setResendCodeToTrue } from "@src/utilities/user";
+import { setUserResendCodeToTrue } from "@src/utilities/user";
 import { returnCheckMessage } from "@src/utilities/misc";
 
 export const generateOTPAndExpiry = () => {
@@ -18,6 +18,6 @@ export const generateOTPAndExpiry = () => {
 };
 
 export const implementSetResendCodeValueToTrue = (_id: string) => {
-  setResendCodeToTrue(_id);
+  setUserResendCodeToTrue(_id);
   returnCheckMessage(mC.otp_expired);
 };

@@ -20,4 +20,6 @@ export type ShoppingCart = {
 };
 
 export type ProductList = Product[] | null;
+export type ShopperId = string | undefined;
 export type ShoppingCartList = ShoppingCart[] | null;
+export type ShoppingEntity = ShoppingCart | undefined;
