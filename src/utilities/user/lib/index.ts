@@ -2,8 +2,8 @@ import { User } from "@src/types";
 import mC from "@src/messages/constants/otp";
 import mU from "@src/messages/constants/user";
 import mO from "@src/messages/constants/others";
+import { returnCheckMessage } from "@src/utilities/misc/check";
 import { not, includes, identity } from "ramda";
-import { returnCheckMessage } from "@src/utilities/misc";
 import { implementSetResendCodeValueToTrue } from "@src/utilities/otp";
 
 export function isUserValidCheck(user: User, otpInput: string) {

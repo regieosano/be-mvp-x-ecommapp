@@ -3,9 +3,9 @@ import { UserModel } from "@src/models/user";
 import mC from "@src/messages/constants/otp";
 import mH from "@src/messages/constants/http";
 import mO from "@src/messages/constants/others";
-import { findEntity } from "@src/utilities/misc";
+import { findEntity } from "@src/utilities/misc/find";
 import { isUserValidCheck } from "@src/utilities/user/lib";
-import { findEntityAndUpdateFields } from "@src/utilities/misc";
+import { findEntityAndUpdateFields } from "@src/utilities/misc/find";
 
 export const authenticateUser = async (objectData: {
   _id: string;

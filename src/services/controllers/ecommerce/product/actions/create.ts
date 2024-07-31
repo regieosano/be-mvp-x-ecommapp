@@ -2,9 +2,9 @@ import mH from "@src/messages/constants/http";
 import mO from "@src/messages/constants/others";
 import mP from "@src/messages/constants/product";
 import { Product, Response } from "@src/types";
-import { findEntity } from "@src/utilities/misc";
+import { findEntity } from "@src/utilities/misc/find";
 import { ProductModel } from "@src/models/product";
-import { returnCheckMessage } from "@src/utilities/misc";
+import { returnCheckMessage } from "@src/utilities/misc/check";
 import { createObject } from "@src/utilities/crudFactory/create";
 
 export const createProduct: Function = async (

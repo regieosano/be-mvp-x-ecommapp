@@ -1,9 +1,9 @@
 import { identity } from "ramda";
 import { User, Response, ShoppingCart } from "@src/types";
 import mH from "@src/messages/constants/http";
-import { findEntity } from "@src/utilities/misc";
+import { findEntity } from "@src/utilities/misc/find";
 import mS from "@src/messages/constants/shopping-cart";
-import { returnCheckMessage } from "@src/utilities/misc";
+import { returnCheckMessage } from "@src/utilities/misc/check";
 import { ShoppingCartModel } from "@src/models/shopping-cart";
 import { UserModel } from "@src/models/user";
 import { createObject } from "@src/utilities/crudFactory/create";
