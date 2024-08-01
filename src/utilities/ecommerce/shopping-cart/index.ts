@@ -18,11 +18,11 @@ const populateProductDeclarations = () => {
 
 export const shoppingFindCartsDeclaration = function (
   noOfShoppingCarts: number,
-  userId: ShopperId,
+  _shopperId: ShopperId,
 ) {
-  const objectId = userId ? { _id: userId } : {};
+  const shopperId = _shopperId ? { shopper: _shopperId } : {};
   return (async function () {
-    return await ShoppingCartModel.find(objectId)
+    return await ShoppingCartModel.find(shopperId)
       .populate(populateShopperDeclarations())
       .populate(populateProductDeclarations())
       .limit(noOfShoppingCarts);

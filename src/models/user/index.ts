@@ -1,55 +1,11 @@
-import mongoose, { Schema } from "mongoose";
 import { User } from "@src/types";
+import mongoose, { Schema } from "mongoose";
+import { entityProperties } from "@src/models/user/entityFields";
+import { applicationProperties } from "@src/models/user/applicationFields";
 
 const UserSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  address: {
-    type: String,
-    required: false,
-  },
-  dob: {
-    type: Date,
-    required: false,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  cellNumber: {
-    type: String,
-    required: false,
-  },
-  gender: {
-    type: String,
-    required: false,
-  },
-  password: {
-    type: String,
-    required: false,
-  },
-  isVerified: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  isResendCode: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  otp: {
-    type: String,
-    required: false,
-    default: "",
-  },
-  expiresAt: {
-    type: Number,
-    required: false,
-    default: 0,
-  },
+  ...entityProperties,
+  ...applicationProperties,
 });
 
 export const UserModel = mongoose.model<User>("User", UserSchema);
