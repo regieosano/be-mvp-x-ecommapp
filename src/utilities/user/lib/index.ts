@@ -8,9 +8,10 @@ import { implementSetResendCodeValueToTrue } from "@src/utilities/otp";
 
 export function isUserValidCheck(user: User, otpInput: string) {
   try {
-    user ? identity(user) : returnCheckMessage(mU.user_does_not_exist);
+    const userExisting = () =>
+      user ? identity(user) : returnCheckMessage(mU.user_does_not_exist);
 
-    const { _id, isVerified, otp, expiresAt } = user;
+    const { _id, isVerified, otp, expiresAt } = userExisting();
 
     isVerified ? returnCheckMessage(mU.user_is_verified) : mO.null;
 

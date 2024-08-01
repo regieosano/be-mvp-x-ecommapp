@@ -1,6 +1,5 @@
-import Joi from "joi";
 import { Product } from "@src/types";
-import { validateProductBody } from "@src/validations/helper/productValidation";
+import { validateProductBodyData } from "@src/validations/helper/productValidation";
 
 export const productValidation = function (productBody: Product) {
   const productBodyForChecking = Object.assign({}, Object.freeze(productBody));
@@ -9,7 +8,7 @@ export const productValidation = function (productBody: Product) {
     const { category, name, description, price, qty } = productBodyForChecking;
 
     try {
-      const result = await validateProductBody().validateAsync({
+      const result = await validateProductBodyData().validateAsync({
         category,
         name,
         description,

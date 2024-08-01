@@ -1,16 +1,8 @@
-import Joi from "joi";
 import { OTPData } from "@src/types";
-import mV from "@src/messages/constants/validation";
+import { validateOTPBodyData } from "@src/validations/helper/otpValidation";
 
 export const otpDataValidation = function (otpBodyData: OTPData) {
   const otpBodyDataForChecking = { ...otpBodyData };
-
-  function validateOTPBodyData() {
-    return Joi.object({
-      _id: Joi.string().min(5).max(mV.max_string).required(),
-      otpInput: Joi.string().min(mV.min_otp).max(mV.max_otp).required(),
-    });
-  }
 
   return async function () {
     const { _id, otpInput } = otpBodyDataForChecking;
