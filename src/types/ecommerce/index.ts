@@ -8,6 +8,7 @@ export type Product = {
   _id: string;
   category: string;
   name: string;
+  imagePath: string;
   description: string;
   price: number;
   qty: number;
@@ -22,4 +23,4 @@ export type ShoppingCart = {
 export type ProductList = Product[] | null;
 export type ShopperId = string | undefined;
 export type ShoppingCartList = ShoppingCart[] | null;
-export type ShoppingEntity = ShoppingCart | undefined;
+export type ShoppingEntity = ShoppingCart | undefined | never[];

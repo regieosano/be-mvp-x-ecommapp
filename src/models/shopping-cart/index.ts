@@ -1,22 +1,11 @@
-import mongoose, { Schema } from "mongoose";
 import { ShoppingCart } from "@src/types";
+import mongoose, { Schema } from "mongoose";
+import { entityProperties } from "@src/models/shopping-cart/entityFields";
+import { applicationProperties } from "@src/models/shopping-cart/applicationFields";
 
 const ShoppingCartSchema = new Schema({
-  shopper: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
-  products: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Product",
-    },
-  ],
-  shoppingDate: {
-    type: Date,
-    require: true,
-    default: Date.now(),
-  },
+  ...entityProperties,
+  ...applicationProperties,
 });
 
 export const ShoppingCartModel = mongoose.model<ShoppingCart>(
