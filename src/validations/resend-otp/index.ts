@@ -1,15 +1,8 @@
-import Joi from "joi";
 import { ResendOTP } from "@src/types";
-import mV from "@src/messages/constants/validation";
+import { validateResendOtpBodyData } from "@src/validations/helper/resendOtpValidation";
 
 export const resendOtpDataValidation = function (resendOtpBodyData: ResendOTP) {
   const resendOtpBodyDataForChecking = { ...resendOtpBodyData };
-
-  function validateResendOtpBodyData() {
-    return Joi.object({
-      _id: Joi.string().min(mV.min_string).max(mV.max_string).required(),
-    });
-  }
 
   return async function () {
     const { _id } = resendOtpBodyDataForChecking;

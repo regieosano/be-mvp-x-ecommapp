@@ -1,7 +1,7 @@
 import Joi from "joi";
 import mV from "@src/messages/constants/validation";
 
-export function validateProductBody() {
+export function validateProductBodyData() {
   return Joi.object({
     category: Joi.string().min(mV.min_string).max(mV.max_string).required(),
     name: Joi.string().min(mV.min_string).max(mV.max_string).required(),
