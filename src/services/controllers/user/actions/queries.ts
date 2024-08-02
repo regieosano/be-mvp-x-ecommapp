@@ -8,7 +8,7 @@ export const getVerifiedUsers: Function = async (
 ): Promise<UserList> => {
   try {
     const users: UserList = await readAllObjects(() =>
-      UserModel.find({ isVerified: mO.yes }).limit(noOfUsers),
+      UserModel.find({ isVerified: mO.no }).limit(noOfUsers),
     );
 
     return users;

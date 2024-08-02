@@ -1,10 +1,24 @@
 import { User } from "@src/types";
 import mC from "@src/messages/constants/otp";
+import { UserModel } from "@src/models/user";
 import mU from "@src/messages/constants/user";
 import mO from "@src/messages/constants/others";
 import { returnCheckMessage } from "@src/utilities/misc/check";
 import { not, includes, identity } from "ramda";
+import { findEntityAndUpdateFields } from "@src/utilities/misc/find";
 import { implementSetResendCodeValueToTrue } from "@src/utilities/otp";
+
+export const setUserResendCodeToTrue: Function = async (_id: string) => {
+  try {
+    return await findEntityAndUpdateFields(
+      _id,
+      { isResendCode: mO.yes },
+      UserModel,
+    );
+  } catch (error: unknown) {
+    throw `${error}`;
+  }
+};
 
 export function isUserValidCheck(user: User, otpInput: string) {
   try {
