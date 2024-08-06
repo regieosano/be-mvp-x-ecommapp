@@ -20,13 +20,9 @@ export const authenticateUser = async (objectData: {
 
     isUserValidCheck(userToBeAuthenticated, otpInput);
 
-    const { message } = await findEntityAndUpdateFields(
-      _id,
-      {
-        isVerified: mO.yes,
-      },
-      UserModel,
-    );
+    const { message } = await findEntityAndUpdateFields(_id, UserModel, {
+      isVerified: mO.yes,
+    });
 
     return {
       message: mC.otp_successfully_verified,

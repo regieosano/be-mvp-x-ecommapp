@@ -4,17 +4,15 @@ import { UserModel } from "@src/models/user";
 import mU from "@src/messages/constants/user";
 import mO from "@src/messages/constants/others";
 import { returnCheckMessage } from "@src/utilities/misc/check";
-import { not, includes, identity } from "ramda";
+import { lt, not, equals, identity } from "ramda";
 import { findEntityAndUpdateFields } from "@src/utilities/misc/find";
 import { implementSetResendCodeValueToTrue } from "@src/utilities/otp";
 
 export const setUserResendCodeToTrue: Function = async (_id: string) => {
   try {
-    return await findEntityAndUpdateFields(
-      _id,
-      { isResendCode: mO.yes },
-      UserModel,
-    );
+    return await findEntityAndUpdateFields(_id, UserModel, {
+      isResendCode: mO.yes,
+    });
   } catch (error: unknown) {
     throw `${error}`;
   }
@@ -29,9 +27,9 @@ export function isUserValidCheck(user: User, otpInput: string) {
 
     isVerified ? returnCheckMessage(mU.user_is_verified) : mO.null;
 
-    includes(otp, [otpInput]) ? mO.null : returnCheckMessage(mC.otp_invalid);
+    equals(otp, otpInput) ? mO.null : returnCheckMessage(mC.otp_invalid);
 
-    not(Date.now() < expiresAt)
+    not(lt(Date.now(), expiresAt))
       ? implementSetResendCodeValueToTrue(_id)
       : mO.null;
 

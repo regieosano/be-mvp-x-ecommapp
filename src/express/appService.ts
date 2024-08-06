@@ -16,8 +16,9 @@ export default async (app: Application) => {
   );
 
   app.use(compression());
-  app.use(bodyParser.json());
   app.use(cookieParser());
+  app.use(bodyParser.json({ limit: "50mb" }));
+  app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
   // declare routes
   app.use(mO.main_prefix, routesArray);

@@ -8,10 +8,14 @@ export type Product = {
   _id: string;
   category: string;
   name: string;
-  imagePath: string;
+  image: string;
   description: string;
   price: number;
   qty: number;
+  isApproved: boolean;
+  isAvailable: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type ShoppingCart = {

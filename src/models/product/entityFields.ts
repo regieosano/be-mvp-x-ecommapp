@@ -7,10 +7,9 @@ export const entityProperties = {
     type: String,
     required: true,
   },
-  imagePath: {
+  image: {
     type: String,
     required: true,
-    default: "img",
   },
   description: {
     type: String,
@@ -24,5 +23,25 @@ export const entityProperties = {
     type: Number,
     required: true,
     default: 0,
+  },
+  isApproved: {
+    type: Boolean,
+    required: false,
+    default: true,
+  },
+  isAvailable: {
+    type: Boolean,
+    required: false,
+    default: true,
+  },
+  createdAt: {
+    type: Date,
+    required: false,
+    default: new Date(),
+  },
+  updatedAt: {
+    type: Date,
+    required: false,
+    default: new Date(),
   },
 };
