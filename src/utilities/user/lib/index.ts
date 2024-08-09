@@ -1,40 +1,28 @@
+import {
+  isNot,
+  lessThan,
+  isEntityFound,
+  storeSameValue,
+  areTheTwoMatch,
+} from "@src/functions";
 import { User } from "@src/types";
 import mC from "@src/messages/constants/otp";
-import { UserModel } from "@src/models/user";
 import mU from "@src/messages/constants/user";
 import mO from "@src/messages/constants/others";
 import { returnCheckMessage } from "@src/utilities/misc/check";
-import { lt, not, equals, identity } from "ramda";
-import { findEntityAndUpdateFields } from "@src/utilities/misc/find";
-import { implementSetResendCodeValueToTrue } from "@src/utilities/otp";
-
-export const setUserResendCodeToTrue: Function = async (_id: string) => {
-  try {
-    return await findEntityAndUpdateFields(_id, UserModel, {
-      isResendCode: mO.yes,
-    });
-  } catch (error: unknown) {
-    throw `${error}`;
-  }
-};
 
 export function isUserValidCheck(user: User, otpInput: string) {
-  try {
-    const userExisting = () =>
-      user ? identity(user) : returnCheckMessage(mU.user_does_not_exist);
+  const userExisting = isEntityFound(user)
+    ? returnCheckMessage(mU.user_does_not_exist)
+    : storeSameValue(user);
 
-    const { _id, isVerified, otp, expiresAt } = userExisting();
+  const { isVerified, otp, expiresAt } = userExisting;
 
-    isVerified ? returnCheckMessage(mU.user_is_verified) : mO.null;
+  isNot(isVerified) ? mO.yes : returnCheckMessage(mU.user_is_verified);
 
-    equals(otp, otpInput) ? mO.null : returnCheckMessage(mC.otp_invalid);
+  areTheTwoMatch(otp, otpInput) ? mO.yes : returnCheckMessage(mC.otp_invalid);
 
-    not(lt(Date.now(), expiresAt))
-      ? implementSetResendCodeValueToTrue(_id)
-      : mO.null;
-
-    return mO.yes;
-  } catch (error: unknown) {
-    throw `${error}`;
-  }
+  lessThan(expiresAt, Date.now())
+    ? () => mO.yes
+    : returnCheckMessage(mC.otp_expired);
 }

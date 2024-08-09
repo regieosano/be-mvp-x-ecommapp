@@ -1,12 +1,15 @@
-import mongoose from "mongoose";
-import { ModelObject } from "@src/types";
+import { isExisting, storeSameValue } from "@src/functions";
+import { ModelObject, ObjArgsType } from "@src/types";
 
 export const findEntity: Function = async (
-  objectModel: mongoose.Model<object>,
+  objectModel: ModelObject,
   fieldKeyObject: Object,
-): Promise<Object | null> => {
+): Promise<Object> => {
   try {
-    const entity = await objectModel.findOne(fieldKeyObject);
+    const objectReturned = await objectModel.findOne(fieldKeyObject);
+    const entity = isExisting(objectReturned)
+      ? {}
+      : storeSameValue(objectReturned);
 
     return entity;
   } catch (error: unknown) {
@@ -15,19 +18,19 @@ export const findEntity: Function = async (
 };
 
 export const findEntityAndUpdateFields: Function = async (
-  _id: string,
-  modelObjectEntity: ModelObject,
-  objectFieldsToUpdate: {},
-): Promise<{} | null> => {
+  objArgs: ObjArgsType,
+): Promise<Object> => {
   try {
-    await modelObjectEntity.findOneAndUpdate(
-      { _id },
+    await objArgs.model.findOneAndUpdate(
+      { _id: objArgs._id },
       {
-        $set: objectFieldsToUpdate,
+        $set: objArgs.objectFields,
       },
     );
 
-    return { message: objectFieldsToUpdate };
+    const { objectFields } = objArgs;
+
+    return { message: objectFields };
   } catch (error: unknown) {
     throw `${error}`;
   }
