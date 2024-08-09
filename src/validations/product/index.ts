@@ -5,17 +5,31 @@ export const productValidation = function (productBody: Product) {
   const productBodyForChecking = Object.assign({}, Object.freeze(productBody));
 
   return async function () {
-    const { category, name, imagePath, description, price, qty } =
-      productBodyForChecking;
+    const {
+      category,
+      name,
+      image,
+      description,
+      price,
+      qty,
+      isApproved,
+      isAvailable,
+      createdAt,
+      updatedAt,
+    } = productBodyForChecking;
 
     try {
       const result = await validateProductBodyData().validateAsync({
         category,
         name,
-        imagePath,
+        image,
         description,
         price,
         qty,
+        isApproved,
+        isAvailable,
+        createdAt,
+        updatedAt,
       });
 
       return result;

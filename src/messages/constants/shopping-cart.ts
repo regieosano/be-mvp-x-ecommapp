@@ -1,5 +1,6 @@
 const m = (function () {
   // Shopping Cart Messages
+  const INFO = 0;
   const NO_PRODUCTS = 500;
   const SHOPPER_MODEL = "User";
   const PRODUCTS_MODEL = "Product";
@@ -15,6 +16,7 @@ const m = (function () {
 
   return (function () {
     return {
+      info: INFO,
       no_products: NO_PRODUCTS,
       shopper_model: SHOPPER_MODEL,
       shopping_cart: SHOPPING_CART,

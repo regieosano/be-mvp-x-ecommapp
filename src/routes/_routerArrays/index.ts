@@ -7,13 +7,15 @@ import {
   getAllShoppingCarts,
   postShoppingCart,
 } from "@src/routes/ecommerce/shopping-cart";
+import { getTransactionData } from "@src/routes/transaction";
 import { getProducts, postProduct } from "@src/routes/ecommerce/product";
 
 export const routesArray = [
   getUsers,
   getProducts,
-  getAllShoppingCarts,
   getAShoppingCart,
+  getTransactionData,
+  getAllShoppingCarts,
 
   postUser,
   postProduct,

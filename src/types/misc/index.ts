@@ -13,3 +13,9 @@ export type KeySearchObject = {
   _id: string;
   otherField: string;
 };
+
+export type ObjArgsType = {
+  _id: string;
+  model: ModelObject;
+  objectFields: object;
+};
