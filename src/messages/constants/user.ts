@@ -8,7 +8,7 @@ const m = (function () {
   const RECORD_CREATED_MESSAGE = "A new user was created";
   const USER_MESSAGE_EXIST_ON_EMAIL = "Email already exist";
   const USERS_PROPERTIES =
-    "-__v -password -isVerified -isResendCode -otp -expiresAt";
+    "-__v -password -isVerified -isResendCode -expiresAt";
   const USER_IS_VERIFIED = "This user has been verified already";
   const USER_IS_NOT_FOR_OTP_RESEND = "This user is not yet for OTP Resend";
 

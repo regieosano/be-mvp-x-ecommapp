@@ -11,7 +11,7 @@ const m = (function () {
   const ALL_SHOPPING_CARTS_URL = "/shopping-carts";
   const SHOPPER_FIELD_SELECTION = "-_id name address";
   const NEW_SHOPPING_CART_CREATED = "A new shopping cart created";
-  const SHOPPING_USER_ID_DOES_NOT_EXIST = "Shopper UserID does not exist";
+  const SHOPPING_USER_ID_DOES_NOT_EXIST = "Shopper does not exist";
   const PRODUCTS_FIELD_SELECTION = "_id name category description price qty";
 
   return (function () {

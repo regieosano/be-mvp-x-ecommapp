@@ -8,11 +8,6 @@ export const applicationProperties = {
     required: false,
     default: false,
   },
-  isResendCode: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
   otp: {
     type: String,
     required: false,

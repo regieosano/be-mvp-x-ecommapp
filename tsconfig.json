@@ -1,4 +1,5 @@
 {
+  "extends": "./tsconfig.test-paths.json",
   "compilerOptions": {
     "target": "es2019",
     "module": "commonjs",
@@ -16,6 +17,7 @@
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "baseUrl": ".",
+    "types": ["node", "jest", "@types/jest"],
     "paths": {
       "@src/*": ["src/*"]
     },
