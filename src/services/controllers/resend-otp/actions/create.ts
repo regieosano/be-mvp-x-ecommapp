@@ -1,10 +1,9 @@
-import { isNot } from "@src/functions";
 import { UserModel } from "@src/models/user";
 import mU from "@src/messages/constants/user";
 import mO from "src/messages/constants/others";
 import { findEntity } from "@src/utilities/misc/find";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
-import { isEntityFound, storeSameValue } from "@src/functions";
+import { isNot, isEntityFound, storeSameValue } from "@src/functions";
 import { returnCheckMessage } from "@src/utilities/misc/check";
 import { findEntityAndUpdateFields } from "@src/utilities/misc/find";
 import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
