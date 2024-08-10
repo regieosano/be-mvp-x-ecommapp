@@ -13,8 +13,8 @@ import { returnCheckMessage } from "@src/utilities/misc/check";
 
 export function isUserValidCheck(user: User, otpInput: string) {
   const userExisting = isEntityFound(user)
-    ? returnCheckMessage(mU.user_does_not_exist)
-    : storeSameValue(user);
+    ? storeSameValue(user)
+    : returnCheckMessage(mU.user_does_not_exist);
 
   const { isVerified, otp, expiresAt } = userExisting;
 
@@ -22,7 +22,5 @@ export function isUserValidCheck(user: User, otpInput: string) {
 
   areTheTwoMatch(otp, otpInput) ? mO.yes : returnCheckMessage(mC.otp_invalid);
 
-  lessThan(expiresAt, Date.now())
-    ? () => mO.yes
-    : returnCheckMessage(mC.otp_expired);
+  lessThan(Date.now(), expiresAt) ? mO.yes : returnCheckMessage(mC.otp_expired);
 }

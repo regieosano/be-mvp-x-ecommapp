@@ -2,10 +2,8 @@ import bcrypt from "bcrypt";
 import mP from "src/messages/constants/password";
 
 export const encryptPassword = async (userPassword: string) => {
-  let hashedPassword = "";
-
   try {
-    hashedPassword = await bcrypt.hash(userPassword, mP.salt_value);
+    const hashedPassword = await bcrypt.hash(userPassword, mP.salt_value);
 
     return hashedPassword;
   } catch {

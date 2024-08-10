@@ -11,25 +11,25 @@ export const authenticateUser = async (objectData: {
   _id: string;
   otpInput: string;
 }) => {
-  try {
-    const { _id, otpInput } = Object.assign({}, Object.freeze(objectData));
+  const { _id, otpInput } = Object.assign({}, Object.freeze(objectData));
 
-    const userToBeAuthenticated: User = await findEntity(UserModel, {
-      _id,
-    });
+  const userToBeAuthenticated: User = await findEntity(UserModel, {
+    _id,
+  });
 
-    isUserValidCheck(userToBeAuthenticated, otpInput);
+  isUserValidCheck(userToBeAuthenticated, otpInput);
 
-    const { message } = await findEntityAndUpdateFields(_id, UserModel, {
+  const { message } = await findEntityAndUpdateFields({
+    _id,
+    model: UserModel,
+    objectFields: {
       isVerified: mO.yes,
-    });
+    },
+  });
 
-    return {
-      message: mC.otp_successfully_verified,
-      data: { user: message },
-      http: mH.ok,
-    };
-  } catch (error: unknown) {
-    throw `${error}`;
-  }
+  return {
+    message: mC.otp_successfully_verified,
+    data: { user: message },
+    http: mH.ok,
+  };
 };
