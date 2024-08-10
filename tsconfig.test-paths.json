@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@src/models/*": ["models/*"],
+      "@src/functions": ["functions"],
+      "@src/messages/*": ["messages/*"],
+      "@src/services/*": ["services/*"],
+      "@src/utilities/*": ["utilities/*"]
+    }
+  }
+}
