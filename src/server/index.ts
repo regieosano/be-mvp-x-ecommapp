@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import App from "@src/express/appService";
 import mS from "@src/messages/constants/server";
-import { connectToDB } from "@src//db/connection";
+import { connectToDB } from "@src/db/connection";
 import mD from "@src/messages/constants/database";
 
 dotenv.config();

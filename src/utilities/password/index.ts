@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import mP from "src/messages/constants/password";
+import mP from "@src/messages/constants/password";
 
 export const encryptPassword = async (userPassword: string) => {
   try {

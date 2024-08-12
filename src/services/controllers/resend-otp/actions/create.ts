@@ -1,6 +1,6 @@
 import { UserModel } from "@src/models/user";
 import mU from "@src/messages/constants/user";
-import mO from "src/messages/constants/others";
+import mO from "@src/messages/constants/others";
 import { findEntity } from "@src/utilities/misc/find";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
 import { isNot, isEntityFound, storeSameValue } from "@src/functions";
