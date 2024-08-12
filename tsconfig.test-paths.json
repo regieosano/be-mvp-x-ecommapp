@@ -2,11 +2,17 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
+      "@src/db/*": ["db/*"],
+      "@src/server": ["server"],
+      "@src/routes/*": ["routes/*"],
       "@src/models/*": ["models/*"],
+      "@src/express/*": ["express/*"],
       "@src/functions": ["functions"],
-      "@src/messages/*": ["messages/*"],
       "@src/services/*": ["services/*"],
-      "@src/utilities/*": ["utilities/*"]
+      "@src/messages/*": ["messages/*"],
+      "@src/utilities/*": ["utilities/*"],
+      "@src/validations": ["validations"],
+      "@src/validations/*": ["validations/*"]
     }
   }
 }

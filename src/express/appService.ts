@@ -1,5 +1,4 @@
 import cors from "cors";
-import bodyParser from "body-parser";
 import { Application } from "express";
 import compression from "compression";
 import cookieParser from "cookie-parser";
@@ -7,6 +6,8 @@ import mH from "@src/messages/constants/http";
 import mO from "@src/messages/constants/others";
 import mS from "@src/messages/constants/server";
 import { routesArray } from "@src/routes/_routerArrays";
+
+const bodyParser = require("body-parser");
 
 export default async (app: Application) => {
   app.use(
