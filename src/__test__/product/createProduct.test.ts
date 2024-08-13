@@ -1,18 +1,18 @@
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import supertest from "supertest";
-import App from "@src/express/appService";
-import { MongoMemoryServer } from "mongodb-memory-server";
-import express from "express";
+import { Product } from "@src/types";
+import { ProductModel } from "@src/models/product";
+import { findEntity } from "@src/utilities/misc/find";
+import { isEntityFound } from "@src/functions";
+import { getTestServer, mongoMemoryServerUri } from "@src/__test__/helper";
 
 dotenv.config();
 
 describe("product", () => {
-  const SERVERTESTPORT = process.env.PORT || process.env.SERVER_TEST_PORT;
-
   const productPayload = {
     category: "Any Category",
-    name: "Hammer and Thongs! Rattle and Hum!",
+    name: "Watawat 3",
     description: "The one used in The Exorcist movie",
     price: 1507.0,
     image: "The Image",
@@ -20,13 +20,8 @@ describe("product", () => {
     isAvailable: false,
   };
 
-  const app = express();
-
   beforeAll(async () => {
-    const mongoServer = await MongoMemoryServer.create();
-
-    const uri = mongoServer.getUri();
-
+    const uri = await mongoMemoryServerUri();
     await mongoose.connect(uri);
   });
 
@@ -35,14 +30,19 @@ describe("product", () => {
     await mongoose.connection.close();
   });
 
+  describe("check uniqueness of product name", () => {
+    it("should ensure that product name is unique", async () => {
+      const productToFind: Product = await findEntity(ProductModel, {
+        name: productPayload.name,
+      });
+      const isUnique = isEntityFound(productToFind);
+      expect(isUnique).toBeFalsy();
+    });
+  });
+
   describe("create new product", () => {
     it("should return the message that product was created", async () => {
-      const serverApp = await App(app);
-
-      serverApp.listen(SERVERTESTPORT),
-        () => {
-          console.log("Test Server Running...");
-        };
+      const serverApp = await getTestServer();
 
       const result = await supertest(serverApp)
         .post("/api/products/")

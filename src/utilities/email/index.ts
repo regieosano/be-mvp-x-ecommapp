@@ -7,26 +7,22 @@ export async function createInstanceEmailBodyAndSendMail(
   userEmail: string,
   otp: string,
 ) {
-  try {
-    const e = constantValuesForEmail();
+  const e = constantValuesForEmail();
 
-    const emailToUser = {
-      emailSentTo: userEmail,
-      emailSubject: e.subject_content,
-      emailText: e.text_content,
-      emailComposed: e.html_content + " " + otp,
-    };
+  const emailToUser = {
+    emailSentTo: userEmail,
+    emailSubject: e.subject_content,
+    emailText: e.text_content,
+    emailComposed: e.html_content + " " + otp,
+  };
 
-    const info = await sendMail(emailToUser);
+  const info = await sendMail(emailToUser);
 
-    const result = {
-      message: mE.email_sent_message,
-      data: { to: userEmail, system: info },
-      http: mH.ok,
-    };
+  const result = {
+    message: mE.email_sent_message,
+    data: { to: userEmail, system: info },
+    http: mH.ok,
+  };
 
-    return result;
-  } catch (error: unknown) {
-    throw `${error}`;
-  }
+  return result;
 }
