@@ -2,10 +2,8 @@ import mS from "@src/messages/constants/shopping-cart";
 import { getRouteFactory } from "@src/routes/_routesFactory/get";
 import { postRouteFactory } from "@src/routes/_routesFactory/post";
 import { createShoppingCart } from "@src/services/controllers/ecommerce/shopping-cart";
-import {
-  getShoppingCarts,
-  getShoppingCartsByShopper,
-} from "@src/services/controllers/ecommerce/shopping-cart/actions/queries";
+import { getShoppingCarts } from "@src/services/controllers/ecommerce/shopping-cart/actions/queries/shoppingCarts";
+import { getShoppingCartsByShopper } from "@src/services/controllers/ecommerce/shopping-cart/actions/queries/shoppingCart";
 
 export const getAllShoppingCarts = getRouteFactory(
   mS.all_shopping_carts_url,

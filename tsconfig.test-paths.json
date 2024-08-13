@@ -4,12 +4,14 @@
     "paths": {
       "@src/db/*": ["db/*"],
       "@src/server": ["server"],
+      "@src/types/*": ["types/*"],
       "@src/routes/*": ["routes/*"],
       "@src/models/*": ["models/*"],
       "@src/express/*": ["express/*"],
       "@src/functions": ["functions"],
       "@src/services/*": ["services/*"],
       "@src/messages/*": ["messages/*"],
+      "@src/__test__/*": ["__test__/*"],
       "@src/utilities/*": ["utilities/*"],
       "@src/validations": ["validations"],
       "@src/validations/*": ["validations/*"]

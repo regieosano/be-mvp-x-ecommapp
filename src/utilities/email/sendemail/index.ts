@@ -15,17 +15,14 @@ export const sendMail = async function (_body: ObjectEmailBody) {
   const { emailSentTo, emailSubject, emailText, emailComposed } = _body;
   const emailTransporter = createTransporter(emailObject);
   const { transporter, emailHost } = emailTransporter();
-  try {
-    const result = await transporter.sendMail({
-      from: `${e.from_address} <${emailHost}>`,
-      to: emailSentTo,
-      subject: emailSubject,
-      text: emailText,
-      html: emailComposed,
-    });
 
-    return result.response;
-  } catch (error: unknown) {
-    throw `${error}`;
-  }
+  const result = await transporter.sendMail({
+    from: `${e.from_address} <${emailHost}>`,
+    to: emailSentTo,
+    subject: emailSubject,
+    text: emailText,
+    html: emailComposed,
+  });
+
+  return result.response;
 };

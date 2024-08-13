@@ -8,7 +8,6 @@ export type User = {
   gender: string;
   password: string;
   isVerified: boolean;
-  isResendCode: boolean;
   otp: string;
   expiresAt: number;
 };
