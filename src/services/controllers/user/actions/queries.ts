@@ -1,6 +1,6 @@
 import { UserList } from "@src/types";
 import { UserModel } from "@src/models/user";
-import mO from "@src/messages/constants/others";
+import messageValue from "@src/messages/messagevalues";
 import { readAllObjects } from "@src/utilities/crudFactory/read";
 
 export const getVerifiedUsers: Function = async (
@@ -8,7 +8,7 @@ export const getVerifiedUsers: Function = async (
 ): Promise<UserList> => {
   try {
     const users: UserList = await readAllObjects(() =>
-      UserModel.find({ isVerified: mO.no }).limit(noOfUsers),
+      UserModel.find({ isVerified: messageValue.no }).limit(noOfUsers),
     );
 
     return users;

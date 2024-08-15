@@ -1,6 +1,6 @@
 import { UserModel } from "@src/models/user";
-import mH from "@src/messages/constants/http";
 import { findEntity } from "@src/utilities/misc/find";
+import messageValue from "@src/messages/messagevalues";
 import mS from "@src/messages/constants/shopping-cart";
 import { User, Response, ShoppingCart } from "@src/types";
 import { ShoppingCartModel } from "@src/models/shopping-cart";
@@ -31,7 +31,7 @@ export const createShoppingCart: Function = async (
   const result: Response = {
     message: mS.new_shopping_cart_created,
     data: newShoppingCart,
-    http: mH.created,
+    http: messageValue.created,
   };
 
   return result;

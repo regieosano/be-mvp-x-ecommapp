@@ -1,11 +1,10 @@
 import express from "express";
 import { equals } from "ramda";
-import mH from "@src/messages/constants/http";
 import mS from "@src/messages/constants/server";
-import mO from "@src/messages/constants/others";
-import { checkJSONBody } from "@src/utilities/misc/check";
 import httpVerb from "@src/routes/_routerDeclaration";
+import messageValue from "@src/messages/messagevalues";
 import { validationsObjectArray } from "@src/validations";
+import { checkJSONBody } from "@src/utilities/misc/check";
 import { newInputValidationData } from "@src/validations/helper";
 
 export const postRouteFactory = function (
@@ -26,7 +25,7 @@ export const postRouteFactory = function (
 
           const objectEntity = await newInputValidationData(
             bodyData,
-            entity[mO.first]["validation"],
+            entity[messageValue.first]["validation"],
           );
 
           const result = await routeFunc(objectEntity);
@@ -35,7 +34,7 @@ export const postRouteFactory = function (
           res.status(http).json({ message, data });
         } catch (error: unknown) {
           res
-            .status(mH.internal_server_error_code)
+            .status(messageValue.internal_server_error_code)
             .send(`${mS.internal_server_message} ${error}`);
         }
       },

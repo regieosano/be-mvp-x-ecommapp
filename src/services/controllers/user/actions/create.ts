@@ -1,8 +1,8 @@
 import { User, Response } from "@src/types";
 import { UserModel } from "@src/models/user";
-import mH from "@src/messages/constants/http";
 import mU from "@src/messages/constants/user";
 import { findEntity } from "@src/utilities/misc/find";
+import messageValue from "@src/messages/messagevalues";
 import { encryptPassword } from "@src/utilities/password";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
 import { returnCheckMessage } from "@src/utilities/misc/check";
@@ -36,7 +36,7 @@ export const createUser: Function = async (user: User): Promise<Response> => {
   const result: Response = {
     message: mU.record_created_message,
     data: newUser,
-    http: mH.created,
+    http: messageValue.created,
   };
 
   return result;

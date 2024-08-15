@@ -1,5 +1,4 @@
-import mH from "@src/messages/constants/http";
-import mE from "@src/messages/constants/email";
+import messageValue from "@src/messages/messagevalues";
 import { sendMail } from "@src/utilities/email/sendemail";
 import { constantValuesForEmail } from "@src/utilities/email/sendemail/content";
 
@@ -19,9 +18,9 @@ export async function createInstanceEmailBodyAndSendMail(
   const info = await sendMail(emailToUser);
 
   const result = {
-    message: mE.email_sent_message,
+    message: messageValue.email_sent_message,
     data: { to: userEmail, system: info },
-    http: mH.ok,
+    http: messageValue.ok,
   };
 
   return result;

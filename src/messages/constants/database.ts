@@ -1,10 +1,12 @@
+import messageValue from "@src/messages/messagevalues";
+
 const m = (function () {
   // DB Messages
-  const DB_IS_TOCONNECT = false;
+  const dbIsToConnect = () => messageValue.no;
 
   return (function () {
     return {
-      db_is_toconnect: DB_IS_TOCONNECT,
+      db_is_toconnect: dbIsToConnect(),
     };
   })();
 })();
