@@ -1,12 +1,12 @@
-import mV from "@src/messages/constants/email";
+import messageValue from "@src/messages/messagevalues";
 
 export function constantValuesForEmail() {
   return (function () {
     return {
-      from_address: mV.from_address,
-      subject_content: mV.subject_content,
-      text_content: mV.text_content,
-      html_content: mV.html_content,
+      from_address: messageValue.from_address,
+      subject_content: messageValue.subject_content,
+      text_content: messageValue.text_content,
+      html_content: messageValue.html_content,
     };
   })();
 }

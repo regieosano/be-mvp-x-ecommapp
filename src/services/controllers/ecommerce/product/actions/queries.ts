@@ -1,6 +1,6 @@
 import { ProductList } from "@src/types";
-import mO from "@src/messages/constants/others";
 import { ProductModel } from "@src/models/product";
+import messageValue from "@src/messages/messagevalues";
 import { readAllObjects } from "@src/utilities/crudFactory/read";
 
 export const getApprovedProducts: Function = async (
@@ -8,7 +8,7 @@ export const getApprovedProducts: Function = async (
 ): Promise<ProductList> => {
   try {
     const products: ProductList = await readAllObjects(() =>
-      ProductModel.find({ isApproved: mO.yes }).limit(noOfProducts),
+      ProductModel.find({ isApproved: messageValue.yes }).limit(noOfProducts),
     );
 
     return products;

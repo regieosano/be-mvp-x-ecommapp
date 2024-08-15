@@ -1,10 +1,10 @@
 import mU from "@src/messages/constants/user";
-import mE from "@src/messages/constants/email";
+import messageValue from "@src/messages/messagevalues";
 import { sendOTPEmail } from "@src/services/controllers/sendemail";
 import { postRouteFactory } from "@src/routes/_routesFactory/post";
 
 export const postSendOTPEmail = postRouteFactory(
-  mE.email,
-  `${mU.users_url}${mE.email_otp_url}`,
+  messageValue.email,
+  `${mU.users_url}${messageValue.email_otp_url}`,
   sendOTPEmail,
 );

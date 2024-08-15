@@ -1,11 +1,11 @@
 import { UserModel } from "@src/models/user";
 import mU from "@src/messages/constants/user";
-import mO from "@src/messages/constants/others";
 import { findEntity } from "@src/utilities/misc/find";
+import messageValue from "@src/messages/messagevalues";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
-import { isNot, isEntityFound, storeSameValue } from "@src/functions";
 import { returnCheckMessage } from "@src/utilities/misc/check";
 import { findEntityAndUpdateFields } from "@src/utilities/misc/find";
+import { isNot, isEntityFound, storeSameValue } from "@src/functions";
 import { createInstanceEmailBodyAndSendMail } from "@src/utilities/email";
 
 export const sendResetOTPEmail: Function = async (userObject: {
@@ -20,7 +20,9 @@ export const sendResetOTPEmail: Function = async (userObject: {
 
   const { email, isVerified } = userFound;
 
-  isNot(isVerified) ? mO.yes : returnCheckMessage(mU.user_is_verified);
+  isNot(isVerified)
+    ? messageValue.yes
+    : returnCheckMessage(mU.user_is_verified);
 
   const { generatedOTP, expiry } = generateOTPAndExpiry();
 

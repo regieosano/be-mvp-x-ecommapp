@@ -2,23 +2,16 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import supertest from "supertest";
 import { Product } from "@src/types";
+import { isEntityFound } from "@src/functions";
 import { ProductModel } from "@src/models/product";
 import { findEntity } from "@src/utilities/misc/find";
-import { isEntityFound } from "@src/functions";
+import { getTestDataForCreateNewProduct } from "@src/__test__/helper/product";
 import { getTestServer, mongoMemoryServerUri } from "@src/__test__/helper";
 
 dotenv.config();
 
 describe("product", () => {
-  const productPayload = {
-    category: "Any Category",
-    name: "Watawat 3",
-    description: "The one used in The Exorcist movie",
-    price: 1507.0,
-    image: "The Image",
-    qty: 120,
-    isAvailable: false,
-  };
+  const productPayload = getTestDataForCreateNewProduct();
 
   beforeAll(async () => {
     const uri = await mongoMemoryServerUri();
