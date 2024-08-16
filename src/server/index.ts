@@ -13,11 +13,7 @@ const StartServer = async (server_status_message: string) => {
 
   const serverApp = await App(app);
 
-  try {
-    connectToDB(constantMessageValue.db_is_toconnect);
-  } catch (error: any) {
-    throw new Error(error);
-  }
+  connectToDB(constantMessageValue.db_is_toconnect);
 
   const server = http.createServer(app);
 
