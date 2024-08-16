@@ -1,11 +1,10 @@
 import { Product, Response } from "@src/types";
-import mP from "@src/messages/constants/product";
 import { ProductModel } from "@src/models/product";
 import { findEntity } from "@src/utilities/misc/find";
-import messageValue from "@src/messages/messagevalues";
 import { returnCheckMessage } from "@src/utilities/misc/check";
 import { isEntityFound, storeSameValue } from "@src/functions";
 import { createObject } from "@src/utilities/crudFactory/create";
+import constantMessageValue from "@src/constants/stringnummisc";
 
 export const createProduct: Function = async (
   product: Product,
@@ -16,15 +15,15 @@ export const createProduct: Function = async (
   const productToFind: Product = await findEntity(ProductModel, { name });
 
   const productAsNew = isEntityFound(productToFind)
-    ? returnCheckMessage(mP.product_name_exist)
+    ? returnCheckMessage(constantMessageValue.product_name_exist)
     : storeSameValue(productCandidate);
 
   const newProduct: Product = await createObject(ProductModel, productAsNew);
 
   const result: Response = {
-    message: mP.new_product_created,
+    message: constantMessageValue.new_product_created,
     data: newProduct,
-    http: messageValue.created,
+    http: constantMessageValue.created,
   };
 
   return result;

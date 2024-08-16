@@ -2,9 +2,8 @@ import http from "http";
 import dotenv from "dotenv";
 import express from "express";
 import App from "@src/express/appService";
-import mS from "@src/messages/constants/server";
 import { connectToDB } from "@src/db/connection";
-import mD from "@src/messages/constants/database";
+import constantMessageValue from "@src/constants/stringnummisc";
 
 dotenv.config();
 
@@ -15,7 +14,7 @@ const StartServer = async (server_status_message: string) => {
   const serverApp = await App(app);
 
   try {
-    connectToDB(mD.db_is_toconnect);
+    connectToDB(constantMessageValue.db_is_toconnect);
   } catch (error: any) {
     throw new Error(error);
   }
@@ -31,7 +30,7 @@ const StartServer = async (server_status_message: string) => {
 
 (async function runServerRun() {
   try {
-    await StartServer(mS.server_running_message);
+    await StartServer(constantMessageValue.server_running_message);
     console.log();
     console.log("System status...");
     console.log();

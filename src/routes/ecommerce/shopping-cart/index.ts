@@ -1,24 +1,24 @@
-import mS from "@src/messages/constants/shopping-cart";
 import { getRouteFactory } from "@src/routes/_routesFactory/get";
 import { postRouteFactory } from "@src/routes/_routesFactory/post";
+import constantMessageValue from "@src/constants/stringnummisc";
 import { createShoppingCart } from "@src/services/controllers/ecommerce/shopping-cart";
 import { getShoppingCarts } from "@src/services/controllers/ecommerce/shopping-cart/actions/queries/shoppingCarts";
 import { getShoppingCartsByShopper } from "@src/services/controllers/ecommerce/shopping-cart/actions/queries/shoppingCart";
 
 export const getAllShoppingCarts = getRouteFactory(
-  mS.all_shopping_carts_url,
-  mS.no_products,
+  constantMessageValue.all_shopping_carts_url,
+  constantMessageValue.no_products,
   getShoppingCarts,
 );
 
 export const getAShoppingCart = getRouteFactory(
-  mS.a_shopping_cart_url,
-  mS.no_products,
+  constantMessageValue.a_shopping_cart_url,
+  constantMessageValue.no_products,
   getShoppingCartsByShopper,
 );
 
 export const postShoppingCart = postRouteFactory(
-  mS.shopping_cart,
-  mS.all_shopping_carts_url,
+  constantMessageValue.shopping_cart,
+  constantMessageValue.all_shopping_carts_url,
   createShoppingCart,
 );

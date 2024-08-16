@@ -1,18 +1,18 @@
 import { ShopperId } from "@src/types";
-import mS from "@src/messages/constants/shopping-cart";
 import { ShoppingCartModel } from "@src/models/shopping-cart";
+import constantMessageValue from "@src/constants/stringnummisc";
 
 const populateShopperDeclarations = () => {
   return {
-    path: mS.shopper_path_populate,
-    select: mS.shopper_field_selection,
+    path: constantMessageValue.shopper_path_populate,
+    select: constantMessageValue.shopper_field_selection,
   };
 };
 
 const populateProductDeclarations = () => {
   return {
-    path: mS.products_path_populate,
-    select: mS.products_field_selection,
+    path: constantMessageValue.products_path_populate,
+    select: constantMessageValue.products_field_selection,
   };
 };
 

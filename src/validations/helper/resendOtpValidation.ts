@@ -1,8 +1,11 @@
 import Joi from "joi";
-import mV from "@src/messages/constants/validation";
+import constantMessageValue from "@src/constants/stringnummisc";
 
 export function validateResendOtpBodyData() {
   return Joi.object({
-    _id: Joi.string().min(mV.min_string).max(mV.max_string).required(),
+    _id: Joi.string()
+      .min(constantMessageValue.min_string)
+      .max(constantMessageValue.max_string)
+      .required(),
   });
 }
