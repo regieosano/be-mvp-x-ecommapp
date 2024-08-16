@@ -1,13 +1,16 @@
 import bcrypt from "bcrypt";
-import mP from "@src/messages/constants/password";
+import constantMessageValue from "@src/constants/stringnummisc";
 
 export const encryptPassword = async (userPassword: string) => {
   try {
-    const hashedPassword = await bcrypt.hash(userPassword, mP.salt_value);
+    const hashedPassword = await bcrypt.hash(
+      userPassword,
+      constantMessageValue.salt_value,
+    );
 
     return hashedPassword;
   } catch {
-    throw `${mP.password_hash_message}`;
+    throw `${constantMessageValue.password_hash_message}`;
   }
 };
 
@@ -22,6 +25,6 @@ export const decryptPassword = async (
     );
     return decryptedPassword;
   } catch {
-    throw mP.decryption_hash_message;
+    throw constantMessageValue.decryption_hash_message;
   }
 };

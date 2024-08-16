@@ -1,7 +1,6 @@
 import express from "express";
-import mS from "@src/messages/constants/server";
 import httpVerb from "@src/routes/_routerDeclaration";
-import messageValue from "@src/messages/messagevalues";
+import constantMessageValue from "@src/constants/stringnummisc";
 
 export const getRouteFactory = function (
   urlString: string,
@@ -15,11 +14,11 @@ export const getRouteFactory = function (
         try {
           const { _id } = req.body;
           const records = await routeFunc(noOfRecords, _id);
-          res.status(messageValue.ok).json(records);
+          res.status(constantMessageValue.ok).json(records);
         } catch (error: unknown) {
           res
-            .status(messageValue.internal_server_error_code)
-            .send(`${mS.internal_server_message} ${error}`);
+            .status(constantMessageValue.internal_server_error_code)
+            .send(`${constantMessageValue.internal_server_message} ${error}`);
         }
       },
     );

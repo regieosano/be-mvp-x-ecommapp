@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import { ObjectEmailBody } from "@src/types";
-import messageValue from "@src/messages/messagevalues";
+import constantMessageValue from "@src/constants/stringnummisc";
 import { constantValuesForEmail } from "@src/utilities/email/sendemail/content";
 import { createTransporter } from "@src/utilities/email/sendemail/mailtransporter";
 
@@ -9,7 +9,7 @@ dotenv.config();
 export const sendMail = async function (_body: ObjectEmailBody) {
   const e = constantValuesForEmail();
   const emailObject = {
-    emailHost: process.env.HOST_EMAIL || messageValue.empty_string,
+    emailHost: process.env.HOST_EMAIL || constantMessageValue.empty_string,
     emailPort: Number(process.env.EMAIL_PORT),
   };
   const { emailSentTo, emailSubject, emailText, emailComposed } = _body;

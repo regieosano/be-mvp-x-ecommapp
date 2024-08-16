@@ -1,4 +1,4 @@
-import messageValue from "@src/messages/messagevalues";
+import constantMessageValue from "@src/constants/stringnummisc";
 import { sumTheTwo, multiplyTheTwo } from "@src/functions";
 
 export const generateOTPAndExpiry = () => {
@@ -7,13 +7,13 @@ export const generateOTPAndExpiry = () => {
   const generatedOTP = String(
     Math.floor(
       sumTheTwo([
-        messageValue.tenvalues_otp,
-        multiplyTheTwo(Math.random(), messageValue.ninevalues_otp),
+        constantMessageValue.tenvalues_otp,
+        multiplyTheTwo(Math.random(), constantMessageValue.ninevalues_otp),
       ]),
     ),
   );
   const expiry = dateExpiration.setTime(
-    sumTheTwo([new Date().getTime(), messageValue.expiry_seconds]),
+    sumTheTwo([new Date().getTime(), constantMessageValue.expiry_seconds]),
   );
 
   return { generatedOTP, expiry };

@@ -1,15 +1,17 @@
 import Joi from "joi";
-import mP from "@src/messages/constants/product";
-import mV from "@src/messages/constants/validation";
+import constantMessageValue from "@src/constants/stringnummisc";
 
 export function validateShoppingCartBodyData() {
   return Joi.object({
-    shopper: Joi.string().min(mV.min_string).max(mV.max_string).required(),
+    shopper: Joi.string()
+      .min(constantMessageValue.min_string)
+      .max(constantMessageValue.max_string)
+      .required(),
     products: Joi.array()
       .items(
         Joi.string()
-          .min(mP.min_product_id_length)
-          .max(mV.max_string)
+          .min(constantMessageValue.min_product_id_length)
+          .max(constantMessageValue.max_string)
           .required(),
       )
       .required(),

@@ -1,7 +1,7 @@
 import { User } from "@src/types";
 import { UserModel } from "@src/models/user";
 import { findEntity } from "@src/utilities/misc/find";
-import messageValue from "@src/messages/messagevalues";
+import constantMessageValue from "@src/constants/stringnummisc";
 import { isUserValidCheck } from "@src/utilities/user/lib";
 import { findEntityAndUpdateFields } from "@src/utilities/misc/find";
 
@@ -21,13 +21,13 @@ export const authenticateUser = async (objectData: {
     _id,
     model: UserModel,
     objectFields: {
-      isVerified: messageValue.yes,
+      isVerified: constantMessageValue.yes,
     },
   });
 
   return {
-    message: messageValue.otp_successfully_verified,
+    message: constantMessageValue.otp_successfully_verified,
     data: { user: message },
-    http: messageValue.ok,
+    http: constantMessageValue.ok,
   };
 };
