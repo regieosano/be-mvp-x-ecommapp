@@ -1,9 +1,9 @@
 import { userValidation } from "@src/validations/user";
 import { otpDataValidation } from "@src/validations/otp";
 import { productValidation } from "@src/validations/product";
+import constantMessageValue from "@src/constants/stringnummisc";
 import { emailOtpDataValidation } from "@src/validations/email";
 import { resendOtpDataValidation } from "@src/validations/resend-otp";
-import constantMessageValue from "@src/constants/stringnummisc";
 import { shoppingCartValidation } from "@src/validations/shopping-cart";
 
 export const validationsObjectArray = [
