@@ -1,0 +1,17 @@
+{
+  "min_otp": 6,
+  "max_otp": 6,
+  "min_qty": 1,
+  "min_price": 1,
+  "min_gender": 1,
+  "min_string": 2,
+  "max_gender": 20,
+  "min_cell_num": 8,
+  "min_password": 8,
+  "max_string": 255,
+  "max_qty": 500000,
+  "max_cell_num": 25,
+  "max_password": 25,
+  "max_price": 1000000,
+  "min_product_id_length": 20
+}

@@ -1,0 +1,15 @@
+{
+  "ok": 200,
+  "api_all": "*",
+  "created": 201,
+  "expired": 419,
+  "not_found": 404,
+  "api_main_slash": "/",
+  "main_prefix": "/api",
+  "api_root_response": "BE APIs",
+  "internal_server_error_code": 500,
+  "internal_server_message": "Server Info: ",
+  "something_went_wrong": "Something went wrong",
+  "non_existing_endpoint": "Endpoint does not EXIST!",
+  "server_running_message": "Server is running on Localhost PORT"
+}

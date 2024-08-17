@@ -1,0 +1,9 @@
+{
+  "email": "email",
+  "text_content": "This is your OTP",
+  "email_otp_url": "/send-otp-email",
+  "from_address": "The X App Team 2025 😊",
+  "subject_content": "Email OTP Verification",
+  "email_sent_message": "Email successfully sent",
+  "html_content": "<strong>Your email is being validated. This is your OTP -</strong>"
+}

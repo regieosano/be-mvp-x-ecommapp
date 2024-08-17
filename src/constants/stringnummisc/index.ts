@@ -1,15 +1,15 @@
-import fs from "fs";
-import dotenv from "dotenv";
-
-dotenv.config();
+const jsonMerger = require("json-merger");
 
 export default (function stringNumMiscObjectValues() {
-  const messagesData = JSON.parse(
-    JSON.stringify(fs.readFileSync(process.env.CONSTANTS_VALUES_PATH || "")),
-  );
-
-  const bufferedData = Buffer.from(messagesData);
-  const messagesObject = JSON.parse(bufferedData.toString("utf-8"));
+  const messagesObject = jsonMerger.mergeFiles([
+    "src/constants/stringnummisc/jsonvalues/otp.json",
+    "src/constants/stringnummisc/jsonvalues/user.json",
+    "src/constants/stringnummisc/jsonvalues/http.json",
+    "src/constants/stringnummisc/jsonvalues/email.json",
+    "src/constants/stringnummisc/jsonvalues/others.json",
+    "src/constants/stringnummisc/jsonvalues/ecommerce.json",
+    "src/constants/stringnummisc/jsonvalues/validations.json",
+  ]);
 
   return (function () {
     return messagesObject;

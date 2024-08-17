@@ -1,0 +1,20 @@
+{
+  "no_products": 500,
+  "product": "product",
+  "no_transactions": 500,
+  "shopper_model": "User",
+  "product_url": "/products",
+  "products_model": "Product",
+  "shopping_cart": "shopping-cart",
+  "transaction_url": "/transactions",
+  "shopper_path_populate": "shopper",
+  "products_path_populate": "products",
+  "a_shopping_cart_url": "/shopping-cart",
+  "all_shopping_carts_url": "/shopping-carts",
+  "shopper_field_selection": "-_id name address",
+  "new_product_created": "A new product created",
+  "product_name_exist": "Product name already exist",
+  "new_shopping_cart_created": "A new shopping cart created",
+  "shopping_user_id_does_not_exist": "Shopper does not exist",
+  "products_field_selection": "_id name category description price qty"
+}
