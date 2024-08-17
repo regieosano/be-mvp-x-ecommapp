@@ -2,9 +2,9 @@ import { Product, Response } from "@src/types";
 import { isEntityFound } from "@src/functions";
 import { ProductModel } from "@src/models/product";
 import { findEntity } from "@src/utilities/misc/find";
-import { returnCheckMessage } from "@src/utilities/misc/check";
 import constantMessageValue from "@src/constants/stringnummisc";
 import { createObject } from "@src/utilities/crudFactory/create";
+import { returnResultAsChecked } from "@src/utilities/misc/check";
 
 export const createProduct: Function = async (
   product: Product,
@@ -13,7 +13,7 @@ export const createProduct: Function = async (
   const _product = Object.assign({}, Object.freeze(product));
 
   if (isEntityFound(await findEntity(ProductModel, { name: _product.name }))) {
-    result = returnCheckMessage(
+    result = returnResultAsChecked(
       _product,
       constantMessageValue.product_name_exist,
     );

@@ -4,10 +4,13 @@ export const checkJSONBody = (bodyData: object) => {
   return JSON.parse(JSON.stringify(bodyData));
 };
 
-export const returnCheckMessage = (data: object, message: string) => {
+export const returnResultAsChecked = (
+  objectData: object,
+  resultMessage: string,
+) => {
   return {
-    message,
-    data,
+    message: resultMessage,
+    data: objectData,
     http: constantMessageValue.internal_server_error_code,
   };
 };

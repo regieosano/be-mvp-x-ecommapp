@@ -1,7 +1,7 @@
 import { UserModel } from "@src/models/user";
 import { findEntity } from "@src/utilities/misc/find";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
-import { returnCheckMessage } from "@src/utilities/misc/check";
+import { returnResultAsChecked } from "@src/utilities/misc/check";
 import constantMessageValue from "@src/constants/stringnummisc";
 import { isNot, isEntityFound, storeValueOf } from "@src/functions";
 import { findEntityAndUpdateFields } from "@src/utilities/misc/find";
@@ -15,13 +15,16 @@ export const sendResetOTPEmail: Function = async (userObject: {
 
   const userFound = isEntityFound(userToFind)
     ? storeValueOf(userToFind)
-    : returnCheckMessage(userToFind, constantMessageValue.user_does_not_exist);
+    : returnResultAsChecked(
+        userToFind,
+        constantMessageValue.user_does_not_exist,
+      );
 
   const { email, isVerified } = userFound;
 
   isNot(isVerified)
     ? constantMessageValue.yes
-    : returnCheckMessage(userFound, constantMessageValue.user_is_verified);
+    : returnResultAsChecked(userFound, constantMessageValue.user_is_verified);
 
   const { generatedOTP, expiry } = generateOTPAndExpiry();
 

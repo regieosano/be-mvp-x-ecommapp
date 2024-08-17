@@ -4,7 +4,7 @@ import { isEntityFound } from "@src/functions";
 import { findEntity } from "@src/utilities/misc/find";
 import { encryptPassword } from "@src/utilities/password";
 import { generateOTPAndExpiry } from "@src/utilities/otp";
-import { returnCheckMessage } from "@src/utilities/misc/check";
+import { returnResultAsChecked } from "@src/utilities/misc/check";
 import constantMessageValue from "@src/constants/stringnummisc";
 import { createObject } from "@src/utilities/crudFactory/create";
 
@@ -13,7 +13,7 @@ export const createUser: Function = async (user: User): Promise<Response> => {
   const _user = Object.assign({}, Object.freeze(user));
 
   if (isEntityFound(await findEntity(UserModel, { email: _user.email }))) {
-    result = returnCheckMessage(
+    result = returnResultAsChecked(
       _user,
       constantMessageValue.user_message_exist_on_email,
     );
