@@ -1,14 +1,9 @@
-import {
-  entity,
-  isEntityFound,
-  storeSameValue,
-  isEntityNotFound,
-} from "@src/functions";
 import { ShoppingEntity } from "@src/types";
 import { UserModel } from "@src/models/user";
 import { findEntity } from "@src/utilities/misc/find";
-import { returnCheckMessage } from "@src/utilities/misc/check";
+import { entity, isEntityNotFound } from "@src/functions";
 import constantMessageValue from "@src/constants/stringnummisc";
+import { returnResultAsChecked } from "@src/utilities/misc/check";
 import { shoppingFindCartsDeclaration } from "@src/utilities/ecommerce/shopping-cart";
 
 export const getShoppingCartsByShopper: Function = async (
@@ -19,9 +14,9 @@ export const getShoppingCartsByShopper: Function = async (
     _id,
   });
 
-  isEntityFound(shopper)
-    ? storeSameValue(shopper)
-    : returnCheckMessage(constantMessageValue.user_does_not_exist);
+  if (isEntityNotFound(shopper)) {
+    returnResultAsChecked(shopper, constantMessageValue.user_does_not_exist);
+  }
 
   const shoppingCartArray = await shoppingFindCartsDeclaration(
     noOfShoppingCarts,

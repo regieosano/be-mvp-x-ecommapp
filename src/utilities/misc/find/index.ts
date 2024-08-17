@@ -1,37 +1,27 @@
-import { isExisting, storeSameValue } from "@src/functions";
 import { ModelObject, ObjArgsType } from "@src/types";
+import { isExisting, storeValueOf } from "@src/functions";
 
 export const findEntity: Function = async (
   objectModel: ModelObject,
   fieldKeyObject: Object,
 ): Promise<Object> => {
-  try {
-    const objectReturned = await objectModel.findOne(fieldKeyObject);
-    const entity = isExisting(objectReturned)
-      ? {}
-      : storeSameValue(objectReturned);
+  const objectReturned = await objectModel.findOne(fieldKeyObject);
+  const entity = isExisting(objectReturned) ? {} : storeValueOf(objectReturned);
 
-    return entity;
-  } catch (error: unknown) {
-    throw `${error}`;
-  }
+  return entity;
 };
 
 export const findEntityAndUpdateFields: Function = async (
   objArgs: ObjArgsType,
 ): Promise<Object> => {
-  try {
-    await objArgs.model.findOneAndUpdate(
-      { _id: objArgs._id },
-      {
-        $set: objArgs.objectFields,
-      },
-    );
+  await objArgs.model.findOneAndUpdate(
+    { _id: objArgs._id },
+    {
+      $set: objArgs.objectFields,
+    },
+  );
 
-    const { objectFields } = objArgs;
+  const { objectFields } = objArgs;
 
-    return { message: objectFields };
-  } catch (error: unknown) {
-    throw `${error}`;
-  }
+  return { message: objectFields };
 };
