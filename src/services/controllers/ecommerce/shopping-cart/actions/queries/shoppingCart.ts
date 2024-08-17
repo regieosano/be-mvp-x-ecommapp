@@ -1,7 +1,7 @@
 import {
   entity,
   isEntityFound,
-  storeSameValue,
+  storeValueOf,
   isEntityNotFound,
 } from "@src/functions";
 import { ShoppingEntity } from "@src/types";
@@ -19,9 +19,9 @@ export const getShoppingCartsByShopper: Function = async (
     _id,
   });
 
-  isEntityFound(shopper)
-    ? storeSameValue(shopper)
-    : returnCheckMessage(constantMessageValue.user_does_not_exist);
+  if (isEntityNotFound(shopper)) {
+    returnCheckMessage(shopper, constantMessageValue.user_does_not_exist);
+  }
 
   const shoppingCartArray = await shoppingFindCartsDeclaration(
     noOfShoppingCarts,

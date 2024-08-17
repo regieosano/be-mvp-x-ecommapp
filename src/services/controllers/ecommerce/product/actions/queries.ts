@@ -6,15 +6,11 @@ import { readAllObjects } from "@src/utilities/crudFactory/read";
 export const getApprovedProducts: Function = async (
   noOfProducts: number,
 ): Promise<ProductList> => {
-  try {
-    const products: ProductList = await readAllObjects(() =>
-      ProductModel.find({ isApproved: constantMessageValue.yes }).limit(
-        noOfProducts,
-      ),
-    );
+  const products: ProductList = await readAllObjects(() =>
+    ProductModel.find({ isApproved: constantMessageValue.yes }).limit(
+      noOfProducts,
+    ),
+  );
 
-    return products;
-  } catch (error: unknown) {
-    throw `${error}`;
-  }
+  return products;
 };

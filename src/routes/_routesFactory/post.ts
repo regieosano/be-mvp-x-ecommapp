@@ -16,6 +16,7 @@ export const postRouteFactory = function (
       urlString,
       async (req: express.Request, res: express.Response) => {
         try {
+          console.log;
           const entity = validationsObjectArray.filter(e =>
             equals(e.entity, routeString),
           );

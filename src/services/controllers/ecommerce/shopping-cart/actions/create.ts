@@ -3,7 +3,7 @@ import { findEntity } from "@src/utilities/misc/find";
 import { User, Response, ShoppingCart } from "@src/types";
 import { ShoppingCartModel } from "@src/models/shopping-cart";
 import { returnCheckMessage } from "@src/utilities/misc/check";
-import { isEntityFound, storeSameValue } from "@src/functions";
+import { isEntityFound, storeValueOf } from "@src/functions";
 import { createObject } from "@src/utilities/crudFactory/create";
 import constantMessageValue from "@src/constants/stringnummisc";
 
@@ -19,8 +19,11 @@ export const createShoppingCart: Function = async (
   });
 
   isEntityFound(userShopper)
-    ? storeSameValue(userShopper)
-    : returnCheckMessage(constantMessageValue.shopping_user_id_does_not_exist);
+    ? storeValueOf(userShopper)
+    : returnCheckMessage(
+        userShopper,
+        constantMessageValue.shopping_user_id_does_not_exist,
+      );
 
   const newShoppingCart: ShoppingCart = await createObject(
     ShoppingCartModel,

@@ -1,4 +1,4 @@
-import { isExisting, storeSameValue } from "@src/functions";
+import { isExisting, storeValueOf } from "@src/functions";
 import { ModelObject, ObjArgsType } from "@src/types";
 
 export const findEntity: Function = async (
@@ -9,7 +9,7 @@ export const findEntity: Function = async (
     const objectReturned = await objectModel.findOne(fieldKeyObject);
     const entity = isExisting(objectReturned)
       ? {}
-      : storeSameValue(objectReturned);
+      : storeValueOf(objectReturned);
 
     return entity;
   } catch (error: unknown) {
