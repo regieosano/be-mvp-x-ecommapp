@@ -1,0 +1,11 @@
+{
+  "info": 0,
+  "first": 0,
+  "no": false,
+  "yes": true,
+  "null": null,
+  "empty_string": "",
+  "db_is_toconnect": false,
+  "password_hash_message": "Password entered empty or not valid",
+  "decryption_hash_message": "Error in decrypting hashed password"
+}

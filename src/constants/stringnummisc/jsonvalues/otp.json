@@ -1,0 +1,14 @@
+{
+  "otp": "otp",
+  "salt_value": 10,
+  "tenvalues_otp": 100000,
+  "ninevalues_otp": 900000,
+  "expiry_seconds": 300000,
+  "resend_otp": "resend_otp",
+  "otp_invalid": "OTP is invalid",
+  "resend_otp_url": "/resend-otp",
+  "verify_otp_url": "/verify-otp",
+  "expiry_seconds_for_resend_code": 35000,
+  "otp_valid": "Otp is valid and user is verified",
+  "otp_successfully_verified": "OTP successfully verified"
+}
